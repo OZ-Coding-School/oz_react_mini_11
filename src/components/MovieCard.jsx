@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { useNavigate } from "react-router-dom";
 
 const Image = styled.img`
   width: 100%;
@@ -38,8 +39,14 @@ const Container = styled.div`
 `;
 
 function MovieCard({ data }) {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/details");
+  };
+
   return (
-    <Container>
+    <Container onClick={handleClick}>
       <Image
         src={`https://image.tmdb.org/t/p/w500${data.backdrop_path}`}
         alt="movie-image"></Image>

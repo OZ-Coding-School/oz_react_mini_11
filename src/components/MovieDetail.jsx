@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import movieDetailData from "../data/movieDetailData.json";
 
 const Wrapper = styled.div`
   width: 80%;
@@ -77,8 +78,8 @@ const Container = styled.div`
   align-items: center;
 `;
 
-function MovieDetail({ data }) {
-  console.log(data.backdrop_path);
+function MovieDetail() {
+  const data = movieDetailData;
   return (
     <Container>
       <Wrapper>
