@@ -26,6 +26,11 @@ const Input = styled.input`
   background-color: #e1f6ff;
   font-size: 1.2rem;
   outline: 0;
+  caret-color: #57c4fa;
+
+  &:focus {
+    border: 2px solid #82d1f8;
+  }
 `;
 
 const ButtonWrapper = styled.div`
