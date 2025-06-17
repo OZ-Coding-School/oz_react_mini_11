@@ -1,10 +1,13 @@
 import styled from "@emotion/styled";
 import MovieCard from "../components/MovieCard";
 import MOVIE_LIST_DATA from "../data/movieListData.json";
+import { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css/navigation";
 import "swiper/css";
+import PrevButton from "../images/angle-left.svg?react";
+import NextButton from "../images/angle-right.svg?react";
 
 // const breakPoints = {
 //   desktop: 1440,
@@ -32,9 +35,41 @@ import "swiper/css";
 //   }
 // `;
 
+const SwiperWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+`;
+
 const StyledSwiperSlide = styled(SwiperSlide)`
   height: 100%;
   overflow: hidden;
+`;
+
+const ButtonWrapper = styled.div`
+  & > button {
+    position: absolute;
+    padding: 1rem;
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+
+  & > button:disabled {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  & > *:first-of-type {
+    position: absolute;
+    left: -4rem;
+  }
+
+  & > *:nth-of-type(2) {
+    right: -4rem;
+  }
 `;
 
 const Container = styled.div`
@@ -44,6 +79,19 @@ const Container = styled.div`
 `;
 
 function Home() {
+  const [swiper, setSwiper] = useState(false);
+  const [isBeginning, setBeginning] = useState(true);
+  const [isEnd, setEnd] = useState(false);
+  const prevRef = useRef(null);
+  const nextRef = useRef(null);
+
+  useEffect(() => {
+    if (swiper) {
+      swiper.params.navigation.prevEl = prevRef.current;
+      swiper.params.navigation.nextEl = nextRef.current;
+    }
+  }, [swiper]);
+
   return (
     // Swiper 적용 전
     // <ContainerGrid>
@@ -53,19 +101,36 @@ function Home() {
     // </ContainerGrid>
 
     // Swiper 적용 후
-    <Container>
-      <Swiper
-        modules={[Navigation]}
-        navigation
-        spaceBetween={16}
-        slidesPerView={5}>
-        {MOVIE_LIST_DATA.results.map((data) => (
-          <StyledSwiperSlide>
-            <MovieCard data={data} />
-          </StyledSwiperSlide>
-        ))}
-      </Swiper>
-    </Container>
+    <>
+      <Container>
+        <SwiperWrapper>
+          <Swiper
+            modules={[Navigation]}
+            navigation={{ prevEl: prevRef.current, nextEl: nextRef.current }}
+            spaceBetween={16}
+            slidesPerView={5}
+            onSwiper={setSwiper}
+            onSlideChange={(swiper) => {
+              setBeginning(swiper.isBeginning);
+              setEnd(swiper.isEnd);
+            }}>
+            {MOVIE_LIST_DATA.results.map((data) => (
+              <StyledSwiperSlide>
+                <MovieCard data={data} />
+              </StyledSwiperSlide>
+            ))}
+          </Swiper>
+          <ButtonWrapper>
+            <button ref={prevRef} disabled={isBeginning}>
+              <PrevButton width="28" fill="#45c1ff" />
+            </button>
+            <button ref={nextRef} disabled={isEnd}>
+              <NextButton width="28" fill="#45c1ff" />
+            </button>
+          </ButtonWrapper>
+        </SwiperWrapper>
+      </Container>
+    </>
   );
 }
 
