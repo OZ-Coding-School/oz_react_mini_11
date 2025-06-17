@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import type { MovieData } from "../types";
 import Star from "./icons/Star";
 
@@ -12,7 +13,10 @@ export default function MovieCard({ movie }: MovieCardProps) {
   const stars = movie.vote_average / 2;
 
   return (
-    <div className="flex bg-neutral-100 flex-col p-2  shadow-lg shadow-purple-800 transition-transform hover:scale-105 space-y-1 rounded-xl">
+    <Link
+      to={`/details/${movie.id}`}
+      className="flex bg-neutral-100 flex-col p-2  shadow-lg shadow-purple-800 transition-transform hover:scale-105 space-y-1 rounded-xl"
+    >
       <img
         src={`${IMAGE_BASE_URL}/${movie.poster_path}`}
         alt={`${movie.title}-poster`}
@@ -35,6 +39,6 @@ export default function MovieCard({ movie }: MovieCardProps) {
           return <Star fillAmount={fillAmount} />;
         })}
       </div>
-    </div>
+    </Link>
   );
 }
