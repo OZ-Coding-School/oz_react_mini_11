@@ -1,23 +1,11 @@
-import { useState } from 'react';
-import movieListData from './data/movieListData.json';
-import { MovieCard } from './components/MovieCard';
+import { MovieCard } from './components/moviecard';
 
 function App() {
-  const [movies, setMovies] = useState(movieListData.results);
+  const movie = MovieCard();
 
   return (
     <>
-      <h1>🎬 영화 목록 </h1>
-      <div>
-        {movies.map(movie => (
-          <MovieCard
-            key={movie.id}
-            title={movie.title}
-            poster_path={movie.poster_path}
-            vote_average={movie.vote_average}
-          />
-        ))}
-      </div>
+      <div>{movie.map(el => el.id)}</div>
     </>
   );
 }
