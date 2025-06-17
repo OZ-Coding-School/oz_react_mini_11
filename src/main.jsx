@@ -9,7 +9,7 @@ createRoot(document.getElementById('root')).render(
     <Routes>
       <Route path='/' element={<App/>}/>
       <Route path='/detail' element={<MovieDetail/>}/>
-      <Route path='/' element={<h3> 404 Not Found </h3>}/>
+      <Route path='*' element={<h3> 404 Not Found </h3>}/>
     </Routes> 
   </BrowserRouter>
 );
