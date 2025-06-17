@@ -3,7 +3,7 @@ import { StarRating } from "./StarRating";
 
 function MovieDetail() {
   return (
-    <div className="flex w-screen h-screen">
+    <div className="flex w-screen h-screen gap-5">
       <div className="w-1/2">
         <div className="flex items-center justify-center">
           <img
@@ -27,7 +27,7 @@ function MovieDetail() {
             {DETAILDATA.genres.map((genre) => genre.name).join(", ")}
           </p>
         </div>
-        <div className="mt-5 w-180 font-thin">{DETAILDATA.overview}</div>
+        <div className="mt-5 font-thin max-w-150">{DETAILDATA.overview}</div>
       </div>
     </div>
   );
