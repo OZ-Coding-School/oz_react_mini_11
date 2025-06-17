@@ -2,8 +2,8 @@ import styled from "@emotion/styled";
 import MOVIE_DETAIL_DATA from "../data/movieDetailData.json";
 
 const Wrapper = styled.div`
-  width: 80%;
-  height: 80%;
+  width: 85%;
+  height: 85%;
   display: flex;
   box-shadow: 0px 0px 20px 10px #00000020;
 `;
@@ -21,7 +21,7 @@ const Image = styled.img`
 
 const ContentWrapper = styled.div`
   flex: 1;
-  padding: 3rem 1rem;
+  padding: 3rem 2rem 3rem 1rem;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -72,7 +72,7 @@ const Overview = styled.div`
 
 const Container = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
