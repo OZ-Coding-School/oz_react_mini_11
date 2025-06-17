@@ -12,13 +12,19 @@ const Image = styled.img`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
   padding: 1rem;
 `;
 
 const Title = styled.div`
   font-size: 1.125rem;
   font-weight: 700;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const Rating = styled.div`
