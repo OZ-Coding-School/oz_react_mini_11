@@ -1,6 +1,10 @@
+import { useState } from "react";
 import baseUrl from "../constant/baseUrl";
+import movieListData from "../data/movieListData.json";
 
 function Banner({ movie }) {
+  const [movieList, setMovieList] = useState(movieListData.results);
+
   return (
     <div className="relative mb-10 aspect-[2.1]">
       <div className="fixed w-full z-0">
@@ -9,7 +13,7 @@ function Banner({ movie }) {
           src={`${baseUrl}${movie.backdrop_path}`}
           alt={movie.title}
         />
-        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,_rgba(0,0,0),_rgba(0,0,0,0.4),_rgba(0,0,0))]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,_rgba(0,0,0,0.6),_rgba(0,0,0,0)_80%,_rgba(0,0,0))]" />
       </div>
 
       <div
