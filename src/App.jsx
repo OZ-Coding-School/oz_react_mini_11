@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
 import movieListData from "./data/movieListData.json";
 import MovieCard from "./components/MovieCard";
@@ -16,12 +16,14 @@ function App() {
           element={
             <div className="flex flex-wrap justify-center gap-4">
               {movieList.results.map((movie) => (
-                <MovieCard
-                  key={movie.id}
-                  title={movie.title}
-                  avg={movie.vote_average}
-                  imgSrc={movie.backdrop_path}
-                />
+                <Link to="/details">
+                  <MovieCard
+                    key={movie.id}
+                    title={movie.title}
+                    avg={movie.vote_average}
+                    imgSrc={movie.backdrop_path}
+                  />
+                </Link>
               ))}
             </div>
           }
