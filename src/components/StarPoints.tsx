@@ -11,7 +11,7 @@ export default function StarPoints({ point, className }: StarPointsProps) {
   const stars = point / 2;
   return (
     <div className={`flex items-center justify-end space-x-1 ${className}`}>
-      {STAR_STANDARDS.map((standard) => {
+      {STAR_STANDARDS.map((standard, i) => {
         let fillAmount: "full" | "half" | "none";
 
         if (stars < standard - 0.5) {
@@ -22,7 +22,7 @@ export default function StarPoints({ point, className }: StarPointsProps) {
           fillAmount = "full";
         }
 
-        return <Star fillAmount={fillAmount} />;
+        return <Star key={i} fillAmount={fillAmount} />;
       })}
     </div>
   );
