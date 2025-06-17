@@ -1,4 +1,6 @@
-# Logs
+# =====================
+# ✅ 기본 로그 / 캐시
+# =====================
 logs
 *.log
 npm-debug.log*
@@ -7,18 +9,49 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# =====================
+# ✅ 의존성 / 빌드 결과물
+# =====================
+node_modules/
+dist/
+dist-ssr/
+.out/
+build/
+.vite/
+.cache/
 
-# Editor directories and files
+# =====================
+# ✅ 시스템 관련
+# =====================
+*.local
+.env.local
+.env.*.local
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*.swp
+
+# =====================
+# ✅ IDE 설정 파일
+# =====================
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
-*.sw?
+
+# =====================
+# ✅ 기타
+# =====================
+*.tgz
+*.bak
+*.orig

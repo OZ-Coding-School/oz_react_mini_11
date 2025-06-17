@@ -1,0 +1,27 @@
+.home-container {
+  max-width: 2000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  color: #fff;
+}
+
+.home-title {
+  text-align: center;
+  margin-bottom: 32px;
+  font-size: 28px;
+}
+
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 20px;
+}
+
+.movie-wrapper {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.movie-wrapper:hover {
+  transform: scale(1.03);
+}
