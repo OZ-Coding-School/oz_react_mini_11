@@ -1,10 +1,11 @@
 import { Outlet } from "react-router";
+import Navbar from "./Navbar";
 
 export default function Layout() {
   return (
     <div>
-      <header>하이</header>
-      <main className="bg-neutral-900 p-10">
+      <Navbar />
+      <main className="bg-neutral-900 p-10 pt-16">
         <Outlet />
       </main>
     </div>
