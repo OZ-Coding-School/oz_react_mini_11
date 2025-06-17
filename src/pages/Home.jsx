@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import MovieCard from "../components/MovieCard";
 
 // const breakPoints = {
 //   desktop: 1440,
@@ -26,26 +27,19 @@ const Container = styled.div`
   }
 `;
 
-const CardWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  background: pink;
-  border: 1px solid gray;
-`;
-
 function Home() {
   return (
     <Container>
-      <CardWrapper>Test Card 1</CardWrapper>
-      <CardWrapper>Test Card 2</CardWrapper>
-      <CardWrapper>Test Card 3</CardWrapper>
-      <CardWrapper>Test Card 4</CardWrapper>
-      <CardWrapper>Test Card 5</CardWrapper>
-      <CardWrapper>Test Card 6</CardWrapper>
-      <CardWrapper>Test Card 7</CardWrapper>
-      <CardWrapper>Test Card 8</CardWrapper>
-      <CardWrapper>Test Card 9</CardWrapper>
-      <CardWrapper>Test Card 10</CardWrapper>
+      <MovieCard>Test Card 1</MovieCard>
+      <MovieCard>Test Card 2</MovieCard>
+      <MovieCard>Test Card 3</MovieCard>
+      <MovieCard>Test Card 4</MovieCard>
+      <MovieCard>Test Card 5</MovieCard>
+      <MovieCard>Test Card 6</MovieCard>
+      <MovieCard>Test Card 7</MovieCard>
+      <MovieCard>Test Card 8</MovieCard>
+      <MovieCard>Test Card 9</MovieCard>
+      <MovieCard>Test Card 10</MovieCard>
     </Container>
   );
 }
