@@ -1,16 +1,15 @@
-import styled from "@emotion/styled";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-
-const Container = styled.div`
-  width: 100%;
-  height: 100%;
-`;
+import MovieDetail from "./components/MovieDetail";
 
 function App() {
   return (
-    <Container>
-      <Home />
-    </Container>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/details" element={<MovieDetail />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
