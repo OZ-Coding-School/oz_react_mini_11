@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import MovieDetailData from '../data/movieDetailData.json';
 
-export function MovieDetail() {
+function MovieDetail() {
   const [detail, setDetail] = useState(MovieDetailData);
   const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 
@@ -24,3 +24,5 @@ export function MovieDetail() {
     </>
   );
 }
+
+export default MovieDetail;
