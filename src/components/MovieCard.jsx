@@ -5,6 +5,8 @@ const Image = styled.img`
   width: 100%;
   aspect-ratio: 3/4;
   object-fit: cover;
+  border-top-left-radius: 0.45rem;
+  border-top-right-radius: 0.45rem;
 `;
 
 const Wrapper = styled.div`
