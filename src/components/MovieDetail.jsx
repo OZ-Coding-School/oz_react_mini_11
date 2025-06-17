@@ -1,27 +1,29 @@
+// src/components/MovieDetail.jsx
 import React, { useState } from "react";
 import movieDetailData from "../data/movieDetailData.json";
 import "./MovieDetail.css";
 
+const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+
 function MovieDetail() {
   const [movie] = useState(movieDetailData);
-  const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
 
   return (
     <div className="detail-container">
-      <div className="poster-section">
-        <img src={`${imageBaseUrl}${movie.poster_path}`} alt={movie.title} />
-      </div>
-
-      <div className="info-section">
-        <div className="title-row">
+      <img
+        className="detail-poster"
+        src={`${IMAGE_BASE_URL}${movie.poster_path}`}
+        alt={movie.title}
+      />
+      <div className="detail-info">
+        <div className="detail-title-row">
           <h2>{movie.title}</h2>
-          <span className="rating"> {movie.vote_average} </span>
+          <span className="vote">{movie.vote_average}</span>
         </div>
-        <div className="genres">
-          {movie.genres.map((g) => g.name).join(",")}
+        <div className="detail-genres">
+          {movie.genres.map((genre) => genre.name).join(", ")}
         </div>
-
-        <div className="overview">{movie.overview}</div>
+        <p className="detail-overview">{movie.overview}</p>
       </div>
     </div>
   );
