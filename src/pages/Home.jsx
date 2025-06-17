@@ -13,7 +13,7 @@ function Home() {
             key={movie.id}
             title={movie.title}
             avg={movie.vote_average}
-            imgSrc={movie.backdrop_path}
+            imgSrc={movie.poster_path}
           />
         </Link>
       ))}

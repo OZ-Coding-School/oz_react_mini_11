@@ -1,12 +1,11 @@
-import React from "react";
+import baseUrl from "../constant/baseUrl";
 
 function MovieCard({ title, avg, imgSrc }) {
-  const BASE_URL = "https://image.tmdb.org/t/p/w500/";
   return (
     <div className="w-[120px]">
       <img
         className="aspect-[0.7] object-cover"
-        src={`${BASE_URL}${imgSrc}`}
+        src={`${baseUrl}${imgSrc}`}
         alt={title}
       />
       <div>{title}</div>

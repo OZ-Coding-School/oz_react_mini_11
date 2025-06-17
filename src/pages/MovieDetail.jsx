@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import movieDetailData from "../data/movieDetailData.json";
+import baseUrl from "../constant/baseUrl";
 
 function MovieDetail() {
   const [movie, setMovie] = useState(movieDetailData);
-  const BASE_URL = "https://image.tmdb.org/t/p/w500/";
 
   return (
     <div className="flex gap-4">
       <img
         className="w-1/2"
-        src={`${BASE_URL}${movie.poster_path}`}
+        src={`${baseUrl}${movie.poster_path}`}
         alt={movie.title}
       />
 
