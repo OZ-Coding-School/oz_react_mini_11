@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 
 export default function Layout() {
   return (
-    <div className="bg-neutral-900">
+    <div className="bg-neutral-900 min-h-screen">
       <Navbar />
       <main className="p-10 pt-54 md:pt-26">
         <Outlet />
