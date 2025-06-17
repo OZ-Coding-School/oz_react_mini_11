@@ -11,13 +11,17 @@ export default function Detail() {
           <img src={`${baseUrl}${movieDetail.backdrop_path}`} />
         </div>
         <div className="w-[50%]">
-          <h1>{movieDetail.title}</h1>
-          <span>{movieDetail.vote_average}</span>
-          <span>
+          <div className="flex justify-between">
+            <h1 className="font-bold text-[2rem]">{movieDetail.title}</h1>
+            <span>{movieDetail.vote_average}</span>
+          </div>
+          <div className="text-[.8rem] text-[#888888] mb-[10px]">
             {movieDetail.genres.map((genre) => (
-              <span key={genre.id}>{genre.name}</span>
+              <span key={genre.id} className="mr-[5px]">
+                {genre.name}
+              </span>
             ))}
-          </span>
+          </div>
           <p>{movieDetail.overview}</p>
         </div>
       </div>

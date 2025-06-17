@@ -4,13 +4,15 @@ export default function NavBar() {
   return (
     <>
       <nav>
-        <ul className="flex">
+        <ul>
           <li>
             <Link to="/">OZ무비</Link>
           </li>
-          <li>검색창</li>
           <li>
-            <ul className="flex">
+            <input />
+          </li>
+          <li>
+            <ul>
               <li>
                 <Link to="/login">로그인</Link>
               </li>

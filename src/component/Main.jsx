@@ -6,7 +6,7 @@ export default function Main() {
 
   return (
     <>
-      <div className="flex flex-wrap pt-[80px]">
+      <div className="flex flex-wrap pt-[70px]">
         {/* movieList 배열을 map() 함수로 하나씩 돌면서 MovieCard 컴포넌트를 렌더링
                 각 영화 데이터(movie)를 props로 넘겨줌
                 key 속성은 React가 각 요소를 구분하기 위해 필요 */}
