@@ -1,17 +1,14 @@
 import { Link } from "react-router";
 import type { MovieData } from "../types";
-import Star from "./icons/Star";
+import StarPoints from "./StarPoints";
 
 interface MovieCardProps {
   movie: MovieData;
 }
 
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
-const STAR_STANDARDS = [1, 2, 3, 4, 5];
 
 export default function MovieCard({ movie }: MovieCardProps) {
-  const stars = movie.vote_average / 2;
-
   return (
     <Link
       to={`/details/${movie.id}`}
@@ -24,21 +21,7 @@ export default function MovieCard({ movie }: MovieCardProps) {
         className="w-[200px] h-[300px] object-cover object-center rounded-xl"
       />
       <span className="text-lg">{movie.title}</span>
-      <div className="flex items-center justify-end space-x-1">
-        {STAR_STANDARDS.map((standard) => {
-          let fillAmount: "full" | "half" | "none";
-
-          if (stars < standard - 0.5) {
-            fillAmount = "none";
-          } else if (stars < standard) {
-            fillAmount = "half";
-          } else {
-            fillAmount = "full";
-          }
-
-          return <Star fillAmount={fillAmount} />;
-        })}
-      </div>
+      <StarPoints point={movie.vote_average} />
     </Link>
   );
 }
