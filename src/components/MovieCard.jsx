@@ -1,19 +1,52 @@
 import styled from "@emotion/styled";
 
-const Image = styled.img``;
+const Image = styled.img`
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+`;
 
-const Container = styled.div``;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+`;
 
-const Title = styled.span``;
+const Title = styled.div`
+  font-size: 1.125rem;
+  font-weight: 700;
+`;
 
-const Rating = styled.span``;
+const Rating = styled.div`
+  align-self: flex-end;
+  font-size: 1rem;
+  font-weight: 500;
+  color: gray;
+`;
 
-function MovieCard() {
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  border: 1px solid #d0d0d0;
+  border-radius: 0.5rem;
+  transition: filter 0.3s ease-out;
+
+  &:hover {
+    filter: brightness(0.75);
+  }
+`;
+
+function MovieCard({ data }) {
   return (
     <Container>
-      <Image src="https://image.tmdb.org/t/p/w500" alt="movie-image"></Image>
-      <Title>혹성탈출: 새로운 시대</Title>
-      <Rating>평점: 7.35</Rating>
+      <Image
+        src={`https://image.tmdb.org/t/p/w500${data.backdrop_path}`}
+        alt="movie-image"></Image>
+      <Wrapper>
+        <Title>{data.title}</Title>
+        <Rating>평점: {data.vote_average}</Rating>
+      </Wrapper>
     </Container>
   );
 }
