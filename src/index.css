@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
-body {
-    margin: 0;
-    background-color: #e3e3e3;
-}
+/* @import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&family=Sunflower:wght@300&display=swap"); */
+
+/* :root {
+    --gap: 25px;
+    --primary-clr: #fff;
+    --accent-clr: #ae3c68;
+} */
