@@ -4,11 +4,20 @@ import MovieListData from './data/movieListData.json';
 
 function App() {
   const [Movie, setMovie] = useState(MovieListData.result);
-  const movie = MovieCard();
+  // const movie = MovieCard();
 
   return (
     <>
-      <div>{movie.map(el => el.id)}</div>
+      <div>
+        {Movie.map(movie => (
+          <MovieCard
+            key={movie.id}
+            title={movie.title}
+            poster={movie.poster_path}
+            rating={movie.vote_average}
+          />
+        ))}
+      </div>
     </>
   );
 }
