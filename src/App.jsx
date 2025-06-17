@@ -1,5 +1,4 @@
 import movieListData from "./data/movieListData.json";
-import movieDetailData from "./data/movieDetailData.json";
 import "./App.css";
 import MovieCard from "./component/MovieCard";
 import { Routes, Route } from "react-router-dom";
