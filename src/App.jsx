@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom";
+import { NavBar } from "./components/nav/NavBar";
+import MovieDetail from "./components/movie/MovieDetail";
 import Home from "./pages/Home";
-import MovieDetail from "./components/MovieDetail";
-import { NavBar } from "./components/NavBar";
-import Layout from "./components/Layout";
+import Layout from "./components/nav/Layout";
 
 function App() {
   return (

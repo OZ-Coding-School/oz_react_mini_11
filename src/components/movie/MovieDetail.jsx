@@ -1,4 +1,4 @@
-import DETAILDATA from "../data/movieDetailData.json";
+import DETAILDATA from "../../data/movieListData.json";
 import { StarRating } from "./StarRating";
 
 function MovieDetail() {
