@@ -1,3 +1,10 @@
+export interface MovieListData {
+  page: number;
+  results: MovieData[];
+  total_pages: number;
+  total_results: number;
+}
+
 export interface MovieData {
   adult: boolean;
   backdrop_path: string;
