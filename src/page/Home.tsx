@@ -6,7 +6,7 @@ const movieList = movieListData as MovieListData;
 
 export default function Home() {
   return (
-    <div className="flex flex-wrap gap-5">
+    <div className="flex flex-wrap gap-5 justify-center">
       {movieList.results.map((movie) => (
         <MovieCard movie={movie} key={movie.id} />
       ))}
