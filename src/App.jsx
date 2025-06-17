@@ -1,6 +1,7 @@
 import { useState } from "react";
 import MovieCard from "./components/MovieCard";
 import movieListData from "./data/movieListData.json";
+import MovieDetail from "./components/MovieDetail";
 import "./App.css";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
             vote_average={movie.vote_average}
           />
         ))}
+        <MovieDetail />
       </div>
     </>
   );
