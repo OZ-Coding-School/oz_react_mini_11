@@ -1,12 +1,14 @@
-# React + Vite
+OZ코딩스쿨 초격차캠프 프론트엔드 11기 React 미니프로젝트 1일차(6/17)
+[mission-1] 1단계 미션 구현 - 김승원/1팀
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 구현 사항
 
-Currently, two official plugins are available:
+-
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 어려웠던 점
 
-## Expanding the ESLint configuration
+-
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 구현 이미지
+
+-
