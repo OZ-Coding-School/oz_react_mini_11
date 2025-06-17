@@ -1,5 +1,6 @@
 import HomeLogo from "../assets/HomeLogo.png";
 import { CiSearch } from "react-icons/ci";
+import { Outlet } from "react-router-dom";
 
 export function NavBar() {
   return (
