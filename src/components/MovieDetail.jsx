@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import movieDetailData from "../data/movieDetailData.json";
+import MOVIE_DETAIL_DATA from "../data/movieDetailData.json";
 
 const Wrapper = styled.div`
   width: 80%;
@@ -79,7 +79,7 @@ const Container = styled.div`
 `;
 
 function MovieDetail() {
-  const data = movieDetailData;
+  const data = MOVIE_DETAIL_DATA;
   return (
     <Container>
       <Wrapper>

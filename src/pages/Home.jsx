@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import MovieCard from "../components/MovieCard";
-import movieListData from "../data/movieListData.json";
+import MOVIE_LIST_DATA from "../data/movieListData.json";
 
 // const breakPoints = {
 //   desktop: 1440,
@@ -31,7 +31,7 @@ const Container = styled.div`
 function Home() {
   return (
     <Container>
-      {movieListData.results.map((data) => (
+      {MOVIE_LIST_DATA.results.map((data) => (
         <MovieCard data={data} />
       ))}
     </Container>
