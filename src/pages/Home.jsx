@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import MovieCard from "../components/MovieCard";
+import movieListData from "../data/movieListData.json";
 
 // const breakPoints = {
 //   desktop: 1440,
@@ -30,16 +31,9 @@ const Container = styled.div`
 function Home() {
   return (
     <Container>
-      <MovieCard>Test Card 1</MovieCard>
-      <MovieCard>Test Card 2</MovieCard>
-      <MovieCard>Test Card 3</MovieCard>
-      <MovieCard>Test Card 4</MovieCard>
-      <MovieCard>Test Card 5</MovieCard>
-      <MovieCard>Test Card 6</MovieCard>
-      <MovieCard>Test Card 7</MovieCard>
-      <MovieCard>Test Card 8</MovieCard>
-      <MovieCard>Test Card 9</MovieCard>
-      <MovieCard>Test Card 10</MovieCard>
+      {movieListData.results.map((data) => (
+        <MovieCard data={data} />
+      ))}
     </Container>
   );
 }
