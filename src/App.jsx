@@ -1,22 +1,34 @@
 import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import MovieCard from "./components/MovieCard";
 import movieListData from "./data/movieListData.json";
+import MovieCard from "./components/MovieCard";
+import MovieDetail from "./pages/MovieDetail";
 
 function App() {
   const [movieList, setMovieList] = useState(movieListData);
 
   return (
-    <div className="flex flex-wrap justify-center gap-4">
-      {movieList.results.map((movie) => (
-        <MovieCard
-          key={movie.id}
-          title={movie.title}
-          avg={movie.vote_average}
-          imgSrc={movie.backdrop_path}
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div className="flex flex-wrap justify-center gap-4">
+              {movieList.results.map((movie) => (
+                <MovieCard
+                  key={movie.id}
+                  title={movie.title}
+                  avg={movie.vote_average}
+                  imgSrc={movie.backdrop_path}
+                />
+              ))}
+            </div>
+          }
         />
-      ))}
-    </div>
+        <Route path="/details" element={<MovieDetail />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
