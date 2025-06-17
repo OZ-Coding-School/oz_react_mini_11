@@ -12,7 +12,7 @@ export default function MovieCard({ movie }: MovieCardProps) {
   return (
     <Link
       to={`/details/${movie.id}`}
-      className="min-w-[220px] flex bg-neutral-100 items-center flex-col p-2  shadow-lg shadow-purple-800 transition-transform hover:scale-105 space-y-1 rounded-xl"
+      className="w-[240px] flex bg-neutral-100 items-center flex-col p-2  shadow-lg shadow-purple-800 transition-transform hover:scale-105 space-y-1 rounded-xl"
     >
       <img
         src={`${IMAGE_BASE_URL}/${movie.poster_path}`}
