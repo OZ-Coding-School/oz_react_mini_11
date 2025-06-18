@@ -29,7 +29,7 @@ const Input = styled.input`
   padding: 0.75rem 2rem;
   border: 0;
   border-radius: 2rem;
-  background-color: ${(props) => props.theme.colors.purple.light};
+  background-color: #eee;
   font-size: 1.2rem;
   outline: 0;
   caret-color: ${(props) => props.theme.colors.purple.lightActive};
