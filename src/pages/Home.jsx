@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Banner from "../components/Banner";
 import MovieCard from "../components/MovieCard";
 
-const API_KEY = import.meta.env.REACT_APP_API_KEY;
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 function Home() {
   const [movieList, setMovieList] = useState();
@@ -38,7 +38,7 @@ function Home() {
       bg-[linear-gradient(to_bottom,_rgba(0,0,0,0)_0%,_rgba(0,0,0,5)_30%,_rgba(0,0,0,1)_100%)]"
       >
         {movieList?.map((movie) => (
-          <Link to="/details" key={movie.id}>
+          <Link to={`/details/${movie.id}`} key={movie.id}>
             <MovieCard
               title={movie.title}
               avg={movie.vote_average}
