@@ -4,11 +4,20 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import MOVIELISTDATA from "../data/movieListData.json";
+import TMDBApi from "../api/TMDM_api";
+import { useEffect, useState } from "react";
 
-const highRatedMovies = MOVIELISTDATA.results.filter(
-  (movie) => movie.vote_average >= 7.0
-);
 export function HighRatedSwiper() {
+  const [movies, setMoives] = useState([]);
+
+  const highRatedMovies = movies.filter((movie) => movie.vote_average >= 7.0);
+
+  useEffect(() => {
+    TMDBApi.get("/movie/popular?language=ko-KR&page=1")
+      .then((res) => setMoives(res.data.results))
+      .catch((err) => console.error("API 호출 Error: ", err));
+  }, []);
+
   return (
     <section className="my-10 px-4 ">
       <h2 className="text-2xl font-bold mb-4">추천 영화</h2>
