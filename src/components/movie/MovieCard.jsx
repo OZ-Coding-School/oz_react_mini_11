@@ -3,7 +3,7 @@ function MovieCard({ title, posterPath, voteAverage }) {
     <div className="border-none bg-[#f3f1f1] rounded shadow overflow-hidden">
       <div className="w-full aspect-[2/3]">
         <img
-          src={`https://image.tmdb.org/t/p/w500/${posterPath}`}
+          src={`${import.meta.env.VITE_BASEURL}${posterPath}`}
           alt={title}
           className="w-full h-full object-cover"
         />

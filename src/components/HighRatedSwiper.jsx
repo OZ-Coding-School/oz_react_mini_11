@@ -28,7 +28,7 @@ export function HighRatedSwiper() {
           <SwiperSlide key={movie.id}>
             <div className="w-full max-w-xs h-[350px] overflow-hidden rounded-lg shadow-md bg-white">
               <img
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                src={`${import.meta.env.VITE_BASEURL}${movie.poster_path}`}
                 alt={movie.title}
                 className="w-full h-full object-cover"
               />

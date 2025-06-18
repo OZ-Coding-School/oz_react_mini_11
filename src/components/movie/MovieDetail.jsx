@@ -20,7 +20,7 @@ function MovieDetail() {
       <div className="w-1/2">
         <div className="flex items-center justify-center">
           <img
-            src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+            src={`${import.meta.env.VITE_BASEURL}${movie.poster_path}`}
             alt={movie.title}
             className=""
           />
