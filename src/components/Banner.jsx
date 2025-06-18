@@ -35,13 +35,16 @@ function Banner() {
       nodeRef={nodeRef}
     >
       <div ref={nodeRef} className="relative mb-10 aspect-[2.1]">
-        <div className="fixed w-full z-0">
+        <div className="fixed w-full aspect-[2] z-0">
           <img
-            className="w-full object-cover "
+            className="w-full aspect-[2] object-cover "
             src={`${BASE_URL}${movie.backdrop_path}`}
             alt={movie.title}
           />
-          <div className="absolute inset-0 bg-[linear-gradient(to_bottom,_rgba(0,0,0,0.6),_rgba(0,0,0,0)_80%,_rgba(0,0,0))]" />
+          <div
+            className="absolute inset-0 
+                      bg-[linear-gradient(to_bottom,_rgba(0,0,0,0.6)_0px,_rgba(0,0,0,0.1)_80px,_rgba(0,0,0,0.1)_calc(100%-80px),_rgba(0,0,0,1)_100%)]"
+          />
         </div>
 
         <div
