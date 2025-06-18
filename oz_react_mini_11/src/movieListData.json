@@ -1,0 +1,18 @@
+{
+  "results": [
+    {
+      "id": 1,
+      "title": "가짜 영화 1",
+      "poster_path": "/test1.jpg",
+      "vote_average": 7.5,
+      "overview": "이건 가짜 영화입니다"
+    },
+    {
+      "id": 2,
+      "title": "가짜 영화 2",
+      "poster_path": "/test2.jpg",
+      "vote_average": 8.2,
+      "overview": "이것도 가짜 영화입니다"
+    }
+  ]
+}
