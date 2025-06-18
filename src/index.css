@@ -7,3 +7,7 @@
     --primary-clr: #fff;
     --accent-clr: #ae3c68;
 } */
+
+body {
+    @apply bg-neutral-900 text-white;
+}

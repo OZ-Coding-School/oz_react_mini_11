@@ -50,13 +50,13 @@ export default function SwiperCard({ movies }) {
             >
                 {sortedMovies.map((movie, index) => (
                     <SwiperSlide key={movie.id} className="!w-[180px]">
-                        <div className="relative w-full h-[270px]">
+                        <div className="group relative w-full h-[270px]">
                             <img
                                 src={`${TMDB_IMAGE_BASE_URL}${movie.poster_path}`}
                                 alt={movie.title}
-                                className="w-full h-full object-cover rounded-xl shadow-lg"
+                                className="w-full h-full object-cover rounded-xl shadow-lg transition-all duration-300 grayscale group-hover:grayscale-0"
                             />
-                            <span className="absolute top-2 left-2 bg-yellow-400 text-black text-sm font-bold px-2 py-1 rounded-full">
+                            <span className="absolute bottom-2 left-2 text-white text-5xl font-bold px-2 py-1 text-shadow-[0_0_20px_rgba(0,0,0,0.8)]">
                                 {index + 1}
                             </span>
                         </div>

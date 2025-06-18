@@ -29,8 +29,12 @@ export default function MovieCard({ id, title, rating, movieImg }) {
                     className="bg-neutral-600 rounded-xl overflow-hidden 
                 shadow-md hover:scale-105 transition-transform cursor-pointer"
                 >
-                    <div className=" w-full h-64 overflow-hidden ">
-                        <img src={`${TMDB_IMAGE_BASE_URL}${movieImg}`} alt={title} className="w-full h-full " />
+                    <div className="group w-full h-64 overflow-hidden ">
+                        <img
+                            src={`${TMDB_IMAGE_BASE_URL}${movieImg}`}
+                            alt={title}
+                            className="w-full h-full object-cover transition-all duration-300 grayscale group-hover:grayscale-0"
+                        />
                     </div>
                     <div className="p-4 flex flex-col justify-between h-20">
                         <h2 className="text-sky-50 text-lg font-semibold mb-1">{title}</h2>

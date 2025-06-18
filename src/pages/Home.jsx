@@ -6,17 +6,14 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
     const [movies, setMovies] = useState([]);
-    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        setLoading(true);
         fetchMovies()
             .then((data) => {
                 const safeMovies = data.results.filter((movie) => movie.adult === false);
                 setMovies(safeMovies);
             })
-            .catch((error) => console.error("api error", error))
-            .finally(() => setLoading(false));
+            .catch((error) => console.error("api error", error));
     }, []);
 
     console.log(movies);

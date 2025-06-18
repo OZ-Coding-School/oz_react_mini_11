@@ -14,7 +14,7 @@ export default function MovieDetailCard({ movie }) {
                     </div>
                     <div className="flex flex-wrap gap-2">
                         {movie.genres.map((el) => (
-                            <span key={el.id} className="bg-gray-600 text-white text-sm px-3 py-1 rounded-full">
+                            <span key={el.id} className="bg-gray-600 text-white text-sm px-3 py-1 rounded-full ">
                                 {el.name}
                             </span>
                         ))}
