@@ -1,5 +1,6 @@
 import { Global, css } from "@emotion/react";
 import "reset-css";
+import theme from "./theme";
 
 function GlobalStyles() {
   return (
@@ -26,6 +27,22 @@ function GlobalStyles() {
           font-family: "Pretendard Variable", Pretendard, -apple-system,
             system-ui, Roboto, "Noto Sans KR", sans-serif;
           background: #1b1b1b;
+        }
+
+        *::-webkit-scrollbar {
+          width: 0.5rem;
+          height: 0.5rem;
+        }
+        *::-webkit-scrollbar-track {
+          background: ${theme.colors.purple.light};
+          border-radius: 0.5rem;
+        }
+        *::-webkit-scrollbar-thumb {
+          background: ${theme.colors.purple.normal};
+          border-radius: 0.5rem;
+        }
+        *::-webkit-scrollbar-thumb:hover {
+          background: ${theme.colors.purple.normalActive};
         }
       `}
     />
