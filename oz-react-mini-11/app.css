@@ -1,0 +1,21 @@
+.movie-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.movie-card {
+  width: 200px;
+  text-align: center;
+}
+
+nav {
+  background-color: #333;
+  color: white;
+  padding: 12px;
+}
+nav a {
+  margin-right: 20px;
+  color: white;
+  text-decoration: none;
+}

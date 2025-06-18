@@ -1,0 +1,25 @@
+.movie-detail {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.backdrop {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.info h2 {
+  margin: 0 0 10px;
+}
+
+.genres {
+  margin: 10px 0;
+  font-style: italic;
+}
+
+.overview {
+  margin-top: 10px;
+  line-height: 1.5;
+}
