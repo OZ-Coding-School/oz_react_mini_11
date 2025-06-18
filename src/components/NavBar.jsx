@@ -1,8 +1,19 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
+import useDebounce from "../hooks/useDebounce";
 
 function NavBar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [inputDebounce, setInputDebounce] = useState("");
+  const [_, setSearchParams] = useSearchParams();
+  const debouncedValue = useDebounce(inputDebounce);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,6 +24,23 @@ function NavBar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleInputDebounce = (e) => {
+    setInputDebounce(e.target.value);
+  };
+
+  useEffect(() => {
+    if (location.pathname === "/") {
+      if (debouncedValue) {
+        setSearchParams({ keyword: debouncedValue });
+        navigate(`/search?keyword=${debouncedValue}`);
+        console.log("keyword: ", debouncedValue);
+      } else {
+        setSearchParams({});
+        navigate("/");
+      }
+    }
+  }, [debouncedValue, setSearchParams, navigate, location.pathname]);
+
   return (
     <div
       className={`flex justify-between items-center fixed z-[100] w-full px-[5vw] py-4 trnasition-all duration-500
@@ -21,7 +49,12 @@ function NavBar() {
       <Link to="/">
         <h1 className="text-xl font-bold">OZMOVIE</h1>
       </Link>
-      <input type="text" className="bg-white" />
+      <input
+        type="text"
+        className="bg-white text-black"
+        value={inputDebounce}
+        onChange={handleInputDebounce}
+      />
       <div>
         <button className="mr-2">로그인</button>
         <button>회원가입</button>
