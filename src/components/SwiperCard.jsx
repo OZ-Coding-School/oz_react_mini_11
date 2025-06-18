@@ -3,7 +3,7 @@ import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import { useEffect, useRef, useState } from "react";
-import "./SwiperCard.css";
+import "./swiperCard.css";
 import BlurBackground from "./BlurBackground.jsx";
 
 export default function SwiperCard({ movies }) {
@@ -105,8 +105,8 @@ export default function SwiperCard({ movies }) {
     return (
         <div className="relative w-full h-auto overflow-hidden">
             {/* ✅ 두 개 겹쳐서 부드러운 페이드 */}
-            <BlurBackground visible={fadeIndex === 0} img={bgImages[0]} />
-            <BlurBackground visible={fadeIndex === 1} img={bgImages[1]} />
+            <BlurBackground $visible={fadeIndex === 0} $img={bgImages[0]} />
+            <BlurBackground $visible={fadeIndex === 1} $img={bgImages[1]} />
             <Swiper
                 modules={[Pagination]}
                 slidesPerView="auto"
