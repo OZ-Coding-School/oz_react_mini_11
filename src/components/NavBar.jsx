@@ -29,7 +29,7 @@ function NavBar() {
   };
 
   useEffect(() => {
-    if (location.pathname === "/") {
+    if (location.pathname === "/" || location.pathname === "/search") {
       if (debouncedValue) {
         setSearchParams({ keyword: debouncedValue });
         navigate(`/search?keyword=${debouncedValue}`);
