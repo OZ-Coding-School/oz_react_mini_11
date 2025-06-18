@@ -1,9 +1,11 @@
+import { TMDB_IMAGE_BASE_URL } from "../constants";
+
 export default function MovieDetailCard({ movie }) {
     return (
         <>
             <div className="flex gap-4 p-5 ">
                 <div className="w-100 h-[600px] overflow-hidden rounded-2xl">
-                    <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} className="w-full h-full" />
+                    <img src={`${TMDB_IMAGE_BASE_URL}${movie.poster_path}`} className="w-full h-full" />
                 </div>
                 <div className="flex flex-col flex-2 gap-6 ">
                     <div className="flex justify-between items-center ">
@@ -12,14 +14,14 @@ export default function MovieDetailCard({ movie }) {
                     </div>
                     <div className="flex flex-wrap gap-2">
                         {movie.genres.map((el) => (
-                            <span key={el.id} className="bg-gray-600 text-white text-sm px-3 py-1 rounded-full">
+                            <span key={el.id} className="bg-gray-600 text-white text-sm px-3 py-1 rounded-full ">
                                 {el.name}
                             </span>
                         ))}
                     </div>
                     <div className="flex flex-1 text-x leading-relaxed">
                         <p> 줄거리 </p>
-                        <p>{movie.overview}</p>
+                        <p>{movie.overview || "줄거리 정보가 없습니다."}</p>
                     </div>
                 </div>
             </div>
