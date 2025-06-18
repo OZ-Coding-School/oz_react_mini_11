@@ -8,7 +8,7 @@ import BlurBackground from "./BlurBackground.jsx";
 import { TMDB_IMAGE_BASE_URL } from "../constants.js";
 
 export default function SwiperCard({ movies }) {
-    const sortedMovies = [...movies.results].sort((a, b) => b.vote_count - a.vote_count);
+    const sortedMovies = [...movies].sort((a, b) => b.vote_count - a.vote_count);
 
     const [activeIndex, setActiveIndex] = useState(0);
     const [bgImages, setBgImages] = useState([`${TMDB_IMAGE_BASE_URL}${sortedMovies[0]?.poster_path}`, null]);
