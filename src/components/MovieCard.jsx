@@ -1,20 +1,22 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { IMAGE_BASE_URL } from "../constants/imageBaseUrl";
-import "./MovieCard.css";
+import { Link } from "react-router-dom";
 
-function MovieCard({ movie }) {
-  const navigate = useNavigate();
-  const handleClick = () => {
-    navigate("/details");
-  };
-
+function MovieCard({ title, rating, poster, id }) {
   return (
-    <div className="movie-card" onClick={handleClick}>
-      <img src={`${IMAGE_BASE_URL}${movie.poster_path}`} alt={movie.title} />
-      <h3>{movie.title}</h3>
-      <p>평점: {movie.vote_average}</p>
-    </div>
+    <Link
+      to={`/movies/${id}`}
+      style={{ textDecoration: "none", color: "inherit" }}
+    >
+      <div className="movie-card">
+        <img
+          src={`https://image.tmdb.org/t/p/w500${poster}`}
+          alt={title}
+          width={200}
+        />
+        <h3>{title}</h3>
+        <p>⭐{rating}</p>
+      </div>
+    </Link>
   );
 }
 
