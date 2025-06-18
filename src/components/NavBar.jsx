@@ -1,3 +1,5 @@
+import SearchMovie from "./SearchMovie";
+
 export default function NavBar() {
     return (
         <>
@@ -5,7 +7,7 @@ export default function NavBar() {
                 <div className="">
                     <img className="" /> 로고
                 </div>
-                <input className="bg-white rounded-2xl w-72" type="text" />
+                <SearchMovie />
                 <div className="flex justify-end gap-3 pr-[1.875rem]">
                     <div> 로그인 </div>
                     <div> 회원가입 </div>
