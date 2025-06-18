@@ -7,7 +7,7 @@ export default function MovieCard({ id, title, rating, movieImg }) {
     return (
         <>
             <div
-                onClick={() => navigate(`details/${id}`)}
+                onClick={() => navigate(`/details/${id}`)}
                 className="bg-neutral-600 rounded-xl overflow-hidden 
                 shadow-md hover:scale-105 transition-transform cursor-pointer"
             >

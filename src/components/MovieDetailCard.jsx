@@ -21,7 +21,7 @@ export default function MovieDetailCard({ movie }) {
                     </div>
                     <div className="flex flex-1 text-x leading-relaxed">
                         <p> 줄거리 </p>
-                        <p>{movie.overview}</p>
+                        <p>{movie.overview || "줄거리 정보가 없습니다."}</p>
                     </div>
                 </div>
             </div>
