@@ -39,7 +39,7 @@ function Home() {
     <>
       <Banner />
       <div
-        className="flex flex-wrap gap-8 absolute z-20 px-[5vw] pb-20
+        className="flex flex-wrap gap-8 absolute z-20 mt-[-80px] px-[5vw] pb-20
       bg-[linear-gradient(to_bottom,_rgba(0,0,0,0)_0%,_rgba(0,0,0,5)_80px,_rgba(0,0,0,1)_100%)]"
       >
         {loading
