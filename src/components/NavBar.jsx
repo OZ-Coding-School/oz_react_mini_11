@@ -2,9 +2,11 @@ import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
+  flex: 1;
   display: flex;
   align-items: center;
   gap: 1rem;
+  /* background-color: green; */
 `;
 
 const Title = styled.div`
@@ -15,7 +17,8 @@ const Title = styled.div`
 `;
 
 const InputWrapper = styled.div`
-  width: 500px;
+  width: 50%;
+  /* background-color: pink; */
 `;
 
 const Input = styled.input`
@@ -34,8 +37,10 @@ const Input = styled.input`
 `;
 
 const ButtonWrapper = styled.div`
+  flex: 1 0 fill;
   display: flex;
   gap: 0.5rem;
+  /* background-color: blueviolet; */
 `;
 
 const Button = styled.button`
