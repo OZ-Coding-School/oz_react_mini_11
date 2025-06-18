@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const Image = styled.img`
   width: 100%;
-  aspect-ratio: 3/4;
+  aspect-ratio: 5/6;
   object-fit: cover;
   border-top-left-radius: 0.45rem;
   border-top-right-radius: 0.45rem;
@@ -13,10 +13,11 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 1rem;
+  padding: 1.5rem;
 `;
 
 const Title = styled.div`
+  color: #eeeeee;
   font-size: 1.125rem;
   font-weight: 700;
   overflow: hidden;
@@ -37,12 +38,11 @@ const Rating = styled.div`
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  border: 1px solid #d0d0d0;
   border-radius: 0.5rem;
-  transition: filter 0.3s ease-out;
-
+  background-color: #2c2c2c;
+  transition: filter 0.4s ease-out;
   &:hover {
-    filter: brightness(0.75);
+    filter: brightness(1.2);
   }
 `;
 

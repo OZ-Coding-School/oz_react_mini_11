@@ -36,15 +36,19 @@ import NextButton from "../images/angle-right.svg?react";
 // `;
 
 const SwiperWrapper = styled.div`
-  width: 100%;
+  width: auto;
   height: fit-content;
   position: relative;
   /* background-color: beige; */
 `;
 
+const StyledSwiper = styled(Swiper)`
+  padding: 0.5rem;
+`;
+
 const StyledSwiperSlide = styled(SwiperSlide)`
-  height: 100%;
-  overflow: hidden;
+  box-shadow: 0 0 6px 3px #edd4ff08;
+  border-radius: 0.5rem;
 `;
 
 const ButtonWrapper = styled.div`
@@ -71,6 +75,18 @@ const ButtonWrapper = styled.div`
   & > *:nth-of-type(2) {
     right: -4rem;
   }
+`;
+
+const StyledPrevButton = styled(PrevButton)`
+  width: 40px;
+  height: 40px;
+  fill: ${(props) => props.theme.colors.purple.normal};
+`;
+
+const StyledNextButton = styled(NextButton)`
+  width: 40px;
+  height: 40px;
+  fill: ${(props) => props.theme.colors.purple.normal};
 `;
 
 const Container = styled.div`
@@ -105,7 +121,7 @@ function Home() {
     // Swiper 적용 후
     <Container>
       <SwiperWrapper>
-        <Swiper
+        <StyledSwiper
           modules={[Navigation]}
           navigation={{ prevEl: prevRef.current, nextEl: nextRef.current }}
           spaceBetween={16}
@@ -120,13 +136,13 @@ function Home() {
               <MovieCard data={data} />
             </StyledSwiperSlide>
           ))}
-        </Swiper>
+        </StyledSwiper>
         <ButtonWrapper>
           <button ref={prevRef} disabled={isBeginning}>
-            <PrevButton width="40" height="40" fill="#45c1ff" />
+            <StyledPrevButton />
           </button>
           <button ref={nextRef} disabled={isEnd}>
-            <NextButton width="40" height="40" fill="#45c1ff" />
+            <StyledNextButton />
           </button>
         </ButtonWrapper>
       </SwiperWrapper>
