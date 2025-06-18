@@ -8,7 +8,6 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import movieListData from "./movieListData.json";
 import MovieCard from "./MovieCard";
 
 function App() {
@@ -17,19 +16,33 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setMovies(movieListData.results);
+    const fetchPopularMovies = async () => {
+      try{
+        const response = await fetch(
+          `https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=1&api_key=${import.meta.env.VITE_TMDB_API_KEY}`
+        )
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        // 성인 영화 제외 부분
+        const filtered = data.results.filter(movie => movie.adult === false);
+        setMovies(filtered);
+      } catch (error) {
+        console.error("영화 데이터 로드 실패", error);
+      }
+    }
+    fetchPopularMovies();
   }, []);
 
   const handleClick = (id) => {
     navigate(`/details/${id}`);
   };
 
-  const filteredMovies = movies.filter((movie) =>
-    (movie.title ?? movie.original_title)
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase()) 
+  const filteredMovies = movies.filter((movie) => 
+    movie.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
+      
   return (
     <div
       style={{ backgroundColor: "#000", minHeight: "100vh", color: "#fff", padding: "20px 30px" }}>
