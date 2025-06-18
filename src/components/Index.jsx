@@ -20,7 +20,8 @@ function Index() {
         );
 
         const data = await response.json();
-        setMovie(data.results);
+        const filtered = data.results.filter(movie => movie.adult === false);
+        setMovie(filtered);
       } catch (error) {
         console.error('인기 영화 가져오기 실패:', error);
       }
