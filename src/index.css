@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=Megrim&display=swap");
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Minguk-Regular";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Minguk-Regular.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@theme {
+  --bg-primary: "#0F0F0F";
+  --bg-secondary: "#1A1A1A";
+  --text-default: "#f1f1f1";
+  --text-sub: "#aaaaaa";
+  --point-color: "#00ffff";
+  --point-sub-color: "#ff5f5f";
+  --line-color: "#2E2E2E";
+  --font-default: "Minguk-Regular", "sans-serif";
+  --font-logo: "Megrim", "sans-serif";
+}
+
+:root {
+  --bg-primary: #0f0f0f;
+  --bg-secondary: #1a1a1a;
+  --text-default: #f1f1f1;
+  --text-sub: #aaaaaa;
+  --point-color: #00ffff;
+  --point-sub-color: #ff5f5f;
+  --line-color: #2e2e2e;
+  --font-default: "Minguk-Regular", "sans-serif";
+  --font-logo: "Megrim", "sans-serif";
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100vh;
+
+  background-color: var(--bg-primary);
+
+  font-family: var(--font-default);
+  color: var(--text-default);
+}
+
+button {
+  cursor: pointer;
+}
