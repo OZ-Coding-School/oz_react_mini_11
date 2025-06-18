@@ -20,7 +20,12 @@ export default function MovieCard() {
         }
       );
       const data = await response.json(); //json 형태로 받아온걸 data에 저장
-      setMovieList(data.results); // 상태에 저장
+
+      const filtered = data.results.filter(
+        (results) => results.adult === false
+      );
+
+      setMovieList(filtered);
     };
 
     fetchMovies();
