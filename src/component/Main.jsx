@@ -17,7 +17,6 @@ export default function Main() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("응답 데이터:", data);
         //json으로 변환된 data값
         const filtered = data.results.filter((movie) => movie.adult === false); //API로부터 받아온 영화 목록 데이터에서 adult 속성이 false인 영화만 필터링
         setMovieList(filtered); //필터 값 상태에 저장

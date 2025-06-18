@@ -1,22 +1,24 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { baseUrl } from "../constant/constant";
 export default function MovieCardSlider({ movie }) {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/details/${movie.id}`);
+  };
   return (
     <>
-      <div>
-        <Link to="/details">
-          <div className="main-slider">
-            <img
-              src={`${baseUrl}${movie.poster_path}`}
-              className="w-full h-full object-cover"
-              loading="lazy"
-            />
-            <div>
-              <h2>{movie.title}</h2>
-              <p>평점 : {movie.vote_average}</p>
-            </div>
+      <div onClick={handleClick}>
+        <div className="main-slider">
+          <img
+            src={`${baseUrl}${movie.poster_path}`}
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
+          <div>
+            <h2>{movie.title}</h2>
+            <p>평점 : {movie.vote_average}</p>
           </div>
-        </Link>
+        </div>
       </div>
     </>
   );
