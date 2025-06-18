@@ -1,14 +1,10 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import movieListData from "./movieListData.json";
-import movieDetailData from "./movieDetailData.json"
 
 const baseUrl = "https://image.tmdb.org/t/p/w500";
 
 function MovieDetail() {
   const { id } = useParams();
-  const movie = movieListData.results.find((m) => m.id === Number(id)) || null;
-  const genreList = movieDetailData.genres;
 
   const genreNames = 
     Array.isArray(movie.genre_ids)
