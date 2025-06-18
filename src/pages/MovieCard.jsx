@@ -9,6 +9,7 @@ export default function MovieCard() {
     const fetchMovies = async () => {
       const token = import.meta.env.VITE_API_TOKEN;
       const apiUrl = import.meta.env.VITE_API_URL;
+      // .env의 api,url 변수 설정
 
       const response = await fetch(
         `${apiUrl}/movie/popular?language=ko-KR&page=1`,
@@ -23,9 +24,9 @@ export default function MovieCard() {
 
       const filtered = data.results.filter(
         (results) => results.adult === false
-      );
+      ); // data.results.adult가 false한 것만 가져오기
 
-      setMovieList(filtered);
+      setMovieList(filtered); //골라낸것을 상태에 저장
     };
 
     fetchMovies();

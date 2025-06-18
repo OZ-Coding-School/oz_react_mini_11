@@ -9,6 +9,7 @@ export default function MovieDetail() {
     const fetchDetail = async () => {
       const token = import.meta.env.VITE_API_TOKEN;
       const apiUrl = import.meta.env.VITE_API_URL;
+      // 같은 토큰 가져와 변수 저장
 
       const res = await fetch(`${apiUrl}/movie/${id}?language=ko-KR`, {
         headers: {
@@ -17,12 +18,12 @@ export default function MovieDetail() {
         },
       });
 
-      const data = await res.json();
-      setDetailData(data);
+      const data = await res.json(); //json형태로 data에 저장
+      setDetailData(data); //data를 상태에 담기
     };
 
     fetchDetail();
-  }, [id]);
+  }, [id]); // id가 바뀔때마다 리랜더링
 
   return (
     <div className="flex items-center justify-center gap-8 p-8 bg-emerald-900 min-h-screen text-white">
