@@ -1,14 +1,32 @@
 import MovieCard from "./MovieCard";
-import movieListData from "../data/movieListData.json";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import MovieCardSlider from "./MovieCardSlider";
 import { EffectFade, Autoplay } from "swiper/modules";
+import { useEffect, useState } from "react";
 
 export default function Main() {
-  const movieList = movieListData.results; //json객체안에 results키값을 꺼내옴, 배열형태(movieList는 영화 객체들이 들어 있는 배열)
+  const [movieList, setMovieList] = useState([]);
+  useEffect(() => {
+    fetch("https://api.themoviedb.org/3/movie/popular", {
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("응답 데이터:", data);
+        //json으로 변환된 data값
+        const filtered = data.results.filter((movie) => movie.adult === false); //API로부터 받아온 영화 목록 데이터에서 adult 속성이 false인 영화만 필터링
+        setMovieList(filtered); //필터 값 상태에 저장
+      })
+      .catch((err) => console.error("데이터 요청 실패", err));
+  }, []);
+
   const sliderMovies = movieList.slice(0, 5); //앞 5개만 slider돌리기, 0번부터 5번 인덱스 이전까지 복사
+
   return (
     <>
       <Swiper
