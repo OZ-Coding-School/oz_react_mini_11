@@ -5,6 +5,7 @@ import "swiper/css/pagination";
 import { useEffect, useRef, useState } from "react";
 import "./swiperCard.css";
 import BlurBackground from "./BlurBackground.jsx";
+import { TMDB_IMAGE_BASE_URL } from "../constants.js";
 
 export default function SwiperCard({ movies }) {
     // const swiperWrappedRef = useRef(null);
@@ -83,11 +84,11 @@ export default function SwiperCard({ movies }) {
     const sortedMovies = [...movies.results].sort((a, b) => b.vote_count - a.vote_count);
 
     const [activeIndex, setActiveIndex] = useState(0);
-    const [bgImages, setBgImages] = useState([`https://image.tmdb.org/t/p/w500/${sortedMovies[0]?.poster_path}`, null]);
+    const [bgImages, setBgImages] = useState([`${TMDB_IMAGE_BASE_URL}${sortedMovies[0]?.poster_path}`, null]);
     const [fadeIndex, setFadeIndex] = useState(1); // 0 또는 1
 
     useEffect(() => {
-        const currentImg = `https://image.tmdb.org/t/p/w500/${sortedMovies[activeIndex]?.poster_path}`;
+        const currentImg = `${TMDB_IMAGE_BASE_URL}${sortedMovies[activeIndex]?.poster_path}`;
 
         setFadeIndex((prev) => {
             const next = prev === 0 ? 1 : 0;
@@ -119,7 +120,7 @@ export default function SwiperCard({ movies }) {
                     <SwiperSlide key={movie.id} className="!w-[180px]">
                         <div className="relative w-full h-[270px]">
                             <img
-                                src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                                src={`${TMDB_IMAGE_BASE_URL}${movie.poster_path}`}
                                 alt={movie.title}
                                 className="w-full h-full object-cover rounded-xl shadow-lg"
                             />

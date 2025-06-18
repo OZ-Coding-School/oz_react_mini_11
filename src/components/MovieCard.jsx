@@ -1,4 +1,5 @@
 import { Navigate, useNavigate } from "react-router-dom";
+import { TMDB_IMAGE_BASE_URL } from "../constants";
 
 export default function MovieCard({ id, title, rating, movieImg }) {
     const navigate = useNavigate();
@@ -11,7 +12,7 @@ export default function MovieCard({ id, title, rating, movieImg }) {
                 shadow-md hover:scale-105 transition-transform cursor-pointer"
             >
                 <div className=" w-full h-64 overflow-hidden ">
-                    <img src={`https://image.tmdb.org/t/p/w500/${movieImg}`} alt={title} className="w-full h-full " />
+                    <img src={`${TMDB_IMAGE_BASE_URL}${movieImg}`} alt={title} className="w-full h-full " />
                 </div>
                 <div className="p-4 flex flex-col justify-between h-20">
                     <h2 className="text-sky-50 text-lg font-semibold mb-1">{title}</h2>
