@@ -2,12 +2,12 @@ import { Link } from "react-router-dom"
 
 function NavBar() {
     return(<>
-        <nav className="flex bg-black bg-contain justify-around">
+        <nav className="flex bg-black bg-contain justify-around items-center">
             <Link to="/"><h3 className="
               bg-lime-100
                 font-extrabold
-                text-5xl
-                text-violet-900
+                text-4xl
+                text-violet-500
                 rounded-xs
                 bg-cover
                 m-[5px]
@@ -17,23 +17,27 @@ function NavBar() {
               bg-white
                 m-[15px]
                 rounded-s
-                w-[60%]
+                w-[50%]
+                p-3
             "/>
+            <div>검색</div>
             <Link to="/login"><div className="
                 bg-lime-200
-                text-violet-900
+                text-gray-800
                 font-semibold
-                text-3xl
-                mt-[11px]
+                text-[22px]
+                m-1
                 p-3
+                rounded-xs
             ">로그인</div></Link>
             <Link to="/signin"><div className="
              bg-lime-200
-                text-violet-900
+                text-gray-700
                 font-semibold
-                text-3xl
-                mt-[11px]
+                text-[22px]
+                m-1
                 p-3
+                rounded-xs
             ">회원가입</div></Link>
         </nav>
         </>)

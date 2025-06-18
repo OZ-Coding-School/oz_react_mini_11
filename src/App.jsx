@@ -4,11 +4,10 @@ import MovieListData from './data/movieListData.json';
 
 function App() {
   const [Movie, setMovie] = useState(MovieListData.results);
-  // const movie = MovieCard();
 
   return (
     <>
-      <div>
+      <div className='flex flex-row flex-wrap bg-violet-950 justify-around'>
         {Movie.map(movie => (
           <MovieCard
             key={movie.id}
