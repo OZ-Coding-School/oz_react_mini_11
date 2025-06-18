@@ -10,7 +10,7 @@ export default function MovieCardSlider({ movie }) {
       <div onClick={handleClick}>
         <div className="main-slider">
           <img
-            src={`${baseUrl}${movie.poster_path}`}
+            src={`${baseUrl}${movie.backdrop_path}`}
             className="w-full h-full object-cover"
             loading="lazy"
           />
