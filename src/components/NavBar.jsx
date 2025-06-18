@@ -41,13 +41,19 @@ function NavBar() {
     }
   }, [debouncedValue, setSearchParams, navigate, location.pathname]);
 
+  const handleClickLogo = () => {
+    setInputDebounce("");
+  };
+
   return (
     <div
       className={`flex justify-between items-center fixed z-[100] w-full px-[5vw] py-4 trnasition-all duration-500
                   ${isScrolled ? "bg-black" : "bg-transparent"}`}
     >
       <Link to="/">
-        <h1 className="text-xl font-bold">OZMOVIE</h1>
+        <h1 className="text-xl font-bold" onClick={handleClickLogo}>
+          OZMOVIE
+        </h1>
       </Link>
       <input
         type="text"

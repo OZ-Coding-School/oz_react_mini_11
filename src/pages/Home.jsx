@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { API_KEY } from "../constant/index";
 import Banner from "../components/Banner";
@@ -8,8 +8,11 @@ import SkeletonCard from "../components/SkeletonCard";
 function Home() {
   const [movieList, setMovieList] = useState();
   const [loading, setLoading] = useState(true);
+  const [_, setSearchParams] = useSearchParams();
 
   useEffect(() => {
+    setSearchParams({});
+
     const options = {
       method: "GET",
       headers: {
