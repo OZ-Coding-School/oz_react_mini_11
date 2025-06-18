@@ -1,11 +1,36 @@
-import { useState } from "react";
-import movieDetailData from "../data/movieDetailData.json";
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 import baseUrl from "../constant/baseUrl";
+import SkeletonDetail from "../components/SkeletonDetail";
+
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 function MovieDetail() {
-  const [movie, setMovie] = useState(movieDetailData);
+  const [movie, setMovie] = useState();
+  const [loading, setLoading] = useState(true);
+  const { id: movieId } = useParams();
+  console.log(movieId);
 
-  return (
+  useEffect(() => {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${API_KEY}`,
+      },
+    };
+
+    fetch(`https://api.themoviedb.org/3/movie/${movieId}?language=ko`, options)
+      .then((res) => res.json())
+      .then((data) => {
+        setMovie(data);
+        setLoading(false);
+        console.log(data);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
+  return !loading ? (
     <div className="relative overflow-hidden">
       <div
         className="absolute inset-0 bg-cover bg-center blur-2xl scale-[3] brightness-75"
@@ -25,7 +50,7 @@ function MovieDetail() {
           <div className="flex justify-between gap-4">
             <p className="grow text-6xl font-bold">{movie.title}</p>
             <p className="flex justify-between items-end text-xl">
-              {movie.vote_average}&nbsp;&nbsp;
+              {movie.vote_average.toFixed(1)}&nbsp;&nbsp;
               <span className="text-yellow-500">★</span>
             </p>
           </div>
@@ -60,6 +85,8 @@ function MovieDetail() {
         </div>
       </div>
     </div>
+  ) : (
+    <SkeletonDetail />
   );
 }
 
