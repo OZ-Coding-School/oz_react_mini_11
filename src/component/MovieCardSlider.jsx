@@ -5,12 +5,12 @@ export default function MovieCardSlider({ movie }) {
     <>
       <div>
         <Link to="/details">
-          <div
-            className="main-slider"
-            style={{
-              background: `url(${baseUrl}${movie.poster_path}) center / cover no-repeat`,
-            }}
-          >
+          <div className="main-slider">
+            <img
+              src={`${baseUrl}${movie.poster_path}`}
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
             <div>
               <h2>{movie.title}</h2>
               <p>평점 : {movie.vote_average}</p>
