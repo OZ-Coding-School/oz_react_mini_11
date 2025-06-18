@@ -3,7 +3,6 @@ import SwiperCard from "../components/SwiperCard";
 import MovieListdata from "../data/movieListData.json";
 import { fetchMovies } from "../api/tmdb";
 import { useEffect, useState } from "react";
-import Skeleton from "../components/Skeleton";
 
 export default function Home() {
     const [movies, setMovies] = useState([]);
@@ -21,8 +20,6 @@ export default function Home() {
     }, []);
 
     console.log(movies);
-
-    if (loading) return <Skeleton />;
 
     return (
         <>

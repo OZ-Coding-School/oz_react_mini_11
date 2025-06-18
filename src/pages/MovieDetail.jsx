@@ -20,7 +20,7 @@ export default function MovieDetail() {
     }
 
     if (!movie) {
-        return <div className="text-white">로딩 중...</div>; // ✅ 이걸로 막기!
+        return <div className="text-white">로딩 중...</div>;
     }
 
     return (
