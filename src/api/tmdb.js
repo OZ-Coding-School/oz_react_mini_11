@@ -1,3 +1,8 @@
+// API 호출 코드를 컴포넌트 밖으로 분리해서 재사용 가능
+// Home.jsx, MovieDetail.jsx 등에서 불러다 쓰기만 하면 됨
+// 유지보수도 쉬움 (API 주소 바뀌어도 이 파일만 고치면 됨)
+
+//공통상수
 const API_URL = "https://api.themoviedb.org/3/";
 const TOKEN = import.meta.env.VITE_TMDB_BEARER_TOKEN;
 

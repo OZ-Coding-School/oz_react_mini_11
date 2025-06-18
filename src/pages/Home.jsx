@@ -3,20 +3,27 @@ import SwiperCard from "../components/SwiperCard";
 import MovieListdata from "../data/movieListData.json";
 import { fetchMovies } from "../api/tmdb";
 import { useEffect, useState } from "react";
+import Skeleton from "../components/Skeleton";
 
 export default function Home() {
     const [movies, setMovies] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        setLoading(true);
         fetchMovies()
             .then((data) => {
                 const safeMovies = data.results.filter((movie) => movie.adult === false);
                 setMovies(safeMovies);
             })
-            .catch((error) => console.error("api error", error));
+            .catch((error) => console.error("api error", error))
+            .finally(() => setLoading(false));
     }, []);
 
     console.log(movies);
+
+    if (loading) return <Skeleton />;
+
     return (
         <>
             <SwiperCard movies={movies} />

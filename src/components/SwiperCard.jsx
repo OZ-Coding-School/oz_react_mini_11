@@ -8,7 +8,7 @@ import BlurBackground from "./BlurBackground.jsx";
 import { TMDB_IMAGE_BASE_URL } from "../constants.js";
 
 export default function SwiperCard({ movies }) {
-    const sortedMovies = [...movies].sort((a, b) => b.vote_count - a.vote_count);
+    const sortedMovies = [...movies].sort((a, b) => b.vote_count - a.vote_count).slice(0, 10); // 순위 1~10위까지
 
     const [activeIndex, setActiveIndex] = useState(0);
     const [bgImages, setBgImages] = useState([`${TMDB_IMAGE_BASE_URL}${sortedMovies[0]?.poster_path}`, null]);
@@ -31,7 +31,12 @@ export default function SwiperCard({ movies }) {
     }, [activeIndex]);
 
     return (
-        <div className="relative w-full h-auto overflow-hidden">
+        <div className=" flex justify-center items-center relative w-full h-[300px] overflow-hidden">
+            <div className="absolute top-4 left-4 z-10">
+                <div className="backdrop-blur-md bg-white/40 px-4 py-2 rounded-xl text-1xl  font-extrabold text-red-700 shadow-lg">
+                    TOP 10
+                </div>
+            </div>
             {/*  두 개 겹쳐서 부드러운 페이드 */}
             <BlurBackground $visible={fadeIndex === 0} $img={bgImages[0]} />
             <BlurBackground $visible={fadeIndex === 1} $img={bgImages[1]} />
