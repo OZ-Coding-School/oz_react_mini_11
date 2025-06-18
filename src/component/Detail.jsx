@@ -1,10 +1,31 @@
-import { useState } from "react";
-import movieDetailData from "../data/movieDetailData.json";
+import { useEffect, useState } from "react";
+import { baseUrl } from "../constant/constant";
+import { useParams } from "react-router-dom";
 
 export default function Detail() {
-  const [movieDetail, setMovieDetail] = useState(movieDetailData);
-  const baseUrl = "https://image.tmdb.org/t/p/w500";
-  return (
+  const { movieId } = useParams();
+  const [movieDetail, setMovieDetail] = useState();
+  useEffect(() => {
+    const fetchMovie = async () => {
+      try {
+        const res = await fetch(`https://api.themoviedb.org/3/movie/${movieId}`, {
+          headers: {
+            accept: "application/json",
+            Authorization: `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`,
+          },
+        });
+        const data = await res.json();
+        console.log(data);
+        setMovieDetail(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchMovie();
+  }, [movieId]); //movieId 상태가 변경될 떄마다 리렌더링
+  return !movieDetail ? ( //movieDetail값이 없으면
+    <div className="loading">Loading...</div>
+  ) : (
     <>
       <div className="flex justify-between pt-[120px] max-w-[1200px] m-auto h-screen text-white">
         <div>
