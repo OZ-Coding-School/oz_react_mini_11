@@ -37,8 +37,9 @@ import NextButton from "../images/angle-right.svg?react";
 
 const SwiperWrapper = styled.div`
   width: 100%;
-  height: 100%;
+  height: fit-content;
   position: relative;
+  /* background-color: beige; */
 `;
 
 const StyledSwiperSlide = styled(SwiperSlide)`
@@ -76,6 +77,7 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   padding: 1rem 0;
+  /* background-color: #ffc5c5; */
 `;
 
 function Home() {
@@ -101,36 +103,34 @@ function Home() {
     // </ContainerGrid>
 
     // Swiper 적용 후
-    <>
-      <Container>
-        <SwiperWrapper>
-          <Swiper
-            modules={[Navigation]}
-            navigation={{ prevEl: prevRef.current, nextEl: nextRef.current }}
-            spaceBetween={16}
-            slidesPerView={5}
-            onSwiper={setSwiper}
-            onSlideChange={(swiper) => {
-              setBeginning(swiper.isBeginning);
-              setEnd(swiper.isEnd);
-            }}>
-            {MOVIE_LIST_DATA.results.map((data) => (
-              <StyledSwiperSlide>
-                <MovieCard data={data} />
-              </StyledSwiperSlide>
-            ))}
-          </Swiper>
-          <ButtonWrapper>
-            <button ref={prevRef} disabled={isBeginning}>
-              <PrevButton width="28" fill="#45c1ff" />
-            </button>
-            <button ref={nextRef} disabled={isEnd}>
-              <NextButton width="28" fill="#45c1ff" />
-            </button>
-          </ButtonWrapper>
-        </SwiperWrapper>
-      </Container>
-    </>
+    <Container>
+      <SwiperWrapper>
+        <Swiper
+          modules={[Navigation]}
+          navigation={{ prevEl: prevRef.current, nextEl: nextRef.current }}
+          spaceBetween={16}
+          slidesPerView={5}
+          onSwiper={setSwiper}
+          onSlideChange={(swiper) => {
+            setBeginning(swiper.isBeginning);
+            setEnd(swiper.isEnd);
+          }}>
+          {MOVIE_LIST_DATA.results.map((data) => (
+            <StyledSwiperSlide>
+              <MovieCard data={data} />
+            </StyledSwiperSlide>
+          ))}
+        </Swiper>
+        <ButtonWrapper>
+          <button ref={prevRef} disabled={isBeginning}>
+            <PrevButton width="28" height="28" fill="#45c1ff" />
+          </button>
+          <button ref={nextRef} disabled={isEnd}>
+            <NextButton width="28" height="28" fill="#45c1ff" />
+          </button>
+        </ButtonWrapper>
+      </SwiperWrapper>
+    </Container>
   );
 }
 
