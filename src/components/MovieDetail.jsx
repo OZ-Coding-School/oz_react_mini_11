@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./MovieDetail.css";
-import movieListData from "../data/movieListData.json";
-import MovieList from "./MovieList";
+import { TMDB_GET_OPTION, TMDB_MOIVE_API_BASE_URL } from "../constans";
 
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
 function MovieDetail() {
   const { id } = useParams();
-  const movie = movieListData.results.find((movie) => movie.id === Number(id));
+  const [movie, setMovie] = useState();
+
+  useEffect(() => {
+    fetch(`${TMDB_MOIVE_API_BASE_URL}/${id}?language=ko`, TMDB_GET_OPTION)
+      .then((res) => res.json())
+      .then((res) => {
+        setMovie(res);
+      })
+      .catch((err) => console.error("❌ 영화 데이터 요청 실패:", err));
+  }, [id]);
 
   if (!movie) {
     return <p>영화를 찾을 수 없습니다</p>;
@@ -26,7 +34,9 @@ function MovieDetail() {
           <h2>{movie.title}</h2>
           <span className="vote"> ⭐ {movie.vote_average}</span>
         </div>
-        <div className="detail-genres">{movie.genre_ids.join(", ")}</div>
+        <div className="detail-genres">
+          {movie.genres?.map((genre) => genre.name).join(", ")}
+        </div>
         <p className="detail-overview">{movie.overview}</p>
       </div>
     </div>
