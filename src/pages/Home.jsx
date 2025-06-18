@@ -26,7 +26,7 @@ function Home() {
         {movies
           .filter((item) => item.adult === false)
           .map((item) => (
-            <Link to={`/details`} key={item.id}>
+            <Link to={`/details/${item.id}`} key={item.id}>
               <MovieCard
                 key={item.id}
                 title={item.title}
