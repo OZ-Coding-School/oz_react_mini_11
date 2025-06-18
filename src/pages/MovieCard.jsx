@@ -3,10 +3,33 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function MovieCard() {
+  const [movieList, setMovieList] = useState([]);
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      const token = import.meta.env.VITE_API_TOKEN;
+      const apiUrl = import.meta.env.VITE_API_URL;
+
+      const response = await fetch(
+        `${apiUrl}/movie/popular?language=ko-KR&page=1`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            accept: "application/json",
+          },
+        }
+      );
+      const data = await response.json(); //json 형태로 받아온걸 data에 저장
+      setMovieList(data.results); // 상태에 저장
+    };
+
+    fetchMovies();
+  }, []);
+
   return (
     <>
       <div className="p-2 gap-6 flex flex-wrap items-center justify-center bg-emerald-950">
-        {movieListData.results.map((results) => (
+        {movieList.map((results) => (
           <Link
             to={`/detail/${results.id}`}
             key={results.id}
