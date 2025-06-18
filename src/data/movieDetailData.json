@@ -1,0 +1,17 @@
+{
+  "title": "Inception",
+  "vote_average": 8.8,
+  "overview": "A thief who steals corporate secrets ...",
+  "poster_path": "/edv5CZvWj09upOsy2Y6IwDhK8bt.jpg",
+  "backdrop_path": "/s3TBrRGB1iav7gFOCNx3H31MoES.jpg",
+  "genres": [
+    {
+      "id": 1,
+      "name": "Action"
+    },
+    {
+      "id": 2,
+      "name": "Sci-Fi"
+    }
+  ]
+}

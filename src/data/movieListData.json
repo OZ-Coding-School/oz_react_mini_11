@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "title": "Inception",
+    "vote_average": 8.8,
+    "poster_path": "/edv5CZvWj09upOsy2Y6IwDhK8bt.jpg"
+  },
+  {
+    "id": 2,
+    "title": "Interstellar",
+    "vote_average": 8.6,
+    "poster_path": "/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg"
+  },
+  {
+    "id": 3,
+    "title": "The Dark Knight",
+    "vote_average": 9.0,
+    "poster_path": "/qJ2tW6WMUDux911r6m7haRef0WH.jpg"
+  }
+]
