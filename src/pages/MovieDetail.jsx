@@ -1,11 +1,13 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import baseUrl from "../constant/baseUrl";
+import SkeletonDetail from "../components/SkeletonDetail";
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 function MovieDetail() {
   const [movie, setMovie] = useState();
+  const [loading, setLoading] = useState(true);
   const { id: movieId } = useParams();
   console.log(movieId);
 
@@ -22,12 +24,13 @@ function MovieDetail() {
       .then((res) => res.json())
       .then((data) => {
         setMovie(data);
+        setLoading(false);
         console.log(data);
       })
       .catch((err) => console.error(err));
   }, []);
 
-  return movie ? (
+  return !loading ? (
     <div className="relative overflow-hidden">
       <div
         className="absolute inset-0 bg-cover bg-center blur-2xl scale-[3] brightness-75"
@@ -83,7 +86,7 @@ function MovieDetail() {
       </div>
     </div>
   ) : (
-    <div>loading...</div>
+    <SkeletonDetail />
   );
 }
 
