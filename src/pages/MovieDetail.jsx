@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { BASE_URL, API_KEY } from "../constant/index";
-import SkeletonDetail from "../components/SkeletonDetail";
+import SkeletonDetail from "../components/skeletons/SkeletonDetail";
 
 function MovieDetail() {
   const [media, setMedia] = useState();

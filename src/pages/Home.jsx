@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { API_KEY } from "../constant/index";
 import Banner from "../components/Banner";
 import MovieCard from "../components/MediaCard";
-import SkeletonCard from "../components/SkeletonCard";
+import SkeletonCard from "../components/skeletons/SkeletonCard";
 
 function Home() {
   const [movieList, setMovieList] = useState();
