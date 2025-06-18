@@ -1,58 +1,72 @@
-import React from "react";
+import React, { useState } from "react";
 
-const NavBar = () => {
+const NavBar = ({ onSearch }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+    if (onSearch) {
+      onSearch(e.target.value);
+    }
+  };
+
   return (
     <nav
-      style={{
+      style={{ 
         backgroundColor: "#111",
         color: "white",
         display: "flex",
-        justifyContent: "space-between",
         alignItems: "center",
         padding: "10px 30px",
         position: "sticky",
         top: 0,
         zIndex: 100,
-      }}
-    >
-      <div>
+      }}>
+
+      <div style={{ flex: 1, textAlign: "center" }}>
         <input
           type="text"
           placeholder="영화 검색..."
-          style={{
+          style={{ 
             padding: "8px 12px",
-            borderRadius: "5px",
+            borderRadius: "20px",
             border: "none",
-            width: "300px",
+            width: "50%", 
+            maxWidth: "400px",
             fontSize: "16px",
+            outline: "none",
+            backgroundColor: "#fff",
+            color: "#000",
           }}
-          disabled 
+          value={searchTerm}
+          onChange={(e) => handleSearch(e)}
         />
       </div>
-      <div>
+
+      <div style={{ display: "flex", alignItems: "center" }}>
         <button
-          style={{
+          style={{ 
             marginRight: "15px",
             padding: "8px 15px",
-            borderRadius: "5px",
+            borderRadius: "20px",
             border: "none",
             cursor: "pointer",
-            backgroundColor: "#444",
-            color: "white",
-          }}
-        >
+            backgroundColor: "#fff",
+            color: "#000",
+            fontWeight: "bold",
+          }}>
           로그인
         </button>
         <button
-          style={{
+          style={{ 
             padding: "8px 15px",
-            borderRadius: "5px",
+            borderRadius: "20px",
             border: "none",
             cursor: "pointer",
-            backgroundColor: "#444",
-            color: "white",
-          }}
-        >
+            backgroundColor: "#fff",
+            color: "#000",
+            fontWeight: "bold",
+          }}>
           회원가입
         </button>
       </div>

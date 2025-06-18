@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Layout from "./Layout";
 import App from "./App";
 import MovieDetail from "./MovieDetail";

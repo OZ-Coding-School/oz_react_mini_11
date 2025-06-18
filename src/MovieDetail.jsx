@@ -1,12 +1,24 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import movieListData from "./movieListData.json";
+import movieDetailData from "./movieDetailData.json"
 
 const baseUrl = "https://image.tmdb.org/t/p/w500";
 
 function MovieDetail() {
   const { id } = useParams();
   const movie = movieListData.results.find((m) => m.id === Number(id)) || null;
+  const genreList = movieDetailData.genres;
+
+  const genreNames = 
+    Array.isArray(movie.genre_ids)
+    ? movie.genre_ids.map((genreId) => {
+      const matched = genreList.find((g) => Number(g.id) === Number(genreId));
+      return matched ? matched.name : ""
+    })
+    : Array.isArray(movie.genres)
+    ? movie.genres.map((g) => g.name)
+    : [];
 
   if (!movie) {
     return <div style={{ color: "white", padding: 20 }}>영화를 찾을 수 없습니다.</div>;
@@ -55,11 +67,12 @@ function MovieDetail() {
         <div style={{ flexBasis: "25%" }}>
           <h3>장르</h3>
           <ul>
-            {movie.genres
-              ? movie.genres.map((g) => <li key={g.id}>{g.name}</li>)
-              : movie.genre_ids
-              ? movie.genre_ids.map((id) => <li key={id}>{id}</li>)
-              : <li>장르 정보 없음</li>}
+            {genreNames.length > 0 ? (
+              genreNames.map((name, idx) => <li key={idx}>{name}</li>)
+            ) : (
+              <li>장르 정보 없음</li>
+            )}
+        
           </ul>
         </div>
 
