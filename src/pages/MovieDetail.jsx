@@ -1,9 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import baseUrl from "../constant/baseUrl";
+import { BASE_URL, API_KEY } from "../constant/index";
 import SkeletonDetail from "../components/SkeletonDetail";
-
-const API_KEY = import.meta.env.VITE_API_KEY;
 
 function MovieDetail() {
   const [movie, setMovie] = useState();
@@ -35,14 +33,14 @@ function MovieDetail() {
       <div
         className="absolute inset-0 bg-cover bg-center blur-2xl scale-[3] brightness-75"
         style={{
-          backgroundImage: `url(${baseUrl}${movie.poster_path})`,
+          backgroundImage: `url(${BASE_URL}${movie.poster_path})`,
         }}
       />
 
       <div className="relative flex flex-col md:flex-row gap-[5vw] px-[5vw] py-[80px]">
         <img
           className="w-1/3 max-h-[calc(100vh-120px)] object-contain object-top"
-          src={`${baseUrl}${movie.poster_path}`}
+          src={`${BASE_URL}${movie.poster_path}`}
           alt={movie.title}
         />
 
@@ -79,7 +77,7 @@ function MovieDetail() {
           </p>
           <img
             className="md:w-[300px]"
-            src={`${baseUrl}${movie.backdrop_path}`}
+            src={`${BASE_URL}${movie.backdrop_path}`}
             alt={movie.title}
           />
         </div>

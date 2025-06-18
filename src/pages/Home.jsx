@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { API_KEY } from "../constant/index";
 import Banner from "../components/Banner";
 import MovieCard from "../components/MovieCard";
 import SkeletonCard from "../components/SkeletonCard";
-
-const API_KEY = import.meta.env.VITE_API_KEY;
 
 function Home() {
   const [movieList, setMovieList] = useState();

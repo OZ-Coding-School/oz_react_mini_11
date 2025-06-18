@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { CSSTransition } from "react-transition-group";
-import baseUrl from "../constant/baseUrl";
+import { BASE_URL } from "../constant/index";
 import movieListData from "../data/movieListData.json";
 
 function Banner() {
@@ -38,7 +38,7 @@ function Banner() {
         <div className="fixed w-full z-0">
           <img
             className="w-full object-cover "
-            src={`${baseUrl}${movie.backdrop_path}`}
+            src={`${BASE_URL}${movie.backdrop_path}`}
             alt={movie.title}
           />
           <div className="absolute inset-0 bg-[linear-gradient(to_bottom,_rgba(0,0,0,0.6),_rgba(0,0,0,0)_80%,_rgba(0,0,0))]" />
@@ -50,7 +50,7 @@ function Banner() {
         >
           <img
             className="w-1/4 rounded-md"
-            src={`${baseUrl}${movie.poster_path}`}
+            src={`${BASE_URL}${movie.poster_path}`}
             alt={movie.title}
           />
           <div className="flex flex-col gap-[3vw] text-xs lg:text-sm">

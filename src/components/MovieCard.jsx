@@ -1,11 +1,11 @@
-import baseUrl from "../constant/baseUrl";
+import { BASE_URL } from "../constant/index";
 
 function MovieCard({ title, avg, imgSrc }) {
   return (
     <div className="w-[120px]">
       <img
         className="aspect-[0.7] object-cover"
-        src={`${baseUrl}${imgSrc}`}
+        src={`${BASE_URL}${imgSrc}`}
         alt={title}
       />
       <div>{title}</div>
