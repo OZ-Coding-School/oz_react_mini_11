@@ -5,7 +5,7 @@ import MovieCard from './MovieCard';
 export default function MovieList() {
   return (
     <div className="movie-list">
-      {movies.map((m) => (
+      {movies.results.map((m) => (
         <MovieCard key={m.id} {...m} />
       ))}
     </div>
