@@ -123,10 +123,10 @@ function Home() {
         </Swiper>
         <ButtonWrapper>
           <button ref={prevRef} disabled={isBeginning}>
-            <PrevButton width="28" height="28" fill="#45c1ff" />
+            <PrevButton width="40" height="40" fill="#45c1ff" />
           </button>
           <button ref={nextRef} disabled={isEnd}>
-            <NextButton width="28" height="28" fill="#45c1ff" />
+            <NextButton width="40" height="40" fill="#45c1ff" />
           </button>
         </ButtonWrapper>
       </SwiperWrapper>
