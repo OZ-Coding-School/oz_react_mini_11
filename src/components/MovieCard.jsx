@@ -1,13 +1,11 @@
 import { Link } from "react-router-dom";
+import IMAGE_BASE_URL from "../data/imageURL.JSX";
 
-const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
-
-export function MovieCard({ title, poster, rating }) {
+export function MovieCard({id, title, poster, rating }) {
   return (
   <div>
     <div className="m-3">
-      <Link to='/detail'> 
-      {/* 요구사항: 더미데이터라 개별 링크 미지정 */}
+      <Link to={`/detail/${id}`}> 
         <img src={`${IMAGE_BASE_URL}${poster}`} alt={`${title} poster`} className="
         w-[22vw] aspect-[2/3]
         "/>

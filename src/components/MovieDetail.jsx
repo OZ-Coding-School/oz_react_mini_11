@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import MovieDetailData from '../data/movieDetailData.json';
+import IMAGE_BASE_URL from '../data/imageURL.JSX';
 
 function MovieDetail() {
   const [detail, setDetail] = useState(MovieDetailData);
-  const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
+
 
   return (
     <div className='flex flex-row bg-violet-700 text-gray-300 items-center'>

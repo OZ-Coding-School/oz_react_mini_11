@@ -26,3 +26,4 @@ dist-ssr
 .github
 README.md
 eslint.config.js
+.env
