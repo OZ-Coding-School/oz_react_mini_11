@@ -1,3 +1,3 @@
 const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 
-export default IMAGE_BASE_URL
+export default IMAGE_BASE_URL;
