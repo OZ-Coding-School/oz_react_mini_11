@@ -5,7 +5,8 @@ const Wrapper = styled.div`
   width: 85%;
   height: 85%;
   display: flex;
-  box-shadow: 0px 0px 20px 10px #00000020;
+  background-color: #2c2c2c;
+  box-shadow: 0px 0px 40px 20px #ffffff10;
 `;
 
 const Image = styled.img`
@@ -16,7 +17,7 @@ const Image = styled.img`
   object-fit: cover;
   position: relative;
   bottom: 4rem;
-  box-shadow: 0 15px 20px 5px #00000025;
+  box-shadow: 0px 12px 30px 5px #ffffff20;
 `;
 
 const ContentWrapper = styled.div`
@@ -39,6 +40,7 @@ const Title = styled.div`
   padding: 0 2rem;
   font-size: 2.5rem;
   font-weight: 700;
+  color: #eeeeee;
 `;
 
 const Rating = styled.div`
@@ -53,21 +55,25 @@ const Rating = styled.div`
 const GenresWrapper = styled.div`
   display: flex;
   justify-content: space-evenly;
+  /* align-items: center; */
 `;
 
 const Genres = styled.div`
   padding: 0.75rem 1rem;
-  border: 3px solid #ff98aa;
+  border: 3px solid ${(props) => props.theme.colors.yellow.normal};
   border-radius: 0.5rem;
   background-color: #fff;
-  color: #fd8599;
-  box-shadow: 0 0 5px 3px #ff98aa50;
+  color: ${(props) => props.theme.colors.yellow.dark};
+  box-shadow: 0 0 5px 3px ${(props) => props.theme.colors.yellow.normal}50;
+  display: flex;
+  align-items: center;
 `;
 
 const Overview = styled.div`
   flex: 1;
   font-size: 1.125rem;
   line-height: 1.5;
+  color: #eeeeee;
 `;
 
 const Container = styled.div`
