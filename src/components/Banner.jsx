@@ -58,10 +58,13 @@ function Banner() {
       unmountOnExit
       nodeRef={nodeRef}
     >
-      <div ref={nodeRef} className="relative aspect-[2]">
-        <div className="fixed w-full aspect-[2] z-0">
+      <div
+        ref={nodeRef}
+        className="relative aspect-[1] sm:aspect-[1.4] lg:aspect-[1.8]"
+      >
+        <div className="fixed w-full aspect-[1] sm:aspect-[1.4] lg:aspect-[1.8] z-0">
           <img
-            className="w-full aspect-[2] object-cover "
+            className="w-full aspect-[1] sm:aspect-[1.4] lg:aspect-[1.8] object-cover "
             src={`${BASE_URL}${movie.backdrop_path}`}
             alt={movie.title}
           />
@@ -71,9 +74,9 @@ function Banner() {
           />
         </div>
 
-        <div className="flex flex-col gap-6 absolute bottom-[160px] z-20 w-[calc(50%-5vw)] mx-[5vw]">
+        <div className="flex flex-col gap-4 lg:gap-6 absolute bottom-[20vw] md:bottom-[14vw] z-20 w-[calc(100%-5vw)] mx-[5vw]">
           <p className="text-[3vw] font-black">{movie.title}</p>
-          <div>
+          <div className="text-[calc(1vw+4px)]">
             <span className="mr-12">
               ★ {movie.vote_average.toFixed(1)}&nbsp;&nbsp;|&nbsp;&nbsp;{" "}
               {movie.vote_count}
@@ -83,16 +86,20 @@ function Banner() {
               {movie.release_date.split("-")[0]}
             </span>
           </div>
-          <p className="text-gray-300 break-keep leading-6">{movie.overview}</p>
+          <p className="w-[calc(100%-5vw)] md:w-[calc(50%-5vw)] text-[calc(1vw+4px)] text-gray-300 break-keep leading-[calc(1vw+10px)]">
+            {movie.overview.split(". ").length > 3
+              ? movie.overview.split(". ").slice(0, 3).join(". ") + "..."
+              : movie.overview}
+          </p>
           <div>
             <button
-              className="mr-4 py-3 px-8 rounded-xl bg-white text-xl text-black transition-all duration-3000
+              className="mr-4 py-[1.5vw] px-[3vw] rounded-xl bg-white text-[calc(1.25vw+4px)] text-black transition-all duration-3000
                               hover:text-white hover:bg-blue-600"
             >
               ▶&nbsp;&nbsp;재생
             </button>
             <button
-              className="py-3 px-8 rounded-xl bg-[#c0c0c070] text-xl transition-all duration-3000
+              className="py-[1.5vw] px-[3vw] rounded-xl bg-[#c0c0c070] text-[calc(1.25vw+4px)] transition-all duration-3000
                               hover:bg-[#c0c0c0a7]"
             >
               ⓘ&nbsp;&nbsp;상세 정보
