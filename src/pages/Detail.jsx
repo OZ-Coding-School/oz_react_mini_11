@@ -1,12 +1,28 @@
 import { useState, useEffect } from "react";
-import movieDetailData from "../DB/movieDetailData.json";
+import { useParams } from "react-router-dom";
 
 export default function MovieDetail() {
   const [detailData, setDetailData] = useState(null);
+  const { id } = useParams();
 
   useEffect(() => {
-    setDetailData(movieDetailData);
-  }, []);
+    const fetchDetail = async () => {
+      const token = import.meta.env.VITE_API_TOKEN;
+      const apiUrl = import.meta.env.VITE_API_URL;
+
+      const res = await fetch(`${apiUrl}/movie/${id}?language=ko-KR`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          accept: "application/json",
+        },
+      });
+
+      const data = await res.json();
+      setDetailData(data);
+    };
+
+    fetchDetail();
+  }, [id]);
 
   return (
     <div className="flex items-center justify-center gap-8 p-8 bg-emerald-900 min-h-screen text-white">
@@ -14,7 +30,7 @@ export default function MovieDetail() {
         <>
           <img
             className="w-[200] h-[600px] rounded shadow-lg"
-            src={`https://image.tmdb.org/t/p/w500${detailData.belongs_to_collection.poster_path}`}
+            src={`https://image.tmdb.org/t/p/w500${detailData.poster_path}`}
             alt={detailData.title}
           />
 
