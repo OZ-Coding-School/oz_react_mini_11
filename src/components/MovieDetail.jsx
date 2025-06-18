@@ -7,6 +7,7 @@ const Wrapper = styled.div`
   display: flex;
   background-color: #2c2c2c;
   box-shadow: 0px 0px 40px 20px #ffffff10;
+  min-width: min-content;
 `;
 
 const Image = styled.img`
@@ -27,6 +28,7 @@ const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  overflow-y: auto;
 `;
 
 const TopWrapper = styled.div`
