@@ -1,9 +1,9 @@
 import { useState } from "react";
 import movieDetailData from "../data/movieDetailData.json";
+import { baseUrl } from "../constant/constant";
 
 export default function Detail() {
   const [movieDetail, setMovieDetail] = useState(movieDetailData);
-  const baseUrl = "https://image.tmdb.org/t/p/w500";
   return (
     <>
       <div className="flex justify-between pt-[120px] max-w-[1200px] m-auto h-screen text-white">
