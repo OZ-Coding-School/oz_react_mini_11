@@ -47,7 +47,7 @@ function MovieDetail() {
           <div className="flex justify-between gap-4">
             <p className="grow text-6xl font-bold">{movie.title}</p>
             <p className="flex justify-between items-end text-xl">
-              {movie.vote_average}&nbsp;&nbsp;
+              {movie.vote_average.toFixed(1)}&nbsp;&nbsp;
               <span className="text-yellow-500">★</span>
             </p>
           </div>

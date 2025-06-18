@@ -27,7 +27,7 @@ function Home() {
       .then((data) => {
         const fetchData = data.results.filter((el) => !el.adult);
         setMovieList(fetchData);
-        // setLoading(false);
+        setLoading(false);
         console.log(fetchData);
       })
       .catch((err) => console.error(err));
