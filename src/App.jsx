@@ -42,7 +42,9 @@ function App() {
   const filteredMovies = movies.filter((movie) => 
     movie.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
-      
+    
+  const slideCount = Math.min(5, filteredMovies.length);
+
   return (
     <div
       style={{ backgroundColor: "#000", minHeight: "100vh", color: "#fff", padding: "20px 30px" }}>
@@ -50,11 +52,11 @@ function App() {
       <Swiper
         modules={[Navigation, Pagination]}
         spaceBetween={20}
-        slidesPerView={5}
-        slidesPerGroup={5}
+        slidesPerView={slideCount}
+        slidesPerGroup={slideCount}
         navigation
         pagination={{ clickable: true }}
-        loop={true}
+        loop={filteredMovies.length >=5}
         style={{ paddingBottom: "40px" }}>
         {filteredMovies.map((movie) => (
           <SwiperSlide key={movie.id}>
