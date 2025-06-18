@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -8,8 +7,9 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import MovieCard from "./MovieCard";
-import SkeletonMovieCard from "./components/SkeletonMovieCard";
+import MovieCard from "../components/MovieCard";
+import SkeletonMovieCard from "../components/SkeletonMovieCard";
+import { fetchPopularMovies } from "../api/movieApi";
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -18,26 +18,18 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchPopularMovies = async () => {
+    const loadMovies = async () => {
       setLoading(true);
       try{
-        const response = await fetch(
-          `https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=1&api_key=${import.meta.env.VITE_TMDB_API_KEY}`
-        )
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        // 성인 영화 제외 부분
-        const filtered = data.results.filter(movie => movie.adult === false);
-        setMovies(filtered);
+        const movies = await fetchPopularMovies();
+        setMovies(movies);
       } catch (error) {
         console.error("영화 데이터 로드 실패", error);
       } finally {
         setLoading(false);
       }
     }
-    fetchPopularMovies();
+    loadMovies();
   }, []);
 
   const handleClick = (id) => {

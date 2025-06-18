@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { fetchMovieDetail } from "../api/movieApi";
 
 const baseUrl = "https://image.tmdb.org/t/p/w500";
 
@@ -10,17 +11,11 @@ function MovieDetail() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchMovieDetail = async () => {
+    const loadMovie = async () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch(
-          `https://api.themoviedb.org/3/movie/${id}?language=ko-KR&api_key=${import.meta.env.VITE_TMDB_API_KEY}`
-        );
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
+        const data = await fetchMovieDetail(id);
         setMovie(data);
       } catch (error) {
         setError("영화 정보를 불러오는데 실패했습니다.");
@@ -29,7 +24,7 @@ function MovieDetail() {
         setLoading(false);
       }
     };
-    fetchMovieDetail();
+    loadMovie();
   }, [id]);
   
   if (loading) {
