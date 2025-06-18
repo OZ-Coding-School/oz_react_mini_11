@@ -1,14 +1,37 @@
 import { useEffect, useRef, useState } from "react";
 import { CSSTransition } from "react-transition-group";
-import { BASE_URL } from "../constant/index";
-import movieListData from "../data/movieListData.json";
+import { BASE_URL, API_KEY } from "../constant/index";
 
 function Banner() {
-  const [movieList, setMovieList] = useState(movieListData.results);
+  const [movieList, setMovieList] = useState([]);
   const [currontIndex, setcurrontIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
-  const movie = movieList[currontIndex];
+  const [loading, setLoading] = useState(true);
+  const movie = movieList?.[currontIndex];
   const nodeRef = useRef(null);
+
+  useEffect(() => {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${API_KEY}`,
+      },
+    };
+
+    fetch(
+      "https://api.themoviedb.org/3/trending/movie/day?language=ko", //trending movies
+      options
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        const fetchData = data.results.filter((el) => !el.adult);
+        setMovieList(fetchData);
+        setLoading(false);
+        console.log(fetchData);
+      })
+      .catch((err) => console.error(err));
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -26,7 +49,7 @@ function Banner() {
     }, 300);
   };
 
-  return (
+  return !loading ? (
     <CSSTransition
       in={isVisible}
       timeout={1000}
@@ -43,7 +66,7 @@ function Banner() {
           />
           <div
             className="absolute inset-0 
-                      bg-[linear-gradient(to_bottom,_rgba(0,0,0,0.6)_0px,_rgba(0,0,0,0.1)_80px,_rgba(0,0,0,0.1)_calc(100%-80px),_rgba(0,0,0,1)_100%)]"
+                      bg-[linear-gradient(to_bottom,_rgba(0,0,0,0.7)_0px,_rgba(0,0,0,0.3)_80px,_rgba(0,0,0,0.3)_calc(100%-80px),_rgba(0,0,0,1)_100%)]"
           />
         </div>
 
@@ -65,6 +88,8 @@ function Banner() {
         </div>
       </div>
     </CSSTransition>
+  ) : (
+    <div>loading...</div>
   );
 }
 
