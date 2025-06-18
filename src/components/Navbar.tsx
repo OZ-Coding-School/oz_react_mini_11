@@ -3,7 +3,7 @@ import Button from "./Button";
 
 export default function Navbar() {
   return (
-    <header className="flex flex-col items-start justify-between fixed top-0 w-full text-neutral-50 gap-5 p-5 bg-neutral-900 border-b-2 border-neutral-700 md:flex-row md:items-center">
+    <header className="z-50 flex flex-col items-start justify-between fixed top-0 w-full text-neutral-50 gap-5 p-5 bg-neutral-900 border-b-2 border-neutral-700 md:flex-row md:items-center">
       <Link to="/" className="text-4xl font-semibold">
         Movie Wiki
       </Link>
