@@ -1,11 +1,33 @@
-import { useState } from "react";
-import movieDetailData from "../data/movieDetailData.json";
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 import baseUrl from "../constant/baseUrl";
 
-function MovieDetail() {
-  const [movie, setMovie] = useState(movieDetailData);
+const API_KEY = import.meta.env.VITE_API_KEY;
 
-  return (
+function MovieDetail() {
+  const [movie, setMovie] = useState();
+  const { id: movieId } = useParams();
+  console.log(movieId);
+
+  useEffect(() => {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${API_KEY}`,
+      },
+    };
+
+    fetch(`https://api.themoviedb.org/3/movie/${movieId}?language=ko`, options)
+      .then((res) => res.json())
+      .then((data) => {
+        setMovie(data);
+        console.log(data);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
+  return movie ? (
     <div className="relative overflow-hidden">
       <div
         className="absolute inset-0 bg-cover bg-center blur-2xl scale-[3] brightness-75"
@@ -60,6 +82,8 @@ function MovieDetail() {
         </div>
       </div>
     </div>
+  ) : (
+    <div>loading...</div>
   );
 }
 
