@@ -2,10 +2,10 @@
 //import { useParams } from "react-router";
 import movieData from "../assets/data/movieDetailData.json";
 import StarPoints from "../components/StarPoints";
+import { IMAGE_BASE_URL } from "../constants";
 import type { MovieDetailData } from "../types";
 
 const movie = movieData as MovieDetailData;
-const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
 export default function Details() {
   //실제 데이터 사용 시 주석 풀고 사용

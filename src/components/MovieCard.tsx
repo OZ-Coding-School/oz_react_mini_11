@@ -1,12 +1,11 @@
 import { Link } from "react-router";
 import type { MovieData } from "../types";
 import StarPoints from "./StarPoints";
+import { IMAGE_BASE_URL } from "../constants";
 
 interface MovieCardProps {
   movie: MovieData;
 }
-
-const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
 export default function MovieCard({ movie }: MovieCardProps) {
   return (
