@@ -40,6 +40,7 @@ export default function App() {
               <div className="flex flex-wrap gap-4 bg-gray-100 p-4 rounded-md min-h-[500px]">
                 {movies.map((movie) => (
                   <MovieCard
+                    id={movie.id}
                     key={movie.id}
                     title={movie.title}
                     poster={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
@@ -50,7 +51,7 @@ export default function App() {
             </div>
           }
         />
-        <Route path="details" element={<MovieDetail />} />
+        <Route path="details/:id" element={<MovieDetail />} />
       </Route>
     </Routes>
   );
