@@ -1,6 +1,6 @@
 import { BASE_URL } from "../constant/index";
 
-function MovieCard({ title, avg, imgSrc }) {
+function MediaCard({ title, avg, imgSrc }) {
   return (
     <div className="w-[120px]">
       <img
@@ -8,10 +8,10 @@ function MovieCard({ title, avg, imgSrc }) {
         src={`${BASE_URL}${imgSrc}`}
         alt={title}
       />
-      <div>{title}</div>
-      <div>{avg}</div>
+      {/* <div>{title}</div>
+      <div>{avg}</div> */}
     </div>
   );
 }
 
-export default MovieCard;
+export default MediaCard;

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
-import MovieCard from "../components/MovieCard";
+import MediaCard from "../components/MediaCard";
 
 function Search() {
-  const [movieList, setMovieList] = useState([]);
+  const [mediaList, setMediaList] = useState([]);
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get("keyword");
   console.log("Search keyword: ", keyword);
@@ -19,13 +19,15 @@ function Search() {
     };
 
     fetch(
-      `https://api.themoviedb.org/3/search/movie?query=${keyword}&include_adult=false&language=ko`,
+      `https://api.themoviedb.org/3/search/multi?query=${keyword}&include_adult=false&language=ko`,
       options
     )
       .then((res) => res.json())
       .then((data) => {
-        const fetchData = data.results.filter((el) => !el.adult);
-        setMovieList(fetchData);
+        const fetchData = data.results.filter(
+          (el) => !el.adult && el.backdrop_path
+        );
+        setMediaList(fetchData);
         console.log(fetchData);
       })
       .catch((err) => console.error(err));
@@ -36,17 +38,17 @@ function Search() {
       className="flex flex-wrap gap-8 absolute z-20 w-full pt-[100px] px-[5vw] pb-20
       bg-[linear-gradient(to_bottom,_rgba(0,0,0,0)_0%,_rgba(0,0,0,5)_30%,_rgba(0,0,0,1)_100%)]"
     >
-      {!movieList.length ? (
+      {!mediaList.length ? (
         <div className="w-full py-[30vh] text-2xl text-center">
           검색 결과가 없습니다.
         </div>
       ) : (
-        movieList?.map((movie) => (
-          <Link to={`/details/${movie.id}`} key={movie.id}>
-            <MovieCard
-              title={movie.title}
-              avg={movie.vote_average}
-              imgSrc={movie.poster_path}
+        mediaList?.map((media) => (
+          <Link to={`/details/${media.media_type}/${media.id}`} key={media.id}>
+            <MediaCard
+              title={media.title}
+              avg={media.vote_average}
+              imgSrc={media.poster_path}
             />
           </Link>
         ))
