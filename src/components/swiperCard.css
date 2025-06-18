@@ -1,0 +1,30 @@
+/* *,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container img {
+    width: 80%;
+    height: 30%;
+    object-fit: cover;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30vh;
+    background-color: #03171d;
+} */
+.swiper-slide {
+    transform: scale(0.8);
+    opacity: 0.6;
+}
+
+.swiper-slide-active {
+    transform: scale(1);
+    opacity: 1;
+}
