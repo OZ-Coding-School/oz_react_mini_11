@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import MovieCard from "./components/MovieCard";
-import movieListData from "./data/movieListData.json";
-import "./App.css";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout";
+import MovieList from "./components/MovieList";
+import MovieDetail from "./components/MovieDetail";
 
 function App() {
-  const [movies] = useState(movieListData.results);
-
   return (
-    <div className="movie-grid">
-      {movies.map((movie) => (
-        <MovieCard key={movie.id} movie={movie} />
-      ))}
-    </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<MovieList />} />
+        <Route path="movies/:id" element={<MovieDetail />} />
+      </Route>
+    </Routes>
   );
 }
 
