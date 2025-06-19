@@ -9,7 +9,7 @@ export default function Detail() {
   useEffect(() => {
     const fetchMovie = async () => {
       try {
-        const res = await fetch(`${apiBaseUrl}/${movieId}?language=ko`, {
+        const res = await fetch(`${apiBaseUrl}/movie/${movieId}?language=ko`, {
           headers: {
             accept: "application/json",
             Authorization: `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`,

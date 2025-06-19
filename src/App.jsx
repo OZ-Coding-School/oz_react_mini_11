@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Detail from "./component/Detail";
 import Layout from "./component/Layout";
 import Main from "./component/Main";
+import Search from "./component/Search";
 
 function App() {
   return (
@@ -10,7 +11,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Main />} />
-          <Route path="/details/:movieId" element={<Detail />} />
+          <Route path="details/:movieId" element={<Detail />} />
+          <Route path="search" element={<Search />} />
         </Route>
       </Routes>
     </>

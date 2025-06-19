@@ -7,7 +7,10 @@ export default function MovieCard({ movie }) {
   };
   return (
     <>
-      <div onClick={handleClick} className="lg:w-[25%] w-[50%] movie-card">
+      <div
+        onClick={handleClick}
+        className="lg:w-[25%] w-[50%] movie-card pointer-events-auto"
+      >
         <div>
           <img src={`${baseUrl}${movie.poster_path}`} />
           <div>

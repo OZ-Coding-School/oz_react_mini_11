@@ -12,7 +12,7 @@ export default function Main() {
   useEffect(() => {
     const fetchMovie = async () => {
       try {
-        const res = await fetch(`${apiBaseUrl}/popular`, {
+        const res = await fetch(`${apiBaseUrl}/movie/popular`, {
           headers: {
             accept: "application/json",
             Authorization: `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`,
