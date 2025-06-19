@@ -50,13 +50,13 @@ function MovieCard({ data }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/details");
+    navigate(`/detail/${data.id}`);
   };
 
   return (
     <Container onClick={handleClick}>
       <Image
-        src={`https://image.tmdb.org/t/p/w500${data.backdrop_path}`}
+        src={`https://image.tmdb.org/t/p/w500${data.poster_path}`}
         alt="movie-image"></Image>
       <Wrapper>
         <Title>{data.title}</Title>
