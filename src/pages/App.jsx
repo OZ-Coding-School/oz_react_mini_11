@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -12,11 +12,12 @@ import SkeletonMovieCard from "../components/SkeletonMovieCard";
 import { fetchPopularMovies, fetchSearchMovies } from "../api/movieApi";
 import useDebounce from "../hooks/useDebounce";
 
-function App({ searchTerm }) {
+function App() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-
+  
+  const { searchTerm } = useOutletContext();
   const debouncedSearch = useDebounce(searchTerm, 500);
 
   useEffect(() => {
