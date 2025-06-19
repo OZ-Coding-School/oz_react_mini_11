@@ -1,37 +1,9 @@
-import { useEffect, useState } from "react";
-import { useSearchParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import MediaCard from "../components/MediaCard";
+import useFetchSearch from "../hooks/useFetchSearch";
 
 function Search() {
-  const [mediaList, setMediaList] = useState([]);
-  const [searchParams] = useSearchParams();
-  const keyword = searchParams.get("keyword");
-  console.log("Search keyword: ", keyword);
-
-  useEffect(() => {
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlZDYxYTMzM2IxM2IzZTg0ZDM3ODQxNjk1M2JmN2M5OCIsIm5iZiI6MTc1MDIxOTQzOC43MDU5OTk5LCJzdWIiOiI2ODUyM2FhZTI4ZDYyY2EyZmY4N2JhNGQiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.IW0v90fXcfWtOWhjGrwbUjS0CLAzWuNY-ytgwIxbYbU",
-      },
-    };
-
-    fetch(
-      `https://api.themoviedb.org/3/search/multi?query=${keyword}&include_adult=false&language=ko`,
-      options
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        const fetchData = data.results.filter(
-          (el) => !el.adult && el.backdrop_path
-        );
-        setMediaList(fetchData);
-        console.log(fetchData);
-      })
-      .catch((err) => console.error(err));
-  }, [searchParams]);
+  const mediaList = useFetchSearch();
 
   return (
     <div
