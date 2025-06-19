@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import IMAGE_BASE_URL from '../data/imageURL.JSX';
+import IMAGE_BASE_URL from '../data/imageURL.js';
 
 export function MovieCard({ id, title, poster, rating }) {
   return (

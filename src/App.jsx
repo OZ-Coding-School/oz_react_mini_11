@@ -9,7 +9,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Index />} />
-          <Route path="detail" element={<MovieDetail />} />
+          <Route path="detail/:id" element={<MovieDetail />} />
         </Route>
         <Route path="*" element={<h3> 404 Not Found </h3>} />
       </Routes>
