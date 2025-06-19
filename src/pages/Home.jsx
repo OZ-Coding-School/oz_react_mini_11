@@ -3,27 +3,17 @@ import SwiperCard from "../components/SwiperCard";
 import MovieListdata from "../data/movieListData.json";
 import { fetchMovies } from "../api/tmdb";
 import { useEffect, useState } from "react";
+import { useOutlet, useOutletContext } from "react-router-dom";
 
 export default function Home() {
-    const [movies, setMovies] = useState([]);
-
-    useEffect(() => {
-        fetchMovies()
-            .then((data) => {
-                const safeMovies = data.results.filter((movie) => movie.adult === false);
-                setMovies(safeMovies);
-            })
-            .catch((error) => console.error("api error", error));
-    }, []);
-
-    console.log(movies);
+    const { allMoives, setAllMoives } = useOutletContext();
 
     return (
         <>
-            <SwiperCard movies={movies} />
+            <SwiperCard movies={allMoives} />
             <div className="max-w-5xl mx-auto px-4 py-8">
                 <div className=" grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
-                    {movies.map((el) => (
+                    {allMoives.map((el) => (
                         <MovieCard
                             key={el.id}
                             id={el.id}
