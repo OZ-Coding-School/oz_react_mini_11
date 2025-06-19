@@ -5,13 +5,14 @@ import "swiper/css/effect-fade";
 import MovieCardSlider from "./MovieCardSlider";
 import { EffectFade, Autoplay } from "swiper/modules";
 import { useEffect, useState } from "react";
+import { apiBaseUrl } from "../constant/constant";
 
 export default function Main() {
   const [movieList, setMovieList] = useState([]);
   useEffect(() => {
     const fetchMovie = async () => {
       try {
-        const res = await fetch("https://api.themoviedb.org/3/movie/popular", {
+        const res = await fetch(`${apiBaseUrl}/popular`, {
           headers: {
             accept: "application/json",
             Authorization: `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`,

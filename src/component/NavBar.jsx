@@ -1,6 +1,17 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import useDebounce from "../hooks/useDebounce";
 
 export default function NavBar() {
+  const [inputValue, setInputValue] = useState("");
+  const debounceValue = useDebounce(inputValue); //debounce 1000ms
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (debounceValue) {
+      navigate(`/search?movie=${debounceValue}`);
+    }
+  }, [debounceValue, navigate]);
   return (
     <>
       <nav>
@@ -9,7 +20,12 @@ export default function NavBar() {
             <Link to="/">OZ무비</Link>
           </li>
           <li>
-            <input />
+            <input
+              value={inputValue}
+              onChange={(e) => {
+                setInputValue(e.target.value);
+              }}
+            />
           </li>
           <li>
             <ul>

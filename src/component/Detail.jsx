@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { baseUrl } from "../constant/constant";
+import { apiBaseUrl } from "../constant/constant";
 import { useParams } from "react-router-dom";
 
 export default function Detail() {
@@ -8,7 +9,7 @@ export default function Detail() {
   useEffect(() => {
     const fetchMovie = async () => {
       try {
-        const res = await fetch(`https://api.themoviedb.org/3/movie/${movieId}`, {
+        const res = await fetch(`${apiBaseUrl}/${movieId}?language=ko`, {
           headers: {
             accept: "application/json",
             Authorization: `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`,
