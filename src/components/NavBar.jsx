@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 function NavBar() {
   const [keyword, setKeyword] = useState("");
   const debouncedKeyword = useDebounce(keyword);
-  const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,10 +22,7 @@ function NavBar() {
         TMDB_GET_OPTION
       )
         .then((res) => res.json())
-        .then((data) => setSearchResults(data.results))
         .catch((err) => console.error("검색 실패:", err));
-    } else {
-      setSearchResults([]);
     }
   }, [debouncedKeyword]);
 

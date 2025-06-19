@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import MovieCard from "./MovieCard";
+import SkeletonCard from "./SkeltonCard";
 import {
   TMDB_MOIVE_API_BASE_URL,
   TMDB_GET_OPTION,
@@ -11,6 +12,7 @@ function SearchResult() {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query");
   const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (query) {
@@ -24,13 +26,18 @@ function SearchResult() {
           setResults(filtered);
         })
         .catch((err) => console.error("❌ 검색 실패:", err));
+      setLoading(false);
     }
   }, [query]);
 
   return (
     <div className="movie-grid">
       <h2>🔍 검색 결과: {query}</h2>
-      {results.length === 0 ? (
+      {loading ? (
+        Array(8)
+          .fill(0)
+          .map((_, idx) => <SkeletonCard key={idx} />)
+      ) : results.length === 0 ? (
         <p>해당하는 영화가 없습니다.</p>
       ) : (
         results.map((movie) => (

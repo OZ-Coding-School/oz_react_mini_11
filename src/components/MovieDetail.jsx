@@ -21,7 +21,7 @@ function MovieDetail() {
   }, [id]);
 
   if (!movie) {
-    return <p>영화를 찾을 수 없습니다</p>;
+    return <p>로딩중</p>;
   }
 
   return (
