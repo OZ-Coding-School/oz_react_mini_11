@@ -11,15 +11,12 @@ export default function MovieCard() {
       const apiUrl = import.meta.env.VITE_API_URL;
       // .env의 api,url 변수 설정
 
-      const response = await fetch(
-        `${apiUrl}/movie/popular?language=ko-KR&page=1`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            accept: "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${apiUrl}popular?language=ko-KR&page=1`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          accept: "application/json",
+        },
+      });
       const data = await response.json(); //json 형태로 받아온걸 data에 저장
 
       const filtered = data.results.filter(
