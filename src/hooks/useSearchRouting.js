@@ -12,11 +12,9 @@ export default function useSearchRouting() {
   useEffect(() => {
     if (location.pathname === "/" || location.pathname === "/search") {
       if (debouncedValue.trim()) {
-        setSearchParams({ keyword: debouncedValue });
         navigate(`/search?keyword=${debouncedValue}`);
         console.log("keyword: ", debouncedValue);
       } else {
-        setSearchParams({});
         navigate("/");
       }
     }
