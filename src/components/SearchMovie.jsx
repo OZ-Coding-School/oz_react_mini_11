@@ -18,7 +18,7 @@ export default function SearchMovie({ setSearchResultMovies, setIsSearching }) {
     useEffect(() => {
         const fetchData = async () => {
             //검색어 없으면 초기화
-            if (!debounceValue.trim()) {
+            if (!debounceValue || !debounceValue.trim()) {
                 setSearchResultMovies([]);
                 setIsSearching(false);
                 return;
@@ -26,6 +26,7 @@ export default function SearchMovie({ setSearchResultMovies, setIsSearching }) {
             try {
                 setIsSearching(true);
                 const data = await fetchsearchMovies(debounceValue);
+
                 const safeMovies = data.results.filter((moive) => moive.adult === false);
                 setSearchResultMovies(safeMovies);
             } catch (error) {

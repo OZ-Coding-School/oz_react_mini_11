@@ -3,7 +3,7 @@
 // 유지보수도 쉬움 (API 주소 바뀌어도 이 파일만 고치면 됨)
 
 //공통상수
-const API_URL = "https://api.themoviedb.org/3/";
+const API_URL = "https://api.themoviedb.org/3";
 const TOKEN = import.meta.env.VITE_TMDB_BEARER_TOKEN;
 
 //인기영화 불러오기
