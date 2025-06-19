@@ -31,7 +31,12 @@ export default function MovieCard({ id, title, rating, movieImg }) {
                         alt={title}
                         className="w-full h-72 object-cover transition-all duration-300 grayscale group-hover:grayscale-0"
                     />
-                    <div className="absolute bottom-0 left-0 right-0 px-4 py-3 bg-gradient-to-t from-black via-black/100 to-black/5 text-white">
+                    <div
+                        className="absolute bottom-0 left-0 right-0 px-4 py-3 bg-gradient-to-t from-black via-black/100 to-black/5
+                         text-white transform transition-all duration-150 
+                         translate-y-full opacity-0 
+                         group-hover:translate-y-0 group-hover:opacity-100"
+                    >
                         <h2 className="text-lg font-semibold mb-1">{title}</h2>
                         <p className="text-xs text-amber-400 text-right">평점: {Number(rating).toFixed(2)}</p>
                     </div>
