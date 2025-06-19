@@ -30,3 +30,28 @@ export const getAxiosTMDBMovieListOption = ({
     },
   };
 };
+
+export const getAxiosTMDBMovieSearchOption = ({
+  page = 1,
+  isIncludingAdult = false,
+  query,
+}: {
+  page?: number;
+  isIncludingAdult?: boolean;
+  query: string;
+}) => {
+  return {
+    method: "GET",
+    url: "https://api.themoviedb.org/3/search/movie",
+    params: {
+      include_adult: `${isIncludingAdult}`,
+      language: "ko",
+      page: `${page}`,
+      query,
+    },
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${import.meta.env.VITE_TMDB_READ_ACCESS_TOKEN}`,
+    },
+  };
+};
