@@ -1,17 +1,1 @@
-.movie-card {
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 10px;
-  width: 200px;
-  text-align: center;
-  background: #fff;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.movie-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  margin-top: 20px;
-}
+@import "tailwindcss";
