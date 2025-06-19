@@ -35,7 +35,7 @@ export async function fetchMoviesDetail(id) {
 }
 
 // 영화 검색 API
-export async function searchMovies(query) {
+export async function fetchsearchMovies(query) {
     const res = await fetch(`${API_URL}/search/movie?query=${query}&language=ko-KR`, {
         headers: {
             Authorization: `Bearer ${TOKEN}`,
@@ -46,6 +46,6 @@ export async function searchMovies(query) {
     if (!res.ok) {
         throw new Error("TMDB 검색 API 호출 실패");
     }
-    const data = await res.json();
-    return data.results;
+
+    return res.json();
 }

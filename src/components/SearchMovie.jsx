@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import useDebounce from "../hooks/useDebounce";
-import { searchMovies } from "../api/tmdb";
+import { fetchsearchMovies } from "../api/tmdb";
 import MovieCard from "./MovieCard";
 
-export default function SearchMovie() {
+export default function SearchMovie({ setSearchResultMoives }) {
     const [inputValue, setInputValue] = useState("");
     // const [debounceValue, setDebounceValue] = useState("");
-    const [movies, setMovies] = useState([]);
+    // const [movies, setMovies] = useState([]);
     const debounceValue = useDebounce(inputValue, 1000);
 
     // useEffect(() => {
@@ -16,18 +16,23 @@ export default function SearchMovie() {
     // }, [debounceValue]);
 
     useEffect(() => {
-        if (!debounceValue) return;
-
-        const getData = async () => {
+        const fetchData = async () => {
+            //검색어 없으면 초기화
+            if (!debounceValue) {
+                setSearchResultMoives([]);
+                return;
+            }
             try {
-                const data = await searchMovies(debounceValue);
-                setMovies(data);
+                const data = await fetchsearchMovies(debounceValue);
+                const safeMovies = data.results.filter((moive) => moive.adult === false);
+                setSearchResultMoives(safeMovies);
             } catch (error) {
-                console.log("검색 실패 : ", error.message);
+                console.log("검색 실패:", error.message);
+                setSearchResultMoives([]);
             }
         };
-        getData();
-        console.log(debounceValue);
+
+        fetchData();
     }, [debounceValue]);
 
     return (
@@ -40,17 +45,6 @@ export default function SearchMovie() {
                 className="px-4 py-2 rounded-md border border-gray-400 focus:outline-none focus:ring-2
              focus:ring-offset-slate-950 bg-neutral-800 text-white placeholder-gray-400"
             />
-            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                {movies.map((el) => (
-                    <MovieCard
-                        key={el.id}
-                        id={el.id}
-                        movieImg={el.poster_path}
-                        title={el.title}
-                        rating={el.vote_average}
-                    />
-                ))}
-            </div>
         </>
     );
 }
