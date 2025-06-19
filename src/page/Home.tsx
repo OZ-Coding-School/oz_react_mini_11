@@ -25,7 +25,9 @@ export default function Home() {
 
   useEffect(() => {
     if (movieList) {
-      setTopTenMoives(movieList.results.slice(0, 10));
+      setTopTenMoives(
+        movieList.results.filter((movie) => !movie.adult).slice(0, 10)
+      );
     }
   }, [movieList]);
 
@@ -58,9 +60,11 @@ export default function Home() {
             </div>
           </div>
           <div className="flex flex-wrap gap-5 justify-center">
-            {movieList.results.map((movie) => (
-              <MovieCard movie={movie} key={movie.id} />
-            ))}
+            {movieList.results
+              .filter((movie) => !movie.adult)
+              .map((movie) => (
+                <MovieCard movie={movie} key={movie.id} />
+              ))}
           </div>
         </div>
       ) : null}
