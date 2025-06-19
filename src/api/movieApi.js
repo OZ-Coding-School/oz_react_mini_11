@@ -1,11 +1,20 @@
-const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
+const ACCESS_TOKEN = import.meta.env.VITE_TMDB_READ_ACCESS_TOKEN;
 const BASE_URL = "https://api.themoviedb.org/3";
+
+function getAuthHeaders() {
+    return { 
+     Authorization: `Bearer ${ACCESS_TOKEN}`,
+      "Content-Type": "application/json",
+  };
+}
 
 export async function fetchPopularMovies() {
     try {
       const response = await fetch(
-        `${BASE_URL}/movie/popular?language=ko-KR&page=1&api_key=${API_KEY}`
-      );
+        `${BASE_URL}/movie/popular?language=ko-KR&page=1`, 
+        { method: "GET",
+          headers: getAuthHeaders() 
+        });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -20,12 +29,20 @@ export async function fetchPopularMovies() {
   }
 
 export async function fetchMovieDetail(id) {
+  try{
     const response = await fetch(
-        `${BASE_URL}/movie/${id}?language=ko-KR&api_key=${import.meta.env.VITE_TMDB_API_KEY}`
-      );
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return await response.json();
+      `${BASE_URL}/movie/${id}?language=ko-KR`, { 
+        method: "GET",
+        headers: getAuthHeaders()
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
+        } catch (error) {
+          console.error("영화 상세 데이터 로드 실패", error);
+          throw error;
+  }
 }
 
