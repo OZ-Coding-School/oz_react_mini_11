@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
-import MOVIE_DETAIL_DATA from "../data/movieDetailData.json";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getMovieDetail } from "../apis/movieDetailApi";
 
 const Wrapper = styled.div`
   width: 85%;
@@ -87,25 +89,39 @@ const Container = styled.div`
 `;
 
 function MovieDetail() {
-  const data = MOVIE_DETAIL_DATA;
+  const { movieId } = useParams();
+  const [detail, setDetail] = useState({});
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await getMovieDetail(movieId);
+        setDetail(data);
+      } catch (error) {
+        console.error("getMovieDetail 실행 실패 : ", error);
+        throw error;
+      }
+    })();
+  }, [movieId]);
+
   return (
     <Container>
       <Wrapper>
         <Image
-          src={`https://image.tmdb.org/t/p/w500${data.backdrop_path}`}
+          src={`https://image.tmdb.org/t/p/w1280${detail.backdrop_path}`}
           alt="poster"
         />
         <ContentWrapper>
           <TopWrapper>
-            <Title>{data.title}</Title>
-            <Rating>평점: {data.vote_average}</Rating>
+            <Title>{detail.title}</Title>
+            <Rating>평점: {detail.vote_average}</Rating>
           </TopWrapper>
           <GenresWrapper>
-            {data.genres.map(({ id, name }) => (
+            {detail.genres?.map(({ id, name }) => (
               <Genres key={id}>{name}</Genres>
             ))}
           </GenresWrapper>
-          <Overview>{data.overview}</Overview>
+          <Overview>{detail.overview}</Overview>
         </ContentWrapper>
       </Wrapper>
     </Container>
