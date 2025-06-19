@@ -1,23 +1,19 @@
-import { useState } from 'react';
-import { MovieCard } from './components/MovieCard';
-import MovieListData from './data/movieListData.json';
+import Index from './components/Index.jsx';
+import MovieDetail from './components/MovieDetail.jsx';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout';
 
 function App() {
-  const [Movie, setMovie] = useState(MovieListData.results);
-
   return (
-    <>
-      <div className='flex flex-row flex-wrap bg-violet-950 justify-around'>
-        {Movie.map(movie => (
-          <MovieCard
-            key={movie.id}
-            title={movie.title}
-            poster={movie.poster_path}
-            rating={movie.vote_average}
-          />
-        ))}
-      </div>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Index />} />
+          <Route path="detail/:id" element={<MovieDetail />} />
+        </Route>
+        <Route path="*" element={<h3> 404 Not Found </h3>} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
