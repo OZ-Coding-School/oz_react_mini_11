@@ -1,33 +1,20 @@
-import { useEffect, useState } from 'react';
 import { MovieCard } from './MovieCard';
 import { AccessToken } from '../data/ApiInfo';
+import { apiPopularUrl } from '../data/ApiInfo';
+import useFetch from '../hooks/useFetch';
 
 function Index() {
-  const [Movie, setMovie] = useState([]);
+  const { data, loading, error } = useFetch(apiPopularUrl, {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: `Bearer ${AccessToken}`,
+    },
+  });
 
-  useEffect(() => {
-    const fetchPopularMovies = async () => {
-      try {
-        const response = await fetch(
-          'https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=1',
-          {
-            method: 'GET',
-            headers: {
-              accept: 'application/json',
-              Authorization: `Bearer ${AccessToken}`,
-            },
-          },
-        );
-
-        const data = await response.json();
-        const filtered = data.results.filter(movie => movie.adult === false);
-        setMovie(filtered);
-      } catch (error) {
-        console.error('인기 영화 가져오기 실패:', error);
-      }
-    };
-    fetchPopularMovies();
-  }, []);
+  if (loading) return <p>로딩 중...</p>;
+  if (error) return <p>에러 발생: {error.message}</p>;
+  const Movie = data.results.filter(movie => movie.adult === false);
 
   return (
     <>

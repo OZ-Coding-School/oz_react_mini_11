@@ -1,41 +1,32 @@
-import { useState, useEffect } from 'react';
-import { AccessToken } from '../data/ApiInfo';
+import useFetch from '../hooks/useFetch.jsx';
+import { AccessToken, apiBaseUrl } from '../data/ApiInfo';
 import IMAGE_BASE_URL from '../data/imageURL.js';
 import { useParams } from 'react-router-dom';
 
 function MovieDetail() {
-  const [detail, setDetail] = useState(null);
   const { id } = useParams();
 
-  useEffect(() => {
-    const fetchMovieDetail = async () => {
-      try {
-        const response = await fetch(`https://api.themoviedb.org/3/movie/${id}?language=ko-KR`, {
-          method: 'GET',
-          headers: {
-            accept: 'application/json',
-            Authorization: `Bearer ${AccessToken}`,
-          },
-        });
+  const {
+    data: detail,
+    loading,
+    error,
+  } = useFetch(`${apiBaseUrl}${id}?language=ko-KR`, {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: `Bearer ${AccessToken}`,
+    },
+  });
 
-        const data = await response.json();
-        setDetail(data);
-      } catch (error) {
-        console.error('영화 상세 정보 가져오기 실패:', error);
-      }
-    };
-
-    fetchMovieDetail();
-  }, [id]);
-
-  if (!detail) return <div className="text-white">로딩 중...</div>;
+  if (loading) return <div className="text-white">로딩 중...</div>;
+  if (error) return <div className="text-red-500">에러 발생: {error.message}</div>;
 
   return (
     <div className="flex flex-row bg-violet-700 text-gray-300 items-center">
       <img
         src={`${IMAGE_BASE_URL}${detail.poster_path}`}
         alt={detail.title}
-        className="acpect-[2/3] h-[75vh] items-"
+        className="aspect-[2/3] h-[75vh]"
       />
       <div className="flex flex-col">
         <div className="flex flex-row">
@@ -49,7 +40,7 @@ function MovieDetail() {
         <div className="flex flex-col m-2">
           <div className="p-3 font-semibold text-xl">
             장르 :
-            {detail.genres.map(genre => (
+            {detail.genres?.map(genre => (
               <span key={genre.id}> {genre.name} </span>
             ))}
           </div>
