@@ -122,7 +122,7 @@ function Home() {
     (async () => {
       try {
         const data = await getPopularMovies();
-        setMovies(data.results);
+        setMovies(data.results.filter((el) => el.adult === false));
       } catch (error) {
         console.error("getPopularMovies 실행 실패 : ", error);
         throw error;
