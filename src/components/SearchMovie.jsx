@@ -3,7 +3,7 @@ import useDebounce from "../hooks/useDebounce";
 import { fetchsearchMovies } from "../api/tmdb";
 import MovieCard from "./MovieCard";
 
-export default function SearchMovie({ setSearchResultMoives }) {
+export default function SearchMovie({ setSearchResultMovies, setIsSearching }) {
     const [inputValue, setInputValue] = useState("");
     // const [debounceValue, setDebounceValue] = useState("");
     // const [movies, setMovies] = useState([]);
@@ -18,17 +18,19 @@ export default function SearchMovie({ setSearchResultMoives }) {
     useEffect(() => {
         const fetchData = async () => {
             //검색어 없으면 초기화
-            if (!debounceValue) {
-                setSearchResultMoives([]);
+            if (!debounceValue.trim()) {
+                setSearchResultMovies([]);
+                setIsSearching(false);
                 return;
             }
             try {
+                setIsSearching(true);
                 const data = await fetchsearchMovies(debounceValue);
                 const safeMovies = data.results.filter((moive) => moive.adult === false);
-                setSearchResultMoives(safeMovies);
+                setSearchResultMovies(safeMovies);
             } catch (error) {
                 console.log("검색 실패:", error.message);
-                setSearchResultMoives([]);
+                setSearchResultMovies([]);
             }
         };
 

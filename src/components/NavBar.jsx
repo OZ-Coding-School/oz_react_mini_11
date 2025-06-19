@@ -1,13 +1,13 @@
 import SearchMovie from "./SearchMovie";
 
-export default function NavBar({ setSearchResultMoives }) {
+export default function NavBar({ setSearchResultMovies, setIsSearching }) {
     return (
         <>
             <div className="p-5 bg-neutral-900 h-25 flex justify-between items-center">
                 <div className="">
                     <img className="" /> 로고
                 </div>
-                <SearchMovie setSearchResultMoives={setSearchResultMoives} />
+                <SearchMovie setSearchResultMovies={setSearchResultMovies} setIsSearching={setIsSearching} />
                 <div className="flex justify-end gap-3 pr-[1.875rem]">
                     <div> 로그인 </div>
                     <div> 회원가입 </div>
