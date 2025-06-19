@@ -2,20 +2,26 @@ import { useEffect, useRef, useState } from "react";
 import { CSSTransition } from "react-transition-group";
 import { BASE_URL } from "../constant/index";
 import SkeletonBanner from "./skeletons/SkeletonBanner";
-import useFetchTrending from "../hooks/useFetchTrending";
+import useFetch from "../hooks/useFetch";
 
 function Banner() {
-  const { mediaList, loading } = useFetchTrending();
+  const { data, loading } = useFetch("trending/all/day?language=ko");
   const [currontIndex, setcurrontIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
-  const media = mediaList?.[currontIndex];
+
+  const trendingMediaList = data?.results.filter(
+    (el) => !el.adult && (el.media_type === "tv" || el.media_type === "movie")
+  );
+  console.log(trendingMediaList);
+
+  const media = trendingMediaList?.[currontIndex];
   const nodeRef = useRef(null);
 
   useEffect(() => {
     const changeMedia = (newMedia) => {
       setIsVisible(false);
       setTimeout(() => {
-        setcurrontIndex(newMedia % mediaList.length);
+        setcurrontIndex(newMedia % trendingMediaList.length);
         setIsVisible(true);
       }, 300);
     };
@@ -25,9 +31,11 @@ function Banner() {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [currontIndex, mediaList.length]);
+  }, [currontIndex, trendingMediaList?.length]);
 
-  return !loading ? (
+  return loading ? (
+    <SkeletonBanner />
+  ) : (
     <CSSTransition
       in={isVisible}
       timeout={1000}
@@ -88,8 +96,6 @@ function Banner() {
         </div>
       </div>
     </CSSTransition>
-  ) : (
-    <SkeletonBanner />
   );
 }
 
