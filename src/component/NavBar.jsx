@@ -6,29 +6,32 @@ export default function NavBar() {
   const [inputValue, setInputValue] = useState("");
   const debounceValue = useDebounce(inputValue); //debounce 1000ms
   const navigate = useNavigate();
+  const [isSearch, setIsSearch] = useState(false);
 
   useEffect(() => {
-    if (debounceValue) {
+    if (debounceValue && !isSearch) {
       navigate(`/search?movie=${debounceValue}`);
+      setIsSearch(true);
     }
-  }, [debounceValue, navigate]);
+  }, [debounceValue, navigate, isSearch]);
   return (
     <>
       <nav>
         <ul>
-          <li>
+          <li className="logo">
             <Link to="/">OZ무비</Link>
           </li>
           <li>
-            <input
-              value={inputValue}
-              onChange={(e) => {
-                setInputValue(e.target.value);
-              }}
-            />
-          </li>
-          <li>
             <ul>
+              <li>
+                <input
+                  value={inputValue}
+                  onChange={(e) => {
+                    setInputValue(e.target.value);
+                    setIsSearch(false);
+                  }}
+                />
+              </li>
               <li>
                 <Link to="/login">로그인</Link>
               </li>

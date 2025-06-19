@@ -7,7 +7,6 @@ export default function Search() {
   const [searchParam] = useSearchParams();
   const [filterData, setFilterData] = useState([]);
   const param = searchParam.get("movie"); //navbar에서 navigate로 생성된 쿼리스트링 movie의 값
-
   useEffect(() => {
     const fetchMovie = async () => {
       try {
@@ -28,7 +27,9 @@ export default function Search() {
     fetchMovie();
   }, [param]);
 
-  return (
+  return !filterData ? (
+    <div className="loading">Loading...</div>
+  ) : (
     <>
       {filterData.length > 0 ? ( //1개이상 map으로 카드렌더링
         <div className="flex flex-wrap pt-[70px] max-w-[1600px] m-auto">
@@ -37,7 +38,7 @@ export default function Search() {
           ))}
         </div>
       ) : (
-        <p>{param}에 대한 검색결과가 없습니다</p>
+        <p className="loading">{param}에 대한 검색결과가 없습니다</p>
       )}
     </>
   );

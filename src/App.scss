@@ -7,6 +7,10 @@ nav {
   background: #000000;
   color: #ffffff;
   z-index: 999;
+  .logo {
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
 
   > ul {
     height: 100%;
@@ -17,17 +21,20 @@ nav {
 
     li > ul {
       display: flex;
+      align-items: center;
       gap: 10px;
       > li {
-        padding: 5px 10px;
-        border-radius: 10px;
-        background: #5914c7;
+        a {
+          background: #5914c7;
+          padding: 7px 15px;
+          border-radius: 10px;
+        }
       }
     }
   }
 
   input {
-    width: 500px;
+    width: 300px;
     border-radius: 100px;
     padding: 7px;
     color: #000000;
@@ -107,6 +114,49 @@ main {
   color: #ffffff;
   font-size: 2rem;
   text-align: center;
+}
+
+.login {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #ffffff;
+  > div {
+    width: 400px;
+  }
+  h2 {
+    font-size: 2.5rem;
+    letter-spacing: -0.05rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  input {
+    width: 100%;
+    border-radius: 10px;
+    padding: 10px 15px;
+    color: #000000;
+    margin: 10px 0;
+  }
+  button {
+    width: 400px;
+    height: 50px;
+    margin-top: 10px;
+    background: #5914c7;
+    border-radius: 10px;
+  }
+}
+
+.join {
+  div div {
+    width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 }
 
 @media (max-width: 1024) {
