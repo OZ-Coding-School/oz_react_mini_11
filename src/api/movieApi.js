@@ -46,7 +46,7 @@ export async function fetchMovieDetail(id) {
   }
 }
 
-export async function fetchsearchMovies(query) {
+export async function fetchSearchMovies(query) {
   try {
     const response = await fetch(`${BASE_URL}/search/movie?language=ko-KR&query=` + encodeURIComponent(query), {
       method: "GET",
