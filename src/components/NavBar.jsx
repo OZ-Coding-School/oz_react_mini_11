@@ -1,19 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import {
-  Link,
-  useLocation,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
-import useDebounce from "../hooks/useDebounce";
+import { Link, useLocation } from "react-router-dom";
+import useSearchRouting from "../hooks/useSearchRouting";
 
 function NavBar() {
+  const { inputDebounce, setInputDebounce } = useSearchRouting();
   const [isInputVisible, setIsInputVisible] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [inputDebounce, setInputDebounce] = useState("");
-  const [_, setSearchParams] = useSearchParams();
-  const debouncedValue = useDebounce(inputDebounce);
-  const navigate = useNavigate();
   const location = useLocation();
   const inputRef = useRef();
 
@@ -29,19 +21,6 @@ function NavBar() {
   const handleInputDebounce = (e) => {
     setInputDebounce(e.target.value);
   };
-
-  useEffect(() => {
-    if (location.pathname === "/" || location.pathname === "/search") {
-      if (debouncedValue.trim()) {
-        setSearchParams({ keyword: debouncedValue });
-        navigate(`/search?keyword=${debouncedValue}`);
-        console.log("keyword: ", debouncedValue);
-      } else {
-        setSearchParams({});
-        navigate("/");
-      }
-    }
-  }, [debouncedValue, setSearchParams, navigate, location.pathname]);
 
   useEffect(() => {
     if (isInputVisible && inputRef.current) {
