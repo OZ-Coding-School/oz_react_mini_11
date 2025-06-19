@@ -1,39 +1,11 @@
-import { Link, useSearchParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { API_KEY } from "../constant/index";
+import { Link } from "react-router-dom";
 import Banner from "../components/Banner";
 import MovieCard from "../components/MediaCard";
 import SkeletonCard from "../components/skeletons/SkeletonCard";
+import useFetchMovies from "../hooks/useFetchMovies";
 
 function Home() {
-  const [movieList, setMovieList] = useState();
-  const [loading, setLoading] = useState(true);
-  const [_, setSearchParams] = useSearchParams();
-
-  useEffect(() => {
-    setSearchParams({});
-
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${API_KEY}`,
-      },
-    };
-
-    fetch(
-      "https://api.themoviedb.org/3/movie/popular?language=ko&page=1",
-      options
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        const fetchData = data.results.filter((el) => !el.adult);
-        setMovieList(fetchData);
-        setLoading(false);
-        console.log(fetchData);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+  const { movieList, loading } = useFetchMovies("popular");
 
   return (
     <>
