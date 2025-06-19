@@ -1,22 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import useSearchRouting from "../hooks/useSearchRouting";
+import useScroll from "../hooks/useScroll";
 
 function NavBar() {
   const { inputDebounce, setInputDebounce } = useSearchRouting();
+  const isScrolled = useScroll();
   const [isInputVisible, setIsInputVisible] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const inputRef = useRef();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const handleInputDebounce = (e) => {
     setInputDebounce(e.target.value);
