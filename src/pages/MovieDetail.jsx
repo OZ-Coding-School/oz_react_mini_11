@@ -1,32 +1,11 @@
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { BASE_URL, API_KEY } from "../constant/index";
+import { BASE_URL } from "../constant/index";
 import SkeletonDetail from "../components/skeletons/SkeletonDetail";
+import useFetchMediaDetail from "../hooks/useFetchMediaDetail";
 
 function MovieDetail() {
-  const [media, setMedia] = useState();
-  const [loading, setLoading] = useState(true);
-  const { type, id } = useParams();
-  console.log(id);
-
-  useEffect(() => {
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${API_KEY}`,
-      },
-    };
-
-    fetch(`https://api.themoviedb.org/3/${type}/${id}?language=ko`, options)
-      .then((res) => res.json())
-      .then((data) => {
-        setMedia(data);
-        setLoading(false);
-        console.log(data);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+  const { media, loading } = useFetchMediaDetail();
+  const { type } = useParams();
 
   return !loading ? (
     <div className="relative overflow-hidden">
