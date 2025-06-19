@@ -39,15 +39,13 @@ export default function SearchMovie({ setSearchResultMovies, setIsSearching }) {
     }, [debounceValue]);
 
     return (
-        <>
-            <input
-                onChange={(e) => setInputValue(e.target.value)}
-                value={inputValue}
-                type="text"
-                placeholder="영화 검색..."
-                className="px-4 py-2 rounded-md border border-gray-400 focus:outline-none focus:ring-2
-             focus:ring-offset-slate-950 bg-neutral-800 text-white placeholder-gray-400"
-            />
-        </>
+        <input
+            type="text"
+            placeholder="..."
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            className="w-full px-4 py-2 rounded-md border border-gray-500 focus:outline-none 
+               focus:ring-2 focus:ring-sky-500 bg-neutral-800 text-white placeholder-gray-400"
+        />
     );
 }
