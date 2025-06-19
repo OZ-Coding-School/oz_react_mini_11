@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Link, Route, Routes, Router, Outlet} from 'react-router-dom';
+import { Route, Routes, Outlet} from 'react-router-dom';
 import MovieDetail from './page/MovieDetail.jsx'
 import Main from './page/Main.jsx';
 import NavBar from '../src/component/NavBar.jsx'
@@ -22,7 +22,7 @@ function App() {
       <Routes>  
           <Route path="/" element={<Layout />}>
             <Route index element={<Main />} />
-            <Route path="/details" element={<MovieDetail />} />
+            <Route path="/details/:id" element={<MovieDetail />} />
           </Route>
       </Routes>
     </>
