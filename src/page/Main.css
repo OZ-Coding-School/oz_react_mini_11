@@ -1,0 +1,31 @@
+.moviebox{
+    display: flex;
+    align-items: start;
+    flex-wrap: wrap;
+}
+
+.moviecard{
+    border: 1px solid grey;
+    display: flex;
+    flex-direction: column;
+    height: 340px;
+    margin: 10px;
+}
+
+.movieimg{
+    width: 180px;
+    height: 250px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.movietitle{
+    font-size: 15px;
+    text-align: start;
+}
+
+.movieave{
+    font-size: 10px;
+    text-align: end;
+    color: grey;
+}
