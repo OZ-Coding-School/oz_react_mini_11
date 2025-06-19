@@ -4,7 +4,7 @@ import useDebounce from "../hooks/useDebounce";
 
 export default function NavBar() {
   const [inputValue, setInputValue] = useState("");
-  const debounceValue = useDebounce(inputValue); //debounce 1000ms
+  const debounceValue = useDebounce(inputValue); //debounce 500ms
   const navigate = useNavigate();
   const [isSearch, setIsSearch] = useState(false);
 

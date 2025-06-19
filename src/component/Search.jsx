@@ -6,10 +6,12 @@ import MovieCard from "./MovieCard";
 export default function Search() {
   const [searchParam] = useSearchParams();
   const [filterData, setFilterData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
   const param = searchParam.get("movie"); //navbar에서 navigate로 생성된 쿼리스트링 movie의 값
   useEffect(() => {
     const fetchMovie = async () => {
       try {
+        setIsLoading(true); // 요청 시작 전에 로딩 시작
         const res = await fetch(`${apiBaseUrl}/search/movie?query=${param}`, {
           headers: {
             accept: "application/json",
@@ -22,12 +24,14 @@ export default function Search() {
         console.log(data);
       } catch (err) {
         console.log(err);
+      } finally {
+        setIsLoading(false); // 요청 완료 시 로딩 끝
       }
     };
     fetchMovie();
   }, [param]);
 
-  return !filterData ? (
+  return isLoading ? (
     <div className="loading">Loading...</div>
   ) : (
     <>

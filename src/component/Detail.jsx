@@ -28,11 +28,14 @@ export default function Detail() {
     <div className="loading">Loading...</div>
   ) : (
     <>
-      <div className="flex justify-between pt-[120px] max-w-[1200px] m-auto h-screen text-white">
+      <div className="flex flex-col md:flex-row md:justify-between pt-[120px] max-w-[1200px] mx-auto h-screen text-white">
         <div>
-          <img src={`${baseUrl}${movieDetail.backdrop_path}`} />
+          <img
+            src={`${baseUrl}${movieDetail.backdrop_path}`}
+            className="mx-auto mb-[20px] md:mb-0"
+          />
         </div>
-        <div className="w-[50%]">
+        <div className="w-[85%] md:w-[50%] mx-auto">
           <div className="flex justify-between">
             <h1 className="font-bold text-[2rem]">{movieDetail.title}</h1>
             <span>{movieDetail.vote_average}</span>
