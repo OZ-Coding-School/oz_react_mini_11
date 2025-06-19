@@ -3,7 +3,7 @@ import MovieCard from "../components/MovieCard";
 import { useDraggableScroll } from "../hooks/useDraggableScroll";
 import type { MovieData, MovieListData } from "../types";
 import axios from "axios";
-import { getAxoiosTMDBMovieListOption } from "../utils/axiosUtils";
+import { getAxiosTMDBMovieListOption } from "../utils/axiosUtils";
 import Loading from "../components/lodaing/Loading";
 import { useEffect, useState } from "react";
 
@@ -16,7 +16,7 @@ export default function Home() {
     queryKey: ["movieList", "popular"],
     queryFn: async () => {
       const response = await axios(
-        getAxoiosTMDBMovieListOption({ page: 1, order: "now_playing" })
+        getAxiosTMDBMovieListOption({ page: 1, order: "now_playing" })
       );
 
       return response.data;

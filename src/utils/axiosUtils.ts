@@ -1,6 +1,6 @@
 import { TMDB_MOIVE_API_BASE_URL } from "../constants";
 
-export const getAxoiosTMDBMovieDetailOption = (movieId: string | number) => {
+export const getAxiosTMDBMovieDetailOption = (movieId: string | number) => {
   return {
     method: "GET",
     url: `${TMDB_MOIVE_API_BASE_URL}/${movieId}`,
@@ -13,7 +13,7 @@ export const getAxoiosTMDBMovieDetailOption = (movieId: string | number) => {
 };
 
 type MOVIE_LIST_ORDER = "now_playing" | "popular" | "top_rated" | "upcoming";
-export const getAxoiosTMDBMovieListOption = ({
+export const getAxiosTMDBMovieListOption = ({
   page = 0,
   order,
 }: {

@@ -5,7 +5,7 @@ import type { MovieDetailData } from "../types";
 import Loading from "../components/lodaing/Loading";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { getAxoiosTMDBMovieDetailOption } from "../utils/axiosUtils";
+import { getAxiosTMDBMovieDetailOption } from "../utils/axiosUtils";
 
 export default function Details() {
   const { id } = useParams();
@@ -17,7 +17,7 @@ export default function Details() {
         throw new Error("no id");
       }
 
-      const response = await axios(getAxoiosTMDBMovieDetailOption(id));
+      const response = await axios(getAxiosTMDBMovieDetailOption(id));
 
       return response.data;
     },
