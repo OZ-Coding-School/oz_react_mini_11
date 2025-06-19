@@ -6,7 +6,7 @@ import loadingAnimation from "./assets/animations/loading-animation.json";
 
 const Layout = lazy(() => import("./layout/Layout"));
 const Home = lazy(() => import("./pages/Home"));
-const MovieDetail = lazy(() => import("./components/MovieDetail"));
+const MovieDetail = lazy(() => import("./components/MovieDetail/MovieDetail"));
 
 const Wrapper = styled.div`
   height: 100vh;
