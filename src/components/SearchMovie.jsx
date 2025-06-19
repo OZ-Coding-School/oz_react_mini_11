@@ -1,16 +1,10 @@
 import { useEffect, useState } from "react";
+import useDebounce from "../hooks/useDebounce";
 
 export default function SearchMovie() {
     const [inputValue, setInputValue] = useState("");
-    const [debounceValue, setDebounceValue] = useState("");
-
-    useEffect(() => {
-        const handler = setTimeout(() => {
-            setDebounceValue(inputValue);
-        }, 1000); //1초 이후 반영
-
-        return () => clearTimeout(handler);
-    }, [inputValue]);
+    // const [debounceValue, setDebounceValue] = useState("");
+    const debounceValue = useDebounce(inputValue, 1000);
 
     useEffect(() => {
         if (debounceValue) {
