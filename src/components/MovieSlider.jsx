@@ -4,7 +4,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import MovieCard from "./MovieCard";
-import { TMDB_GET_OPTION, TMDB_POPULAR_API_URL } from "../constats";
+import { TMDB_GET_OPTION, TMDB_POPULAR_API_URL } from "../constants";
 
 function MovieSlider() {
   const [movies, setMovies] = useState([]);

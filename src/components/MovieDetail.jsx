@@ -5,7 +5,7 @@ import {
   IMAGE_BASE_URL,
   TMDB_GET_OPTION,
   TMDB_MOIVE_API_BASE_URL,
-} from "../constats";
+} from "../constants";
 
 function MovieDetail() {
   const { id } = useParams();

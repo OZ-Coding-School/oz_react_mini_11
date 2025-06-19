@@ -1,7 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import useDebounce from "../hooks/useDebounce";
+import { TMDB_GET_OPTION, TMDB_SEARCH_API_BASE_URL } from "../constants";
 
 function NavBar() {
+  const [keyword, setKeyword] = useState("");
+  const debouncedKeyword = useDebounce(keyword);
+  const [searchResults, setSearchResults] = useState([]);
+
+  useEffect(() => {
+    if (debouncedKeyword) {
+      fetch(
+        `${TMDB_SEARCH_API_BASE_URL}?query=${debouncedKeyword}&language=ko`,
+        TMDB_GET_OPTION
+      )
+        .then((res) => res.json())
+        .then((data) => setSearchResults(data.results))
+        .catch((err) => console.error("검색 실패:", err));
+    } else {
+      setSearchResults([]);
+    }
+  }, [debouncedKeyword]);
+
   return (
     <nav style={styles.nav}>
       <h2 style={styles.logo}>🎬 Movie App</h2>
@@ -17,6 +37,8 @@ function NavBar() {
         <input
           type="text"
           placeholder="영화 이름을 입력하세요"
+          value={keyword}
+          onChange={(e) => setKeyword(e.target.value)}
           style={styles.search}
         />
       </div>

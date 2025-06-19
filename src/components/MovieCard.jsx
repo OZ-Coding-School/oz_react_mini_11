@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { IMAGE_BASE_URL } from "../constats";
+import { IMAGE_BASE_URL } from "../constants";
 
 function MovieCard({ title, rating, poster, id }) {
   return (
