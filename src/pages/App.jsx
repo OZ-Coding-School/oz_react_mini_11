@@ -25,7 +25,7 @@ function App() {
       setLoading(true);
       try {
         let data;
-        if (debouncedSearch) {
+        if (debouncedSearch.trim()) {
           data = await fetchSearchMovies(debouncedSearch);
         } else {
           data = await fetchPopularMovies();
