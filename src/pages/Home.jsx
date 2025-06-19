@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import MovieCard from "../components/MovieCard";
-import MOVIE_LIST_DATA from "../data/movieListData.json";
 import { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
@@ -110,7 +109,7 @@ function Home() {
   const [isEnd, setEnd] = useState(false);
   const prevRef = useRef(null);
   const nextRef = useRef(null);
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState([]); // 인기순 영화 데이터
 
   useEffect(() => {
     if (swiper) {
@@ -155,7 +154,7 @@ function Home() {
             setBeginning(swiper.isBeginning);
             setEnd(swiper.isEnd);
           }}>
-          {MOVIE_LIST_DATA.results.map((data) => (
+          {movies?.map((data) => (
             <StyledSwiperSlide>
               <MovieCard data={data} />
             </StyledSwiperSlide>
