@@ -1,12 +1,6 @@
-import "../styles/MovieCard.styles";
+import "./MovieCard.styles";
 import { useNavigate } from "react-router-dom";
-import {
-  Container,
-  Image,
-  Rating,
-  Title,
-  Wrapper,
-} from "../styles/MovieCard.styles";
+import { Container, Image, Rating, Title, Wrapper } from "./MovieCard.styles";
 
 function MovieCard({ data }) {
   const navigate = useNavigate();
