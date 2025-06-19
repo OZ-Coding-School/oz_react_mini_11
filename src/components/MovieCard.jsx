@@ -38,7 +38,7 @@ export default function MovieCard({ id, title, rating, movieImg }) {
                     </div>
                     <div className="p-4 flex flex-col justify-between h-20 opacity-50">
                         <h2 className="text-sky-50 text-lg font-semibold mb-1">{title}</h2>
-                        <p className="text-amber-400 text-sm"> 평점 :{Number(rating).toFixed(1)}</p>
+                        <p className="text-amber-400 text-sm"> 평점 :{Number(rating).toFixed(2)}</p>
                     </div>
                 </div>
             </Link>
