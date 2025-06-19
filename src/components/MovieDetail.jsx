@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./MovieDetail.css";
-import { TMDB_GET_OPTION, TMDB_MOIVE_API_BASE_URL } from "../constans";
-
-const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+import {
+  IMAGE_BASE_URL,
+  TMDB_GET_OPTION,
+  TMDB_MOIVE_API_BASE_URL,
+} from "../constats";
 
 function MovieDetail() {
   const { id } = useParams();

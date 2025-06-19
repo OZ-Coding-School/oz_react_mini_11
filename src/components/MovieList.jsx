@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
 import MovieCard from "./MovieCard";
 import MovieSlider from "../components/MovieSlider";
-import { TMDB_GET_OPTION } from "../constans";
+import { TMDB_POPULAR_API_URL, TMDB_GET_OPTION } from "../constats";
 
 function MovieList() {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    fetch(
-      "https://api.themoviedb.org/3/movie/popular?language=ko",
-      TMDB_GET_OPTION
-    )
+    fetch(TMDB_POPULAR_API_URL, TMDB_GET_OPTION)
       .then((res) => res.json())
       .then((data) => {
         const filteredMovies = data.results.filter((movie) => !movie.adult);
