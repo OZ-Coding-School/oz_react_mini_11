@@ -19,23 +19,30 @@ function SearchResult() {
         TMDB_GET_OPTION
       )
         .then((res) => res.json())
-        .then((data) => setResults(data.results))
-        .catch((err) => console.error("검색 실패:", err));
+        .then((data) => {
+          const filtered = data.results.filter((movie) => !movie.adult);
+          setResults(filtered);
+        })
+        .catch((err) => console.error("❌ 검색 실패:", err));
     }
   }, [query]);
 
   return (
     <div className="movie-grid">
       <h2>🔍 검색 결과: {query}</h2>
-      {results.map((movie) => (
-        <MovieCard
-          key={movie.id}
-          id={movie.id}
-          title={movie.title}
-          rating={movie.vote_average}
-          poster={movie.poster_path}
-        />
-      ))}
+      {results.length === 0 ? (
+        <p>해당하는 영화가 없습니다.</p>
+      ) : (
+        results.map((movie) => (
+          <MovieCard
+            key={movie.id}
+            id={movie.id}
+            title={movie.title}
+            rating={movie.vote_average}
+            poster={movie.poster_path}
+          />
+        ))
+      )}
     </div>
   );
 }
