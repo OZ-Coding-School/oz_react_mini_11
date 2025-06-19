@@ -5,6 +5,7 @@ import Loading from "./components/lodaing/Loading";
 
 const Home = lazy(() => import("./page/Home"));
 const Details = lazy(() => import("./page/Details"));
+const Search = lazy(() => import("./page/Search"));
 
 function App() {
   return (
@@ -23,6 +24,14 @@ function App() {
           element={
             <Suspense fallback={<Loading />}>
               <Details />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/search"
+          element={
+            <Suspense fallback={<Loading />}>
+              <Search />
             </Suspense>
           }
         />
