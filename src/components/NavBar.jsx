@@ -40,7 +40,7 @@ const Input = styled.input`
   }
 `;
 
-const ButtonWrapper = styled.div`
+const ButtonWrapper = styled.nav`
   flex: 1 0 fill;
   display: flex;
   gap: 0.5rem;
@@ -65,7 +65,7 @@ const Button = styled.button`
   }
 `;
 
-const Container = styled.div`
+const Container = styled.header`
   position: sticky;
   top: 0;
   width: 100%;

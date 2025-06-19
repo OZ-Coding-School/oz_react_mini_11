@@ -89,7 +89,7 @@ const StyledNextButton = styled(NextButton)`
   fill: ${(props) => props.theme.colors.purple.normal};
 `;
 
-const Container = styled.div`
+const Container = styled.section`
   width: 100%;
   height: 100%;
   padding: 1rem 0;
