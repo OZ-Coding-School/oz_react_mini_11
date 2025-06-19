@@ -12,28 +12,41 @@ export default function Home() {
   const { scrollRef, onDragStart, onDragEnd, onDragMove, isDrag } =
     useDraggableScroll();
 
-  const { data: movieList, isPending } = useQuery<MovieListData>({
-    queryKey: ["movieList", "popular"],
-    queryFn: async () => {
-      const response = await axios(
-        getAxiosTMDBMovieListOption({ page: 1, order: "now_playing" })
-      );
+  const { data: movieList, isPending: isMovieListPending } =
+    useQuery<MovieListData>({
+      queryKey: ["movieList", "now_playing"],
+      queryFn: async () => {
+        const response = await axios(
+          getAxiosTMDBMovieListOption({ page: 1, order: "now_playing" })
+        );
 
-      return response.data;
-    },
-  });
+        return response.data;
+      },
+    });
+
+  const { data: topRatedmovieList, isPending: isTopRatedMovieListPending } =
+    useQuery<MovieListData>({
+      queryKey: ["movieList", "top_rated"],
+      queryFn: async () => {
+        const response = await axios(
+          getAxiosTMDBMovieListOption({ page: 1, order: "top_rated" })
+        );
+
+        return response.data;
+      },
+    });
 
   useEffect(() => {
-    if (movieList) {
+    if (topRatedmovieList) {
       setTopTenMoives(
-        movieList.results.filter((movie) => !movie.adult).slice(0, 10)
+        topRatedmovieList.results.filter((movie) => !movie.adult).slice(0, 10)
       );
     }
-  }, [movieList]);
+  }, [topRatedmovieList]);
 
   return (
     <>
-      {isPending ? (
+      {isMovieListPending && isTopRatedMovieListPending ? (
         <Loading />
       ) : movieList ? (
         <div className="flex flex-col gap-5 justify-center">
