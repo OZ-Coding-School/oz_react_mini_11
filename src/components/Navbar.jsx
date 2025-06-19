@@ -4,10 +4,9 @@ const NavBar = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
-    if (onSearch) {
-      onSearch(e.target.value);
-    }
+    const value = e.target.value;
+    setSearchTerm(value);
+    if (onSearch) onSearch(value);
   };
 
   return (
@@ -39,7 +38,7 @@ const NavBar = ({ onSearch }) => {
             color: "#000",
           }}
           value={searchTerm}
-          onChange={(e) => handleSearch(e)}
+          onChange={handleSearch}
         />
       </div>
 
