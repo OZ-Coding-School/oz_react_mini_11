@@ -1,14 +1,31 @@
 import { Route, Routes } from "react-router";
-import Home from "./page/Home";
 import Layout from "./components/Layout";
-import Details from "./page/Details";
+import { lazy, Suspense } from "react";
+import Loading from "./components/lodaing/Loading";
+
+const Home = lazy(() => import("./page/Home"));
+const Details = lazy(() => import("./page/Details"));
 
 function App() {
   return (
     <Routes>
       <Route element={<Layout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/details/:id" element={<Details />} />
+        <Route
+          path="/"
+          element={
+            <Suspense fallback={<Loading />}>
+              <Home />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/details/:id"
+          element={
+            <Suspense fallback={<Loading />}>
+              <Details />
+            </Suspense>
+          }
+        />
       </Route>
     </Routes>
   );
