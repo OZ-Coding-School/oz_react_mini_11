@@ -1,54 +1,31 @@
 import { useEffect, useRef, useState } from "react";
 import { CSSTransition } from "react-transition-group";
-import { BASE_URL, API_KEY } from "../constant/index";
+import { BASE_URL } from "../constant/index";
 import SkeletonBanner from "./skeletons/SkeletonBanner";
+import useFetchTrending from "../hooks/useFetchTrending";
 
 function Banner() {
-  const [movieList, setMovieList] = useState([]);
+  const { mediaList, loading } = useFetchTrending();
   const [currontIndex, setcurrontIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
-  const [loading, setLoading] = useState(true);
-  const movie = movieList?.[currontIndex];
+  const media = mediaList?.[currontIndex];
   const nodeRef = useRef(null);
 
   useEffect(() => {
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${API_KEY}`,
-      },
-    };
-
-    fetch(
-      "https://api.themoviedb.org/3/trending/movie/day?language=ko", //trending movies
-      options
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        const fetchData = data.results.filter((el) => !el.adult);
-        setMovieList(fetchData);
-        setLoading(false);
-        console.log(fetchData);
-      })
-      .catch((err) => console.error(err));
-  }, []);
-
-  useEffect(() => {
-    const changeMovie = (newMovie) => {
+    const changeMedia = (newMedia) => {
       setIsVisible(false);
       setTimeout(() => {
-        setcurrontIndex(newMovie % movieList.length);
+        setcurrontIndex(newMedia % mediaList.length);
         setIsVisible(true);
       }, 300);
     };
 
     const interval = setInterval(() => {
-      changeMovie(currontIndex + 1);
+      changeMedia(currontIndex + 1);
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [currontIndex, movieList.length]);
+  }, [currontIndex, mediaList.length]);
 
   return !loading ? (
     <CSSTransition
@@ -65,8 +42,8 @@ function Banner() {
         <div className="fixed w-full aspect-[1] sm:aspect-[1.4] lg:aspect-[1.8] z-0">
           <img
             className="w-full aspect-[1] sm:aspect-[1.4] lg:aspect-[1.8] object-cover "
-            src={`${BASE_URL}${movie.backdrop_path}`}
-            alt={movie.title}
+            src={`${BASE_URL}${media.backdrop_path}`}
+            alt={media.title}
           />
           <div
             className="absolute inset-0
@@ -75,21 +52,24 @@ function Banner() {
         </div>
 
         <div className="flex flex-col gap-4 lg:gap-6 absolute bottom-[20vw] md:bottom-[14vw] z-20 w-[calc(100%-5vw)] mx-[5vw]">
-          <p className="text-[5vw] font-black">{movie.title}</p>
+          <p className="text-[5vw] font-black">{media.title || media.name}</p>
           <div className="text-[calc(1vw+4px)]">
             <span className="mr-12">
-              ★ {movie.vote_average.toFixed(1)}&nbsp;&nbsp;|&nbsp;&nbsp;{" "}
-              {movie.vote_count}
+              ★ {media.vote_average.toFixed(1)}&nbsp;&nbsp;|&nbsp;&nbsp;{" "}
+              {media.vote_count}
             </span>
             <span className="text-gray-300">
-              {movie.original_title}&nbsp;&nbsp;·&nbsp;&nbsp;
-              {movie.release_date.split("-")[0]}
+              {media.original_title || media.original_name}
+              &nbsp;&nbsp;·&nbsp;&nbsp;
+              {media.media_type === "tv"
+                ? media.first_air_date.split("-")[0]
+                : media.release_date.split("-")[0]}
             </span>
           </div>
           <p className="w-[calc(100%-5vw)] md:w-[calc(50%-5vw)] text-[calc(1vw+4px)] text-gray-300 break-keep leading-[calc(1vw+10px)]">
-            {movie.overview.split(". ").length > 3
-              ? movie.overview.split(". ").slice(0, 3).join(". ") + "..."
-              : movie.overview}
+            {media.overview.split(". ").length > 3
+              ? media.overview.split(". ").slice(0, 3).join(". ") + "..."
+              : media.overview}
           </p>
           <div>
             <button
