@@ -15,7 +15,7 @@ export default function MovieCard({ id, title, poster, rating }) {
     >
       <img src={poster} alt={title} className="w-full rounded-md mb-2" />
       <h3 className="text-lg font-semibold truncate">{title}</h3>
-      <p className="text-sm text-gray-600">평점: {rating}</p>
+      <p className="text-sm text-gray-600">🔥: {rating}</p>
     </div>
   );
 }

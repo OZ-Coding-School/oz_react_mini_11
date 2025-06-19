@@ -10,7 +10,7 @@ export default function App() {
   useEffect(() => { //useEffect:앱이 시작될 때 한 번 실행 
     const fetchMovies = async () => {
       try {
-        const res = await fetch('https://api.themoviedb.org/3/movie/popular', { //fetch(): TMDB API에서 영화 데이터를 요청
+        const res = await fetch('https://api.themoviedb.org/3/movie/popular?language=ko-KR', { //fetch(): TMDB API에서 영화 데이터를 요청
           headers: {
             Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_KEY}`,  //Authorization: env에 저장한 API 토큰으로 인증
             accept: 'application/json', //

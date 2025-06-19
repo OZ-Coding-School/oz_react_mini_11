@@ -8,7 +8,7 @@ export default function MovieDetail() {
   useEffect(() =>{
     const fetchMovie = async () =>{
       try{
-        const res = await fetch(`https://api.themoviedb.org/3/movie/${id}`,{
+        const res = await fetch(`https://api.themoviedb.org/3/movie/${id}?language=ko-KR`,{
           headers: {
             Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_KEY}`,
             accept: 'application/json',
@@ -23,7 +23,7 @@ export default function MovieDetail() {
     fetchMovie();
   }, [id])
 
-  if (!movie) return <div className="text-center py-10">로딩 중...</div>;
+  if (!movie) return <div className="text-center py-10 text-6xl">🌘 🌗 🌖 🌕</div>;
 
   const { backdrop_path, poster_path, title, vote_average, genres, overview } = movie;
 
