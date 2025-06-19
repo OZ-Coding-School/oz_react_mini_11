@@ -1,18 +1,45 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import MovieDetail from "./components/MovieDetail";
-import Layout from "./layout/Layout";
+import { lazy, Suspense } from "react";
+import styled from "@emotion/styled";
+import Lottie from "lottie-react";
+import loadingAnimation from "./assets/animations/loading-animation.json";
+
+const Layout = lazy(() => import("./layout/Layout"));
+const Home = lazy(() => import("./pages/Home"));
+const MovieDetail = lazy(() => import("./components/MovieDetail"));
+
+const Wrapper = styled.div`
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #eee;
+  font-size: 3rem;
+  font-weight: 600;
+`;
+
+const StyledLottie = styled(Lottie)`
+  width: 10rem;
+  height: 10rem;
+`;
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="/detail/:movieId" element={<MovieDetail />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <Suspense
+      fallback={
+        <Wrapper>
+          <StyledLottie animationData={loadingAnimation} loop autoplay />
+        </Wrapper>
+      }>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="/detail/:movieId" element={<MovieDetail />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </Suspense>
   );
 }
 
