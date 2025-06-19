@@ -46,3 +46,21 @@ export async function fetchMovieDetail(id) {
   }
 }
 
+export async function fetchsearchMovies(query) {
+  try {
+    const response = await fetch(`${BASE_URL}/search/movie?language=ko-KR&query=` + encodeURIComponent(query), {
+      method: "GET",
+        headers: getAuthHeaders()
+    });
+    if (!response.ok) {
+      throw new Error("검색 실패");
+    }
+    
+    const data = await response.json();
+    return data.results.filter((movie) => movie.adult === false);
+  } catch (error) {
+    console.error("영화 검색 오류", error);
+    return [];
+  }
+}
+
