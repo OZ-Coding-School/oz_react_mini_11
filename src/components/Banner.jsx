@@ -75,7 +75,7 @@ function Banner() {
         </div>
 
         <div className="flex flex-col gap-4 lg:gap-6 absolute bottom-[20vw] md:bottom-[14vw] z-20 w-[calc(100%-5vw)] mx-[5vw]">
-          <p className="text-[3vw] font-black">{movie.title}</p>
+          <p className="text-[5vw] font-black">{movie.title}</p>
           <div className="text-[calc(1vw+4px)]">
             <span className="mr-12">
               ★ {movie.vote_average.toFixed(1)}&nbsp;&nbsp;|&nbsp;&nbsp;{" "}
@@ -93,13 +93,13 @@ function Banner() {
           </p>
           <div>
             <button
-              className="mr-4 py-[1.5vw] px-[3vw] rounded-xl bg-white text-[calc(1.25vw+4px)] text-black transition-all duration-3000
+              className="mr-4 py-[1.3vw] px-[2.6vw] rounded-xl bg-white text-[calc(1vw+6px)] text-black transition-all duration-3000
                               hover:text-white hover:bg-blue-600"
             >
               ▶&nbsp;&nbsp;재생
             </button>
             <button
-              className="py-[1.5vw] px-[3vw] rounded-xl bg-[#c0c0c070] text-[calc(1.25vw+4px)] transition-all duration-3000
+              className="py-[1.3vw] px-[2.6vw] rounded-xl bg-[#c0c0c070] text-[calc(1vw+6px)] transition-all duration-3000
                               hover:bg-[#c0c0c0a7]"
             >
               ⓘ&nbsp;&nbsp;상세 정보
