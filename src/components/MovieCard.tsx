@@ -19,7 +19,7 @@ export default function MovieCard({ movie }: MovieCardProps) {
         width={200}
         className="w-[200px] h-[300px] object-cover object-center rounded-xl"
       />
-      <span className="text-lg">{movie.title}</span>
+      <p className="text-lg truncate w-full px-1">{movie.title}</p>
       <StarPoints point={movie.vote_average} />
     </Link>
   );
