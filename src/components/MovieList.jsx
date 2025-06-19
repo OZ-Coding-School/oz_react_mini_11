@@ -1,10 +1,23 @@
-import React, { useState } from "react";
-import movieListData from "../data/movieListData.json";
+import React, { useEffect, useState } from "react";
 import MovieCard from "./MovieCard";
 import MovieSlider from "../components/MovieSlider";
+import { TMDB_GET_OPTION } from "../constans";
 
 function MovieList() {
-  const [movies] = useState(movieListData.results);
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    fetch(
+      "https://api.themoviedb.org/3/movie/popular?language=ko",
+      TMDB_GET_OPTION
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        const filteredMovies = data.results.filter((movie) => !movie.adult);
+        setMovies(filteredMovies);
+      })
+      .catch((err) => console.error("영화 관람 제한:", err));
+  }, []);
 
   return (
     <div className="movie-grid">
