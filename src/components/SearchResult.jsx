@@ -1,34 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSearchParams } from "react-router-dom";
 import MovieCard from "./MovieCard";
 import SkeletonCard from "./SkeltonCard";
-import {
-  TMDB_MOIVE_API_BASE_URL,
-  TMDB_GET_OPTION,
-  TMDB_SEARCH_API_BASE_URL,
-} from "../constants";
+import useSearchMovies from "../hooks/useSearchMovies";
 
 function SearchResult() {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query");
-  const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (query) {
-      fetch(
-        `${TMDB_SEARCH_API_BASE_URL}?query=${query}&language=ko`,
-        TMDB_GET_OPTION
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          const filtered = data.results.filter((movie) => !movie.adult);
-          setResults(filtered);
-        })
-        .catch((err) => console.error("❌ 검색 실패:", err));
-      setLoading(false);
-    }
-  }, [query]);
+  const { results, loading } = useSearchMovies(query);
 
   return (
     <div className="movie-grid">
