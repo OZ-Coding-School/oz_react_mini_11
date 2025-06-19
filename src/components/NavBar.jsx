@@ -1,6 +1,13 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function NavBar() {
+  const [query, setQuery] = useState([]);
+
+  const handleSearch = () => {
+    window.location.href = `/searchresults?query=${query}`;
+  };
+
   return (
     <>
       <nav className="flex bg-black bg-contain justify-around items-center">
@@ -30,16 +37,36 @@ function NavBar() {
                 w-[50%]
                 p-3
             "
+          onChange={e => setQuery(e.target.value)}
         />
-        <div>검색</div>
+        <div
+          onClick={handleSearch}
+          div
+          className="p-2 hover:bg-gray-200 rounded-full transition bg-white"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6 text-gray-600"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1010.5 18a7.5 7.5 0 006.15-3.35z"
+            />
+          </svg>
+        </div>
+
         <Link to="/login">
           <div
             className="
                 bg-lime-200
                 text-gray-800
                 font-semibold
-                text-[22px]
-                m-1
+                text-[18px]
                 p-3
                 rounded-xs
             "
@@ -53,8 +80,7 @@ function NavBar() {
              bg-lime-200
                 text-gray-700
                 font-semibold
-                text-[22px]
-                m-1
+                text-[18px]
                 p-3
                 rounded-xs
             "
