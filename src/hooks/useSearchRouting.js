@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useDebounce from "../hooks/useDebounce";
 
 export default function useSearchRouting() {
   const [inputDebounce, setInputDebounce] = useState("");
   const debouncedValue = useDebounce(inputDebounce);
-  const [_, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -18,7 +17,7 @@ export default function useSearchRouting() {
         navigate("/");
       }
     }
-  }, [debouncedValue, setSearchParams, navigate, location.pathname]);
+  }, [debouncedValue, navigate, location.pathname]);
 
   return { inputDebounce, setInputDebounce };
 }
