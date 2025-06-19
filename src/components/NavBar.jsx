@@ -2,11 +2,19 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import useDebounce from "../hooks/useDebounce";
 import { TMDB_GET_OPTION, TMDB_SEARCH_API_BASE_URL } from "../constants";
+import { useNavigate } from "react-router-dom";
 
 function NavBar() {
   const [keyword, setKeyword] = useState("");
   const debouncedKeyword = useDebounce(keyword);
   const [searchResults, setSearchResults] = useState([]);
+  const navigate = useNavigate();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (keyword.trim()) {
+      navigate(`/search?query=${encodeURIComponent(keyword)}`);
+    }
+  };
 
   useEffect(() => {
     if (debouncedKeyword) {
@@ -34,13 +42,15 @@ function NavBar() {
           {" "}
           상세페이지{" "}
         </Link>
-        <input
-          type="text"
-          placeholder="영화 이름을 입력하세요"
-          value={keyword}
-          onChange={(e) => setKeyword(e.target.value)}
-          style={styles.search}
-        />
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="영화 이름을 입력하세요"
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}
+            style={styles.search}
+          />
+        </form>
       </div>
     </nav>
   );
