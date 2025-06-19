@@ -25,7 +25,7 @@ export default function MovieCard({ id, title, rating, movieImg }) {
         // Link 사용으로 페이지 이동
         <>
             <Link to={`/details/${id}`} className="black">
-                <div className="relative rounded-xl overflow-hidden shadow-md hover:scale-105 transition-transform cursor-pointer group">
+                <div className="relative rounded-xl overflow-hidden shadow-md hover:scale-115 transition-transform cursor-pointer group">
                     <img
                         src={`${TMDB_IMAGE_BASE_URL}${movieImg}`}
                         alt={title}
