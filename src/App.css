@@ -22,3 +22,7 @@ body {
   opacity: 0.5;
   transition: opacity 1000ms;
 }
+
+input {
+  color: #000;
+}
