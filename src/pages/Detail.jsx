@@ -11,7 +11,7 @@ export default function MovieDetail() {
       const apiUrl = import.meta.env.VITE_API_URL;
       // 같은 토큰 가져와 변수 저장
 
-      const res = await fetch(`${apiUrl}/movie/${id}?language=ko-KR`, {
+      const res = await fetch(`${apiUrl}${id}?language=ko-KR`, {
         headers: {
           Authorization: `Bearer ${token}`,
           accept: "application/json",
