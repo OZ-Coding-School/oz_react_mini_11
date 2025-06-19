@@ -30,7 +30,7 @@ function NavBar() {
 
   useEffect(() => {
     if (location.pathname === "/" || location.pathname === "/search") {
-      if (debouncedValue) {
+      if (debouncedValue.trim()) {
         setSearchParams({ keyword: debouncedValue });
         navigate(`/search?keyword=${debouncedValue}`);
         console.log("keyword: ", debouncedValue);
@@ -57,12 +57,14 @@ function NavBar() {
       </Link>
       <input
         type="text"
-        className="bg-white text-black"
+        className="bg-white"
         value={inputDebounce}
         onChange={handleInputDebounce}
       />
       <div>
-        <button className="mr-2">로그인</button>
+        <Link to="/login">
+          <button className="mr-2">로그인</button>
+        </Link>
         <button>회원가입</button>
       </div>
     </div>
