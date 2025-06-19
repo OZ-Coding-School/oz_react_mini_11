@@ -1,19 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useDebounce from "../hooks/useDebounce";
 import { fetchsearchMovies } from "../api/tmdb";
 import MovieCard from "./MovieCard";
 
 export default function SearchMovie({ setSearchResultMovies, setIsSearching }) {
     const [inputValue, setInputValue] = useState("");
-    // const [debounceValue, setDebounceValue] = useState("");
-    // const [movies, setMovies] = useState([]);
     const debounceValue = useDebounce(inputValue, 1000);
-
-    // useEffect(() => {
-    //     if (debounceValue) {
-    //         console.log(debounceValue);
-    //     }
-    // }, [debounceValue]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -44,7 +36,7 @@ export default function SearchMovie({ setSearchResultMovies, setIsSearching }) {
             placeholder="..."
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
-            className="w-full px-4 py-2 rounded-md border border-gray-500 focus:outline-none 
+            className="w-full px-4 py-2 rounded-md border border-gray-500 focus:outline-none
                focus:ring-2 focus:ring-sky-500 bg-neutral-800 text-white placeholder-gray-400"
         />
     );
