@@ -9,43 +9,50 @@ import "swiper/css/pagination";
 
 import MovieCard from "../components/MovieCard";
 import SkeletonMovieCard from "../components/SkeletonMovieCard";
-import { fetchPopularMovies } from "../api/movieApi";
+import { fetchPopularMovies, fetchSearchMovies } from "../api/movieApi";
+import useDebounce from "../hooks/useDebounce";
 
-function App() {
+function App({ searchTerm }) {
   const [movies, setMovies] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  const debouncedSearch = useDebounce(searchTerm, 500);
 
   useEffect(() => {
     const loadMovies = async () => {
       setLoading(true);
-      try{
-        const movies = await fetchPopularMovies();
-        setMovies(movies);
+      try {
+        let data;
+        if (debouncedSearch) {
+          data = await fetchSearchMovies(debouncedSearch);
+        } else {
+          data = await fetchPopularMovies();
+        }
+        setMovies(data);
       } catch (error) {
         console.error("영화 데이터 로드 실패", error);
       } finally {
         setLoading(false);
       }
-    }
+    };
     loadMovies();
-  }, []);
+  }, [debouncedSearch]);
 
   const handleClick = (id) => {
     navigate(`/details/${id}`);
   };
 
-  const filteredMovies = movies.filter((movie) => 
-    movie.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-    
-  const slideCount = loading ? 5 :  Math.min(5, filteredMovies.length);
+  const slideCount = loading ? 5 : Math.min(5, movies.length);
 
   return (
     <div
-      style={{ backgroundColor: "#000", minHeight: "100vh", color: "#fff", padding: "20px 30px" }}>
-      <h2 style={{ marginBottom: "20px" }}>영화 리스트</h2>
+      style={{ backgroundColor: "#000", minHeight: "100vh", color: "#fff", padding: "20px 30px" }}
+    >
+      <h2 style={{ marginBottom: "20px" }}>
+        {debouncedSearch ? `"${debouncedSearch}" 검색 결과` : "인기 영화"}
+      </h2>
+
       <Swiper
         modules={[Navigation, Pagination]}
         spaceBetween={20}
@@ -53,20 +60,20 @@ function App() {
         slidesPerGroup={slideCount}
         navigation
         pagination={{ clickable: true }}
-        loop={!loading && filteredMovies.length >=5}
-        style={{ paddingBottom: "40px" }}>
-          
-          {loading
-          ? Array.from({ length: slideCount}).map((_, idx) => (
-          <SwiperSlide key={idx}>
-            <SkeletonMovieCard />
-          </SwiperSlide>
-          ))
-        : filteredMovies.map((movie) => (
-          <SwiperSlide key={movie.id}>
-            <MovieCard movie={movie} onClick={() => handleClick(movie.id)} />
-          </SwiperSlide>
-        ))}
+        loop={!loading && movies.length >= 5}
+        style={{ paddingBottom: "40px" }}
+      >
+        {loading
+          ? Array.from({ length: slideCount }).map((_, idx) => (
+              <SwiperSlide key={idx}>
+                <SkeletonMovieCard />
+              </SwiperSlide>
+            ))
+          : movies.map((movie) => (
+              <SwiperSlide key={movie.id}>
+                <MovieCard movie={movie} onClick={() => handleClick(movie.id)} />
+              </SwiperSlide>
+            ))}
       </Swiper>
     </div>
   );
