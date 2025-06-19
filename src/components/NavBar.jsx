@@ -14,7 +14,9 @@ export default function NavBar({ setSearchResultMovies, setIsSearching }) {
                 </div>
 
                 <div className="flex justify-center md:justify-end gap-4">
-                    <button className="text-white text-sm hover:underline">로그인</button>
+                    <Link to="/login" className="hover:underline">
+                        로그인
+                    </Link>
                     <button className="text-white text-sm hover:underline">회원가입</button>
                 </div>
             </div>
