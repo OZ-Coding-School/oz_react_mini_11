@@ -3,7 +3,7 @@ import SearchMovie from "./SearchMovie";
 export default function NavBar() {
     return (
         <>
-            <div className="p-5 bg-neutral-900 h-10 flex justify-between items-center">
+            <div className="p-5 bg-neutral-900 h-25 flex justify-between items-center">
                 <div className="">
                     <img className="" /> 로고
                 </div>

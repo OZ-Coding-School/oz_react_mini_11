@@ -10,7 +10,7 @@ export default function MovieDetailCard({ movie }) {
                 <div className="flex flex-col flex-2 gap-6 ">
                     <div className="flex justify-between items-center ">
                         <h2 className="text-2xl font-bold">타이틀 : {movie.title}</h2>
-                        <p className="text-lg font-semibold">평점 : {movie.vote_average}</p>
+                        <p className="text-lg font-semibold">평점 : {Number(movie.vote_average).toFixed(2)}</p>
                     </div>
                     <div className="flex flex-wrap gap-2">
                         {movie.genres.map((el) => (
