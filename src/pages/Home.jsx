@@ -1,5 +1,5 @@
 import "../styles/Home.styles";
-import MovieCard from "../components/MovieCard";
+import MovieCard from "../components/MovieCard/MovieCard";
 import { useEffect, useRef, useState } from "react";
 import { Navigation } from "swiper/modules";
 import "swiper/css/navigation";
@@ -15,6 +15,7 @@ import {
   StyledSwiperSlide,
   SwiperWrapper,
 } from "../styles/Home.styles";
+import MovieCardSkeleton from "../components/MovieCard/MovieCardSkeleton";
 
 // const breakPoints = {
 //   desktop: 1440,
@@ -49,6 +50,7 @@ function Home() {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   const [movies, setMovies] = useState([]); // 인기순 영화 데이터
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (swiper) {
@@ -65,6 +67,8 @@ function Home() {
       } catch (error) {
         console.error("getPopularMovies 실행 실패 : ", error);
         throw error;
+      } finally {
+        setLoading(false);
       }
     })();
   }, []);
@@ -93,11 +97,17 @@ function Home() {
             setBeginning(swiper.isBeginning);
             setEnd(swiper.isEnd);
           }}>
-          {movies?.map((data) => (
-            <StyledSwiperSlide>
-              <MovieCard data={data} />
-            </StyledSwiperSlide>
-          ))}
+          {loading
+            ? Array.from({ length: 5 }).map((_, i) => (
+                <StyledSwiperSlide>
+                  <MovieCardSkeleton key={i} />
+                </StyledSwiperSlide>
+              ))
+            : movies?.map((data) => (
+                <StyledSwiperSlide>
+                  <MovieCard data={data} />
+                </StyledSwiperSlide>
+              ))}
         </StyledSwiper>
         <ButtonWrapper>
           <button ref={prevRef} disabled={isBeginning}>
