@@ -10,9 +10,9 @@ function SearchResult() {
   const { results, loading } = useSearchMovies(query);
 
   return (
-    <div className="bg-gradient-to-b from-rose-50 via-pink-100 to-rose-100 min-h-screen p-6 text-rose-900">
+    <div className="bg-[#1e1e1e] min-h-screen p-6 text-white">
       <h2 className="text-2xl font-bold mb-6">
-        🔍 검색 결과: <span className="text-pink-500">{query}</span>
+        🔍 검색 결과: <span className="text-purple-400">{query}</span>
       </h2>
 
       {loading ? (
@@ -24,7 +24,7 @@ function SearchResult() {
             ))}
         </div>
       ) : results.length === 0 ? (
-        <p className="text-gray-500">해당하는 영화가 없습니다.</p>
+        <p className="text-gray-400">해당하는 영화가 없습니다.</p>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
           {results.map((movie) => (

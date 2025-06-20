@@ -4,6 +4,9 @@ import { IMAGE_BASE_URL } from "../constants";
 
 function MovieCard({ title, rating, poster, id, variant = "list" }) {
   const isSlider = variant === "slider";
+  const imageWrapperClass = isSlider
+    ? "aspect-[2/3] overflow-hidden"
+    : "aspect-[2/3] overflow-hidden";
 
   return (
     <Link
@@ -11,30 +14,23 @@ function MovieCard({ title, rating, poster, id, variant = "list" }) {
       className="block no-underline text-inherit hover:scale-105 transition-transform duration-300"
     >
       <div
-        className={`relative rounded-xl overflow-hidden shadow-xl ring-2 ring-rose-400 hover:ring-pink-400
-          ${
-            isSlider ? "h-60" : "h-80"
-          } bg-gradient-to-b from-black via-red-900 to-rose-800`}
+        className={`flex flex-col bg-[#2b2b2b] rounded-xl overflow-hidden shadow-lg`}
       >
-        <img
-          src={`${IMAGE_BASE_URL}${poster}`}
-          alt={title}
-          className={`w-full object-cover ${
-            isSlider ? "h-60" : "h-80"
-          } opacity-90`}
-        />
-        <div
-          className={`absolute bottom-0 left-0 w-full bg-black bg-opacity-60 px-2 py-1
-            ${isSlider ? "text-xs" : "text-sm"}`}
-        >
-          <h3
-            className={`font-serif font-bold text-pink-300 truncate ${
-              isSlider ? "text-xs" : "text-base"
-            }`}
-          >
-            {title}
-          </h3>
-          <p className="text-rose-200 text-xs">⭐ {rating}</p>
+        <div className={imageWrapperClass}>
+          <img
+            src={`${IMAGE_BASE_URL}${poster}`}
+            alt={title}
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div className="flex flex-col gap-2 p-3">
+          <h3 className="text-sm font-semibold text-white truncate">{title}</h3>
+          <div className="flex items-center justify-between text-xs text-gray-300">
+            <span>⭐ {rating}</span>
+            <button className="px-2 py-1 bg-purple-600 text-white rounded hover:bg-purple-700">
+              예매
+            </button>
+          </div>
         </div>
       </div>
     </Link>

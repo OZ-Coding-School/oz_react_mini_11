@@ -21,30 +21,38 @@ function MovieSlider() {
 
   return (
     <div className="my-6 px-2 md:px-4 lg:px-6">
-      <h2 className="text-xl font-bold text-rose-600 mb-4">🔥 인기 상영작</h2>
-      <Swiper
-        modules={[Navigation]}
-        navigation
-        spaceBetween={15}
-        breakpoints={{
-          320: { slidesPerView: 1.2 },
-          640: { slidesPerView: 2 },
-          768: { slidesPerView: 3 },
-          1024: { slidesPerView: 4 },
-        }}
-      >
-        {movies.map((movie) => (
-          <SwiperSlide key={movie.id} className="pb-4">
-            <MovieCard
-              id={movie.id}
-              title={movie.title}
-              rating={movie.vote_average}
-              poster={movie.poster_path}
-              variant="slider"
-            />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      <div className="bg-[#2b2b2b] rounded-xl p-4 shadow">
+        <h2 className="text-xl font-bold text-purple-400 mb-4">
+          🔥 인기 상영작
+        </h2>
+        <Swiper
+          modules={[Navigation]}
+          navigation
+          spaceBetween={15}
+          breakpoints={{
+            320: { slidesPerView: 1.2 },
+            640: { slidesPerView: 2 },
+            768: { slidesPerView: 3 },
+            1024: { slidesPerView: 4 },
+          }}
+        >
+          {movies.map((movie) => (
+            <SwiperSlide
+              key={movie.id}
+              className="pb-4"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <MovieCard
+                id={movie.id}
+                title={movie.title}
+                rating={movie.vote_average}
+                poster={movie.poster_path}
+                variant="slider"
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
     </div>
   );
 }

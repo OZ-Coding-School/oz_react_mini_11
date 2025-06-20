@@ -20,13 +20,16 @@ function MovieList() {
   }, []);
 
   return (
-    <div className="bg-gradient-to-b from-rose-50 via-pink-100 to-rose-100 min-h-screen p-6 text-rose-900">
-      <h2 className="text-3xl font-bold mb-6 tracking-wide border-l-4 border-pink-300 pl-3">
-        🔥 이번 주 추천작
-      </h2>
+    <div className="bg-[#1e1e1e] min-h-screen p-6 text-white">
+      {/* 인기 영화 슬라이더 먼저 배치 */}
       <MovieSlider />
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 mt-8">
+      {/* 아래쪽에 본문 제목 */}
+      <h2 className="text-2xl font-bold mt-10 mb-6 tracking-wide border-l-4 border-purple-500 pl-3">
+        🎬 상영 중인 영화
+      </h2>
+
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-6">
         {loading
           ? Array(10)
               .fill(0)

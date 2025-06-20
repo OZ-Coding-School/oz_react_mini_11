@@ -27,20 +27,20 @@ function NavBar() {
   }, [debouncedKeyword]);
 
   return (
-    <nav className="flex justify-between items-center px-6 py-4 bg-gray-950 text-white shadow-md">
-      <h2 className="text-xl font-bold text-pink-400">🎬 Movie App</h2>
+    <nav className="flex justify-between items-center px-6 py-4 bg-white text-gray-900 shadow-md">
+      <h2 className="text-xl font-bold">🎬 Movie App</h2>
       <div className="flex gap-4 items-center">
-        <Link to="/" className="hover:text-pink-400 transition">
+        <Link to="/" className="hover:text-purple-600 transition">
           홈
         </Link>
-        <Link to="/movies/1" className="hover:text-pink-400 transition">
+        <Link to="/movies/1" className="hover:text-purple-600 transition">
           상세페이지
         </Link>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
             placeholder="영화 이름을 입력하세요"
-            className="bg-gray-800 text-white px-3 py-1 rounded focus:outline-none focus:ring focus:ring-pink-300"
+            className="bg-gray-100 text-gray-900 px-3 py-1 rounded focus:outline-none focus:ring focus:ring-purple-400"
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
           />
