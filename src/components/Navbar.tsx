@@ -4,12 +4,12 @@ import SearchInput from "./SearchInput";
 import useSearchParamStore from "../hooks/zustand/useSearchParamStore";
 export default function Navbar() {
   const navigate = useNavigate();
-  const updateaSearchParam = useSearchParamStore(
+  const updateSearchParam = useSearchParamStore(
     (state) => state.updateSearchParam
   );
 
   const handleLogoClick = () => {
-    updateaSearchParam("");
+    updateSearchParam("");
     navigate("/");
   };
 

@@ -7,7 +7,7 @@ export default function SearchInput({
   className,
 }: React.InputHTMLAttributes<HTMLInputElement>) {
   const searchParam = useSearchParamStore((state) => state.searchParam);
-  const updateaSearchParam = useSearchParamStore(
+  const updateSearchParam = useSearchParamStore(
     (state) => state.updateSearchParam
   );
 
@@ -15,7 +15,7 @@ export default function SearchInput({
   const navigate = useNavigate();
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    updateaSearchParam(event.target.value);
+    updateSearchParam(event.target.value);
   };
 
   useEffect(() => {
