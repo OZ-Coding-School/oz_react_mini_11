@@ -5,13 +5,16 @@ import "swiper/css/effect-fade";
 import MovieCardSlider from "./MovieCardSlider";
 import { EffectFade, Autoplay } from "swiper/modules";
 import { useEffect, useState } from "react";
+import { apiBaseUrl } from "../constant/constant";
 
 export default function Main() {
   const [movieList, setMovieList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
   useEffect(() => {
     const fetchMovie = async () => {
       try {
-        const res = await fetch("https://api.themoviedb.org/3/movie/popular", {
+        setIsLoading(true); // 요청 시작 전에 로딩 시작
+        const res = await fetch(`${apiBaseUrl}/movie/popular`, {
           headers: {
             accept: "application/json",
             Authorization: `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`,
@@ -22,6 +25,8 @@ export default function Main() {
         setMovieList(filtered); //필터 값 상태에 저장
       } catch (err) {
         console.error(err);
+      } finally {
+        setIsLoading(false); // 요청 완료 시 로딩 끝
       }
     };
     fetchMovie();
@@ -29,7 +34,9 @@ export default function Main() {
 
   const sliderMovies = movieList.slice(0, 5); //앞 5개만 slider돌리기, 0번부터 5번 인덱스 이전까지 복사
 
-  return (
+  return isLoading ? (
+    <div className="loading">Loading...</div>
+  ) : (
     <>
       <Swiper
         modules={[EffectFade, Autoplay]}

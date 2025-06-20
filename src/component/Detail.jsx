@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { baseUrl } from "../constant/constant";
+import { apiBaseUrl } from "../constant/constant";
 import { useParams } from "react-router-dom";
 
 export default function Detail() {
@@ -8,7 +9,7 @@ export default function Detail() {
   useEffect(() => {
     const fetchMovie = async () => {
       try {
-        const res = await fetch(`https://api.themoviedb.org/3/movie/${movieId}`, {
+        const res = await fetch(`${apiBaseUrl}/movie/${movieId}?language=ko`, {
           headers: {
             accept: "application/json",
             Authorization: `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`,
@@ -27,23 +28,33 @@ export default function Detail() {
     <div className="loading">Loading...</div>
   ) : (
     <>
-      <div className="flex justify-between pt-[120px] max-w-[1200px] m-auto h-screen text-white">
-        <div>
-          <img src={`${baseUrl}${movieDetail.backdrop_path}`} />
-        </div>
-        <div className="w-[50%]">
-          <div className="flex justify-between">
-            <h1 className="font-bold text-[2rem]">{movieDetail.title}</h1>
-            <span>{movieDetail.vote_average}</span>
+      <div
+        style={{
+          background: `url(${baseUrl}${movieDetail.backdrop_path}) center / cover no-repeat`,
+        }}
+        className="detail-movie"
+      >
+        <div className="flex flex-col md:flex-row md:justify-between relative pt-[120px] pb-[120px] max-w-[1200px] mx-auto text-white">
+          <div>
+            <img
+              src={`${baseUrl}${movieDetail.poster_path}`}
+              className="mx-auto mb-[20px] md:mb-0"
+            />
           </div>
-          <div className="text-[.8rem] text-[#888888] mb-[10px]">
-            {movieDetail.genres.map((genre) => (
-              <span key={genre.id} className="mr-[5px]">
-                {genre.name}
-              </span>
-            ))}
+          <div className="w-[85%] md:w-[50%] mx-auto">
+            <div className="flex justify-between">
+              <h1 className="font-bold text-[2rem]">{movieDetail.title}</h1>
+              <span>{movieDetail.vote_average}</span>
+            </div>
+            <div className="text-[.8rem] text-[#888888] mb-[10px]">
+              {movieDetail.genres.map((genre) => (
+                <span key={genre.id} className="mr-[5px]">
+                  {genre.name}
+                </span>
+              ))}
+            </div>
+            <p>{movieDetail.overview}</p>
           </div>
-          <p>{movieDetail.overview}</p>
         </div>
       </div>
     </>
