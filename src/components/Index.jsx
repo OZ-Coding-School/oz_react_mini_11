@@ -6,11 +6,11 @@ import { useSearchParams } from 'react-router-dom';
 function Index() {
   const [searchParams] = useSearchParams();
   const query = searchParams.get('query');
-  const searchResultsUrl = query
+  const indexUrl = query
     ? `${apiBaseUrl}/search/movie?query=${encodeURIComponent(query)}&language=ko-KR`
     : apiPopularUrl;
 
-  const { data, loading, error } = useFetch(searchResultsUrl, {
+  const { data, loading, error } = useFetch(indexUrl, {
     method: 'GET',
     headers: {
       accept: 'application/json',
