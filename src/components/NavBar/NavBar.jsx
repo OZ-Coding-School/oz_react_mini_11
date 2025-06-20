@@ -7,7 +7,7 @@ import {
   InputWrapper,
   Title,
   Wrapper,
-} from "../styles/NavBar.styles";
+} from "./NavBar.styles";
 
 function NavBar() {
   const navigate = useNavigate();

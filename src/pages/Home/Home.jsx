@@ -1,10 +1,9 @@
-import "../styles/Home.styles";
-import MovieCard from "../components/MovieCard/MovieCard";
+import MovieCard from "../../components/MovieCard/MovieCard";
 import { useEffect, useRef, useState } from "react";
 import { Navigation } from "swiper/modules";
 import "swiper/css/navigation";
 import "swiper/css";
-import { getPopularMovies } from "../apis/popularMovieApi";
+import { getPopularMovies } from "../../apis/popularMovieApi";
 import {
   ButtonWrapper,
   Container,
@@ -14,8 +13,8 @@ import {
   StyledSwiper,
   StyledSwiperSlide,
   SwiperWrapper,
-} from "../styles/Home.styles";
-import MovieCardSkeleton from "../components/MovieCard/MovieCardSkeleton";
+} from "./Home.styles";
+import MovieCardSkeleton from "../../components/MovieCard/MovieCardSkeleton";
 
 // const breakPoints = {
 //   desktop: 1440,

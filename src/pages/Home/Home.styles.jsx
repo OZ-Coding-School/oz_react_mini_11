@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Swiper, SwiperSlide } from "swiper/react";
-import PrevButton from "../assets/images/angle-left.svg?react";
-import NextButton from "../assets/images/angle-right.svg?react";
+import PrevButton from "../../assets/images/angle-left.svg?react";
+import NextButton from "../../assets/images/angle-right.svg?react";
 
 export const SectionTitle = styled.h2`
   padding: 1rem 0;
