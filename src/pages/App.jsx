@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -9,70 +9,19 @@ import "swiper/css/pagination";
 
 import MovieCard from "../components/MovieCard";
 import SkeletonMovieCard from "../components/SkeletonMovieCard";
-import { fetchPopularMovies, fetchSearchMovies } from "../api/movieApi";
-import useDebounce from "../hooks/useDebounce";
-
-import { fetchMoviesByGenre } from "../api/movieApi";
 import GenreMovieList from "../components/GenreMovieList";
 
-const favoriteGenres = [
-  { id: 28, name: "액션" },
-  { id: 35, name: "코미디" },
-  { id: 18, name: "드라마" },
-  { id: 10749, name: "로맨스" },
-  { id: 27, name: "공포" },
-];
-
+import useDebounce from "../hooks/useDebounce";
+import useAppLogic from "../hooks/useAppLogic";
 
 
 function App() {
-  const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   
   const { searchTerm } = useOutletContext();
   const debouncedSearch = useDebounce(searchTerm, 500);
 
-  const [genreMovies, setGenreMovies] = useState({})
-
-  useEffect(() => {
-    const loadMovies = async () => {
-      setLoading(true);
-      try {
-        let data;
-        if (debouncedSearch.trim()) {
-          data = await fetchSearchMovies(debouncedSearch);
-        } else {
-          data = await fetchPopularMovies();
-        }
-        setMovies(data);
-      } catch (error) {
-        console.error("영화 데이터 로드 실패", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadMovies();
-  }, [debouncedSearch]);
-
-useEffect(() => {
-  const loadGenreMovies = async () => {
-   const results = {};
-   await Promise.all(
-    favoriteGenres.map(async (genre) => {
-      const data = await fetchMoviesByGenre(genre.id);
-      results[genre.name] = data;
-    })
-   )
-   setGenreMovies(results);
-  };
-
-  if (!debouncedSearch.trim()) {
-    loadGenreMovies();
-  } else {
-    setGenreMovies({});
-  }
-}, [debouncedSearch]);
+  const {movies, genreMovies, loading, favoriteGenres,} = useAppLogic(debouncedSearch);
 
   const handleClick = (id) => {
     navigate(`/details/${id}`);
@@ -112,7 +61,7 @@ useEffect(() => {
       </Swiper>
       {!debouncedSearch.trim() && favoriteGenres.map((genre) => (
         <GenreMovieList 
-        ket={genre.id} 
+        key={genre.id} 
         title={genre.name}
         movies={genreMovies[genre.name] || []}
         onClick={handleClick}
