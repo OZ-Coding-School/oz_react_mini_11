@@ -1,6 +1,7 @@
 import { Link, useSearchParams } from "react-router-dom";
 import MediaCard from "../components/MediaCard";
 import useFetch from "../hooks/useFetch";
+import SkeletonCard from "../components/skeletons/SkeletonCard";
 
 function Search() {
   const [searchParams] = useSearchParams();
@@ -12,6 +13,7 @@ function Search() {
   console.log("Search keyword: ", keyword);
 
   const mediaList = data?.results.filter((el) => !el.adult && el.backdrop_path);
+  const len = mediaList?.length;
 
   return (
     <div
@@ -19,19 +21,29 @@ function Search() {
       bg-[linear-gradient(to_bottom,_rgba(0,0,0,0)_0%,_rgba(0,0,0,5)_30%,_rgba(0,0,0,1)_100%)]"
     >
       {loading ? (
-        <div className="w-full py-[30vh] text-2xl text-center">
-          검색 결과가 없습니다.
-        </div>
+        <>
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+        </>
       ) : (
-        mediaList?.map((media) => (
-          <Link to={`/details/${media.media_type}/${media.id}`} key={media.id}>
-            <MediaCard
-              title={media.title}
-              avg={media.vote_average}
-              imgSrc={media.poster_path}
-            />
-          </Link>
-        ))
+        <>
+          <p className="w-full mt-10 text-2xl">
+            `{keyword}` 검색 결과: {len ? (len === 20 ? len + "+" : len) : 0}개
+          </p>
+          {mediaList?.map((media) => (
+            <Link
+              to={`/details/${media.media_type}/${media.id}`}
+              key={media.id}
+            >
+              <MediaCard
+                title={media.title}
+                avg={media.vote_average}
+                imgSrc={media.poster_path}
+              />
+            </Link>
+          ))}
+        </>
       )}
     </div>
   );
