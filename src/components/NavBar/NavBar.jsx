@@ -10,7 +10,6 @@ import {
   Title,
   Wrapper,
 } from "./NavBar.styles";
-import Lottie from "lottie-react";
 import menuAnimation from "../../assets/animations/menu-animation.json";
 import { useEffect, useState } from "react";
 import { useDebounce } from "../../hooks/useDebounce";

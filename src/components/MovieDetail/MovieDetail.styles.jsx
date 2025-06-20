@@ -56,7 +56,6 @@ export const Rating = styled.div`
 export const GenresWrapper = styled.div`
   display: flex;
   justify-content: space-evenly;
-  /* align-items: center; */
 `;
 
 export const Genres = styled.div`

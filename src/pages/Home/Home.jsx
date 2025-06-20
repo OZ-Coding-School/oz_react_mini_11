@@ -16,32 +16,6 @@ import {
 } from "./Home.styles";
 import MovieCardSkeleton from "../../components/MovieCard/MovieCardSkeleton";
 
-// const breakPoints = {
-//   desktop: 1440,
-//   laptop: 1024,
-//   tablet: 768,
-//   mobile: 480,
-// }
-
-// const ContainerGrid = styled.div`
-//   display: grid;
-//   grid-template-columns: repeat(6, 1fr);
-//   gap: 0.5rem;
-
-//   @media (max-width: 1440px) {
-//     grid-template-columns: repeat(5, 1fr);
-//   }
-//   @media (max-width: 1024px) {
-//     grid-template-columns: repeat(4, 1fr);
-//   }
-//   @media (max-width: 768px) {
-//     grid-template-columns: repeat(3, 1fr);
-//   }
-//   @media (max-width: 480px) {
-//     grid-template-columns: repeat(2, 1fr);
-//   }
-// `;
-
 function Home() {
   const [swiper, setSwiper] = useState(false);
   const [isBeginning, setBeginning] = useState(true);
@@ -75,14 +49,6 @@ function Home() {
   console.log(movies);
 
   return (
-    // Swiper 적용 전
-    // <ContainerGrid>
-    //   {MOVIE_LIST_DATA.results.map((data) => (
-    //     <MovieCard data={data} />
-    //   ))}
-    // </ContainerGrid>
-
-    // Swiper 적용 후
     <Container>
       <SectionTitle>Trending Now</SectionTitle>
       <SwiperWrapper>

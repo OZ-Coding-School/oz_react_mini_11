@@ -7,7 +7,6 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
-  /* background-color: green; */
 `;
 
 export const Title = styled.div`
@@ -15,13 +14,11 @@ export const Title = styled.div`
   color: ${(props) => props.theme.colors.purple.dark};
   cursor: pointer;
   font-family: "Tenada";
-  /* background-color: pink; */
   margin-bottom: -1rem;
 `;
 
 export const InputWrapper = styled.div`
   width: 45%;
-  /* background-color: pink; */
 `;
 
 export const Input = styled.input`
@@ -44,7 +41,6 @@ export const ButtonWrapper = styled.nav`
   flex: 1 0 fill;
   display: flex;
   gap: 0.5rem;
-  /* background-color: blueviolet; */
 `;
 
 export const Button = styled.button`
