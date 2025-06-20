@@ -1,18 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import useDebounce from "../hooks/useDebounce";
-import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 
 export default function NavBar() {
   const [movieList, setMovieList] = useState([]);
   const [input, setInput] = useState("");
   const debouncedInput = useDebounce(input, 500);
+  const [, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     if (debouncedInput.trim() === "") {
       setMovieList([]);
+      setSearchParams({});
       return;
     }
+
+    setSearchParams({ query: debouncedInput });
 
     const fetchSearchResults = async () => {
       const token = import.meta.env.VITE_API_TOKEN;

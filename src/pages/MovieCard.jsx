@@ -1,15 +1,30 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 export default function MovieCard() {
   const [movieList, setMovieList] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get("query");
 
   useEffect(() => {
     const fetchMovies = async () => {
       const token = import.meta.env.VITE_API_TOKEN;
       const apiUrl = import.meta.env.VITE_API_URL;
-      // .env의 api,url 변수 설정
+
+      let url = "";
+      //url을 빈 문자열로 만들어 놓은 후
+
+      if (query && query.trim() !== "") {
+        url = `${apiUrl}search/movie?query=${encodeURIComponent(
+          query
+        )}&language=ko-KR&page=1`;
+        // encodeURIComponent는 url에 포함될 수 없는 문자들을 안전하게 변환해주는 함수이다.
+        //
+      } else {
+        url = `${apiUrl}movie/popular?language=ko-KR&page=1`;
+        // 쿼리스트링을 받지 못했다면 인기ㅍㅔ이지로 이동
+      }
 
       const response = await fetch(
         `${apiUrl}movie/popular?language=ko-KR&page=1`,
@@ -20,17 +35,17 @@ export default function MovieCard() {
           },
         }
       );
-      const data = await response.json(); //json 형태로 받아온걸 data에 저장
+      const data = await response.json();
 
       const filtered = data.results.filter(
         (results) => results.adult === false
-      ); // data.results.adult가 false한 것만 가져오기
+      );
 
-      setMovieList(filtered); //골라낸것을 상태에 저장
+      setMovieList(filtered);
     };
 
     fetchMovies();
-  }, []);
+  }, [query]);
 
   return (
     <>
