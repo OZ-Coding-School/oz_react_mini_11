@@ -1,17 +1,11 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Banner from "../components/Banner";
 import MovieCard from "../components/MediaCard";
 import SkeletonCard from "../components/skeletons/SkeletonCard";
 import useFetch from "../hooks/useFetch";
-import { useEffect } from "react";
 
 function Home() {
   const { data, loading } = useFetch("movie/popular?language=ko&page=1");
-  const [_, setSearchParams] = useSearchParams();
-
-  useEffect(() => {
-    setSearchParams({});
-  }, []);
 
   const popularMovieList = data?.results.filter((el) => !el.adult);
 
