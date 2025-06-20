@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import Lottie from "lottie-react";
 
 export const Wrapper = styled.div`
   height: 100%;
@@ -19,7 +20,7 @@ export const Title = styled.div`
 `;
 
 export const InputWrapper = styled.div`
-  width: 50%;
+  width: 45%;
   /* background-color: pink; */
 `;
 
@@ -62,6 +63,26 @@ export const Button = styled.button`
     background-color: ${(props) => props.theme.colors.purple.normal};
     box-shadow: 0 0 20px 10px ${(props) => props.theme.colors.purple.normal};
   }
+
+  @media (max-width: ${(props) => props.theme.breakPoints.laptop}) {
+    display: none;
+  }
+`;
+
+export const MenuButton = styled.button`
+  display: none;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+
+  @media (max-width: ${(props) => props.theme.breakPoints.laptop}) {
+    display: block;
+  }
+`;
+
+export const StyledLottie = styled(Lottie)`
+  width: 5rem;
+  height: 5rem;
 `;
 
 export const Container = styled.header`
@@ -75,4 +96,8 @@ export const Container = styled.header`
   flex-wrap: wrap;
   box-shadow: 0 0 10px 3px #00000015;
   background-color: #2c2c2c;
+
+  @media (max-width: ${(props) => props.theme.breakPoints.laptop}) {
+    padding: 0.38rem 10rem;
+  }
 `;
