@@ -9,29 +9,32 @@ export default function NavBar() {
   const debouncedInput = useDebounce(input, 500);
 
   useEffect(() => {
-    if (debouncedInput) {
-      const fetchSearchResults = async () => {
-        const token = import.meta.env.VITE_API_TOKEN;
-        const apiUrl = import.meta.env.VITE_API_URL;
-
-        const response = await fetch(
-          `${apiUrl}search/movie?query=${debouncedInput}&language=ko-KR&page=1`,
-          {
-            method: "GET",
-            headers: {
-              accept: "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        const data = await response.json();
-
-        setMovieList(data);
-      };
-
-      fetchSearchResults();
+    if (debouncedInput.trim() === "") {
+      setMovieList([]);
+      return;
     }
+
+    const fetchSearchResults = async () => {
+      const token = import.meta.env.VITE_API_TOKEN;
+      const apiUrl = import.meta.env.VITE_API_URL;
+
+      const response = await fetch(
+        `${apiUrl}search/movie?query=${debouncedInput}&language=ko-KR&page=1`,
+        {
+          method: "GET",
+          headers: {
+            accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      setMovieList(data);
+    };
+
+    fetchSearchResults();
   }, [debouncedInput]);
 
   return (
@@ -46,14 +49,14 @@ export default function NavBar() {
       {/* 가운데: 검색창 */}
       <div className="flex-2 relative">
         <input
-          className="w-full h-[25px] text-white bg-gray-800 rounded-[10px] px-2 text-sm"
+          className="w-full h-[25px] text-white bg-gray-800 rounded-[10px] px-2 text-xs"
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
         {movieList.results && movieList.results.length > 0 && (
-          <ul className="absolute top-[35px] left-0 w-full bg-white text-black rounded-md shadow-md z-10">
+          <ul className="absolute top-[33px] left-0 w-full bg-gray-800 text-white rounded-b-md shadow-md z-10 text-xs">
             {movieList.results.map((movie) => (
-              <li key={movie.id} className="p-2 hover:bg-emerald-100">
+              <li key={movie.id} className="p-2 hover:bg-gray-700">
                 <Link
                   to={`/detail/${movie.id}`}
                   className="block w-full h-full"

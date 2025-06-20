@@ -34,24 +34,26 @@ export default function MovieCard() {
 
   return (
     <>
-      <div className="p-2 gap-6 flex flex-wrap items-center justify-center bg-emerald-950">
+      <div className="p-2 gap-6 flex flex-wrap items-center justify-center bg-black ">
         {movieList.map((results) => (
           <Link
             to={`/detail/${results.id}`}
             key={results.id}
             className=" border-[1px] border-solid"
           >
-            <img
-              src={`https://image.tmdb.org/t/p/w500${results.poster_path}`}
-              alt={results.title}
-              className="w-[200px] aspect-[2/3] object-cover"
-            />
-            <nav className="text-[12px] p-[2px] border-t-[1px] bg-amber-50">
-              {results.title}
-            </nav>
-            <nav className="text-[10px] p-[2px] bg-amber-50">
-              {results.vote_average}
-            </nav>
+            <div className="transition-transform duration-300 hover:scale-105">
+              <img
+                src={`https://image.tmdb.org/t/p/w500${results.poster_path}`}
+                alt={results.title}
+                className="w-[200px] aspect-[2/3] object-cover rounded-t-xl"
+              />
+              <nav className="text-[12px] p-[2px] border-t-[1px] bg-amber-50">
+                {results.title}
+              </nav>
+              <nav className="text-[10px] p-[2px] rounded-b-xl bg-amber-50">
+                {results.vote_average}
+              </nav>
+            </div>
           </Link>
         ))}
       </div>
