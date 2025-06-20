@@ -36,7 +36,7 @@ export default function MovieDetail() {
     <div className="font-sans">
       {/* 배경 이미지 영역 */}
       <div
-        className="h-72 flex items-center text-white px-8"
+        className="hidden md:flex h-72 items-center text-white px-8"
         style={{
           backgroundImage: `url(https://image.tmdb.org/t/p/original${backdrop_path})`,
           backgroundSize: "cover",
@@ -48,16 +48,16 @@ export default function MovieDetail() {
       </div>
 
       {/* 상세 내용 */}
-      <div className="flex gap-8 p-8">
+      <div className="flex flex-col md:flex-row gap-4 md:gap-8 p-4">
         {/* 포스터 */}
         <img
           src={`https://image.tmdb.org/t/p/w300${poster_path}`}
           alt={title}
-          className="rounded-xl shadow-lg w-48 md:w-64"
+          className="rounded-xl shadow-lg w-full max-w-[250px] mx-auto md:mx-0"
         />
 
         {/* 텍스트 정보 */}
-        <div className="space-y-4">
+        <div className="flex-1 space-y-4 mt-4 md:mt-0">
           <h2 className="text-2xl font-semibold">{title}</h2>
           <p>
             <span className="font-semibold">평점:</span> {vote_average}
