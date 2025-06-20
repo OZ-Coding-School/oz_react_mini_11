@@ -31,9 +31,8 @@ function App() {
 
   return (
     <div
-      style={{ backgroundColor: "#000", minHeight: "100vh", color: "#fff", padding: "20px 30px" }}
-    >
-      <h2 style={{ marginBottom: "20px" }}>
+      className="bg-white dark:bg-black text-black dark:text-white min-h-screen px-6 py-10">
+      <h2 className="text-2xl font-bold mb-6">
         {debouncedSearch ? `"${debouncedSearch}" 검색 결과` : "인기 영화"}
       </h2>
 
@@ -45,7 +44,7 @@ function App() {
         navigation
         pagination={{ clickable: true }}
         loop={!loading && movies.length >= 5}
-        style={{ paddingBottom: "40px" }}
+        className="w-full max-w-screen-lg mx-auto po-10"
       >
         {loading
           ? Array.from({ length: slideCount }).map((_, idx) => (
@@ -59,6 +58,7 @@ function App() {
               </SwiperSlide>
             ))}
       </Swiper>
+
       {!debouncedSearch.trim() && favoriteGenres.map((genre) => (
         <GenreMovieList 
         key={genre.id} 
