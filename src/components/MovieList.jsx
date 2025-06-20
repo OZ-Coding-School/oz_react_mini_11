@@ -21,14 +21,10 @@ function MovieList() {
 
   return (
     <div className="bg-[#1e1e1e] min-h-screen p-6 text-white">
-      {/* 인기 영화 슬라이더 먼저 배치 */}
       <MovieSlider />
-
-      {/* 아래쪽에 본문 제목 */}
       <h2 className="text-2xl font-bold mt-10 mb-6 tracking-wide border-l-4 border-purple-500 pl-3">
         🎬 상영 중인 영화
       </h2>
-
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-6">
         {loading
           ? Array(10)
