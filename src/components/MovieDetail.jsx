@@ -41,7 +41,7 @@ export default function MovieDetail() {
           backgroundImage: `url(https://image.tmdb.org/t/p/original${backdrop_path})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          textShadow: "2px 2px 6px rgba(0,0,0,0.7)",
+          textShadow: "2px 2px 8px rgba(0,0,0,0.7)",
         }}
       >
         <h1 className="text-3xl font-bold text-white mb-6">인기 영화</h1>
