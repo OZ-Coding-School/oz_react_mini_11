@@ -11,14 +11,12 @@ function NavBar() {
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   useEffect(() => {
-    // query가 없는 경로면 검색 페이지로 이동
     if (
       debouncedSearchTerm.trim() &&
       (location.pathname !== "/search" || currentQuery !== debouncedSearchTerm)
     ) {
       navigate(`/search?query=${debouncedSearchTerm}`, { replace: true });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchTerm]);
 
   return (
