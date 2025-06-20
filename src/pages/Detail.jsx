@@ -26,11 +26,11 @@ export default function MovieDetail() {
   }, [id]); // id가 바뀔때마다 리랜더링
 
   return (
-    <div className="flex flex-col md:flex-row items-center md:items-start justify-center gap-8 p-4 md:p-8 bg-emerald-900 min-h-screen text-white">
+    <div className="flex flex-col md:flex-row items-center md:items-start justify-center gap-8 p-4 md:p-8 bg-gray-900 min-h-screen text-white">
       {detailData && (
         <>
           <img
-            className="w-60 md:w-[400px] h-[400px] md:h-[600px] rounded shadow-lg"
+            className="w-60 md:w-[400px] h-[400px] md:h-[600px] rounded-xl shadow-lg "
             src={`https://image.tmdb.org/t/p/w500${detailData.poster_path}`}
             alt={detailData.title}
           />

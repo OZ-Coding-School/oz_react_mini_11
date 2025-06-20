@@ -34,13 +34,9 @@ export default function MovieCard() {
 
   return (
     <>
-      <div className="p-2 gap-6 flex flex-wrap items-center justify-center bg-black ">
+      <div className="p-2 gap-6 flex flex-wrap items-center justify-center bg-gray-900 ">
         {movieList.map((results) => (
-          <Link
-            to={`/detail/${results.id}`}
-            key={results.id}
-            className=" border-[1px] border-solid"
-          >
+          <Link to={`/detail/${results.id}`} key={results.id} className=" ">
             <div className="transition-transform duration-300 hover:scale-105">
               <img
                 src={`https://image.tmdb.org/t/p/w500${results.poster_path}`}

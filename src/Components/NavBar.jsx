@@ -41,8 +41,8 @@ export default function NavBar() {
     <div className="flex items-center bg-white h-[40px] px-4">
       {/* 왼쪽: 로고 */}
       <div className="flex-1">
-        <Link to="/" className="text-sm">
-          재은TV
+        <Link to="/" className="text-sm" onClick={() => setInput("")}>
+          잼은TV
         </Link>
       </div>
 
