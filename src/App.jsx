@@ -4,6 +4,7 @@ import Layout from "./components/Layout"; //페이지 상단에 NavBar를 포함
 import MovieCard from "./components/MovieCard"; //영화 목록 하나하나를 카드 형식으로 보여주는 컴포넌트
 import MovieDetail from "./components/MovieDetail"; //영화 상세 정보를 보여주는 컴포넌트
 import SearchResult from "./pages/SearchResult";
+import { IMAGE_URL, BASE_URL } from "./constant/constant";
 
 export default function App() {
   const [movies, setMovies] = useState([]); //movies:영화 리스트 데이터를 저장하는 배열 setMovies:데이터를 받아와서 저장하는 함수
@@ -12,16 +13,13 @@ export default function App() {
     //useEffect:앱이 시작될 때 한 번 실행
     const fetchMovies = async () => {
       try {
-        const res = await fetch(
-          "https://api.themoviedb.org/3/movie/popular?language=ko-KR",
-          {
-            //fetch(): TMDB API에서 영화 데이터를 요청
-            headers: {
-              Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_KEY}`, //Authorization: env에 저장한 API 토큰으로 인증
-              accept: "application/json", //
-            },
-          }
-        );
+        const res = await fetch(`${BASE_URL}/movie/popular?language=ko-KR`, {
+          //fetch(): TMDB API에서 영화 데이터를 요청
+          headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_KEY}`, //Authorization: env에 저장한 API 토큰으로 인증
+            accept: "application/json", //
+          },
+        });
         const data = await res.json();
 
         // 필터링: 성인영화 제외
@@ -51,7 +49,7 @@ export default function App() {
                     id={movie.id}
                     key={movie.id}
                     title={movie.title}
-                    poster={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                    poster={`${IMAGE_URL}/w200${movie.poster_path}`}
                     rating={movie.vote_average}
                   />
                 ))}
