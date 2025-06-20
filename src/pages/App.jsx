@@ -12,6 +12,19 @@ import SkeletonMovieCard from "../components/SkeletonMovieCard";
 import { fetchPopularMovies, fetchSearchMovies } from "../api/movieApi";
 import useDebounce from "../hooks/useDebounce";
 
+import { fetchMoviesByGenre } from "../api/movieApi";
+import GenreMovieList from "../components/GenreMovieList";
+
+const favoriteGenres = [
+  { id: 28, name: "액션" },
+  { id: 35, name: "코미디" },
+  { id: 18, name: "드라마" },
+  { id: 10749, name: "로맨스" },
+  { id: 27, name: "공포" },
+];
+
+
+
 function App() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -19,6 +32,8 @@ function App() {
   
   const { searchTerm } = useOutletContext();
   const debouncedSearch = useDebounce(searchTerm, 500);
+
+  const [genreMovies, setGenreMovies] = useState({})
 
   useEffect(() => {
     const loadMovies = async () => {
@@ -39,6 +54,25 @@ function App() {
     };
     loadMovies();
   }, [debouncedSearch]);
+
+useEffect(() => {
+  const loadGenreMovies = async () => {
+   const results = {};
+   await Promise.all(
+    favoriteGenres.map(async (genre) => {
+      const data = await fetchMoviesByGenre(genre.id);
+      results[genre.name] = data;
+    })
+   )
+   setGenreMovies(results);
+  };
+
+  if (!debouncedSearch.trim()) {
+    loadGenreMovies();
+  } else {
+    setGenreMovies({});
+  }
+}, [debouncedSearch]);
 
   const handleClick = (id) => {
     navigate(`/details/${id}`);
@@ -76,6 +110,14 @@ function App() {
               </SwiperSlide>
             ))}
       </Swiper>
+      {!debouncedSearch.trim() && favoriteGenres.map((genre) => (
+        <GenreMovieList 
+        ket={genre.id} 
+        title={genre.name}
+        movies={genreMovies[genre.name] || []}
+        onClick={handleClick}
+        />
+      ))}
     </div>
   );
 }
