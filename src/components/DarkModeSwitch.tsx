@@ -16,7 +16,7 @@ export default function DarkModeSwitch() {
     >
       <div
         className={`absolute bg-neutral-100 z-10 size-7 rounded-full top-0.5 transition-all left-0.5 ${
-          isDark ? "translate-x-10" : ""
+          isDark ? "" : "translate-x-10"
         }`}
       />
       <div className="flex space-x-4 justify-between items-center p-1">
