@@ -10,6 +10,8 @@ export default function Star({ fillAmount, className }: StarProps) {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
+      strokeWidth="1"
+      stroke="gray"
       className={`size-6 ${className}`}
     >
       <defs>
