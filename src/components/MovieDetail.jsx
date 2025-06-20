@@ -19,39 +19,30 @@ function MovieDetail() {
 
   if (!movie) {
     return (
-      <div className="flex justify-center items-center h-96 text-rose-200">
-        로딩 중...
+      <div className="flex justify-center items-center h-96 text-pink-200 text-xl animate-pulse">
+        🌸 영화 정보를 불러오는 중입니다...
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col md:flex-row gap-6 p-6 bg-gradient-to-b from-black via-gray-900 to-gray-800 text-rose-100 min-h-screen">
+    <div className="flex flex-col md:flex-row gap-6 p-6 bg-gradient-to-b from-rose-100 via-rose-200 to-pink-100 text-rose-900 min-h-screen">
       <img
-        className="w-full md:w-1/3 rounded-lg shadow-xl border border-rose-400"
+        className="w-full md:w-1/3 rounded-xl shadow-2xl border-4 border-pink-400"
         src={`${IMAGE_BASE_URL}${movie.poster_path}`}
         alt={movie.title}
       />
-      <div className="flex-1">
-        <h2 className="text-4xl font-extrabold mb-4 text-rose-200 tracking-wider">
+      <div className="flex-1 flex flex-col justify-center">
+        <h1 className="text-4xl font-serif font-bold text-pink-600 mb-4 border-b-2 border-pink-400 pb-2">
           {movie.title}
-        </h2>
-        <p className="text-yellow-400 font-semibold mb-3">
-          ⭐ {movie.vote_average}
+        </h1>
+        <p className="text-lg leading-relaxed text-rose-800">
+          {movie.overview || "줄거리 정보가 없습니다."}
         </p>
-        {movie.genres?.length ? (
-          <p className="text-sm text-pink-300 mb-4 italic">
-            {movie.genres.map((genre) => genre.name).join(", ")}
-          </p>
-        ) : (
-          <p className="text-sm text-gray-500 mb-4">장르 정보 없음</p>
-        )}
-        <div className="bg-gray-800 bg-opacity-60 p-6 rounded-lg shadow-md border-l-4 border-rose-400">
-          <h3 className="text-xl font-semibold mb-2 text-rose-300">줄거리</h3>
-          <p className="text-base leading-relaxed text-gray-200">
-            {movie.overview}
-          </p>
-        </div>
+        <p className="mt-4 text-sm text-pink-600">
+          📅 개봉일: {movie.release_date}
+        </p>
+        <p className="text-sm text-pink-600">⭐ 평점: {movie.vote_average}</p>
       </div>
     </div>
   );

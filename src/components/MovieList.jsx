@@ -20,20 +20,17 @@ function MovieList() {
   }, []);
 
   return (
-    <div className="bg-gradient-to-b from-black via-gray-900 to-gray-800 min-h-screen p-6 text-rose-100">
-      <h2 className="text-3xl font-bold mb-6 tracking-wide border-l-4 border-rose-300 pl-3">
+    <div className="bg-gradient-to-b from-rose-50 via-pink-100 to-rose-100 min-h-screen p-6 text-rose-900">
+      <h2 className="text-3xl font-bold mb-6 tracking-wide border-l-4 border-pink-300 pl-3">
         🔥 이번 주 추천작
       </h2>
       <MovieSlider />
 
-      <h3 className="text-2xl font-semibold mt-10 mb-4 tracking-wide">
-        🎥 인기 영화 목록
-      </h3>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 mt-8">
         {loading
           ? Array(10)
               .fill(0)
-              .map((_, idx) => <SkeletonCard key={idx} />)
+              .map((_, i) => <SkeletonCard key={i} />)
           : movies.map((movie) => (
               <MovieCard
                 key={movie.id}

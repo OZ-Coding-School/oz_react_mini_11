@@ -4,7 +4,7 @@ import NavBar from "./NavBar";
 
 function Layout() {
   return (
-    <div className="bg-gray-900 min-h-screen text-white">
+    <div className="min-h-screen bg-gradient-to-b from-rose-50 via-pink-100 to-rose-100 text-rose-900">
       <NavBar />
       <main className="p-4">
         <Outlet />
