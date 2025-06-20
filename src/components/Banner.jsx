@@ -1,32 +1,41 @@
 import { useEffect, useRef, useState } from "react";
 import { CSSTransition } from "react-transition-group";
-import baseUrl from "../constant/baseUrl";
-import movieListData from "../data/movieListData.json";
+import { BASE_URL } from "../constant/index";
+import SkeletonBanner from "./skeletons/SkeletonBanner";
+import useFetch from "../hooks/useFetch";
 
 function Banner() {
-  const [movieList, setMovieList] = useState(movieListData.results);
+  const { data, loading } = useFetch("trending/all/day?language=ko");
   const [currontIndex, setcurrontIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
-  const movie = movieList[currontIndex];
+
+  const trendingMediaList = data?.results.filter(
+    (el) => !el.adult && (el.media_type === "tv" || el.media_type === "movie")
+  );
+  console.log(trendingMediaList);
+
+  const media = trendingMediaList?.[currontIndex];
   const nodeRef = useRef(null);
 
   useEffect(() => {
+    const changeMedia = (newMedia) => {
+      setIsVisible(false);
+      setTimeout(() => {
+        setcurrontIndex(newMedia % trendingMediaList.length);
+        setIsVisible(true);
+      }, 300);
+    };
+
     const interval = setInterval(() => {
-      changeMovie(currontIndex + 1);
+      changeMedia(currontIndex + 1);
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [currontIndex, movieList.length]);
+  }, [currontIndex, trendingMediaList?.length]);
 
-  const changeMovie = (newMovie) => {
-    setIsVisible(false);
-    setTimeout(() => {
-      setcurrontIndex(newMovie % movieList.length);
-      setIsVisible(true);
-    }, 300);
-  };
-
-  return (
+  return loading ? (
+    <SkeletonBanner />
+  ) : (
     <CSSTransition
       in={isVisible}
       timeout={1000}
@@ -34,30 +43,55 @@ function Banner() {
       unmountOnExit
       nodeRef={nodeRef}
     >
-      <div ref={nodeRef} className="relative mb-10 aspect-[2.1]">
-        <div className="fixed w-full z-0">
+      <div
+        ref={nodeRef}
+        className="relative aspect-[1] sm:aspect-[1.4] lg:aspect-[1.8]"
+      >
+        <div className="fixed w-full aspect-[1] sm:aspect-[1.4] lg:aspect-[1.8] z-0">
           <img
-            className="w-full object-cover "
-            src={`${baseUrl}${movie.backdrop_path}`}
-            alt={movie.title}
+            className="w-full aspect-[1] sm:aspect-[1.4] lg:aspect-[1.8] object-cover "
+            src={`${BASE_URL}${media.backdrop_path}`}
+            alt={media.title}
           />
-          <div className="absolute inset-0 bg-[linear-gradient(to_bottom,_rgba(0,0,0,0.6),_rgba(0,0,0,0)_80%,_rgba(0,0,0))]" />
+          <div
+            className="absolute inset-0
+                      bg-[linear-gradient(to_bottom,_rgba(0,0,0,0.7)_0px,_rgba(0,0,0,0.3)_80px,_rgba(0,0,0,0.3)_calc(100%-80px),_rgba(0,0,0,1)_100%)]"
+          />
         </div>
 
-        <div
-          className="flex gap-[5vw] absolute bottom-5 z-20 w-[calc(100% - 10vw)] mx-[5vw]
-                  md:w-3/4 lg:w-4/5"
-        >
-          <img
-            className="w-1/4 rounded-md"
-            src={`${baseUrl}${movie.poster_path}`}
-            alt={movie.title}
-          />
-          <div className="flex flex-col gap-[3vw] text-xs lg:text-sm">
-            <p className="text-gray-200">{movie.release_date.split("-")[0]}</p>
-            <p className="text-[3vw] font-black">{movie.title}</p>
-            <p className="text-gray-200 break-keep">{movie.overview}</p>
-            <p className="text-gray-200">★ {movie.vote_average.toFixed(1)}</p>
+        <div className="flex flex-col gap-4 lg:gap-6 absolute bottom-[20vw] md:bottom-[14vw] z-20 w-[calc(100%-5vw)] mx-[5vw]">
+          <p className="text-[5vw] font-black">{media.title || media.name}</p>
+          <div className="text-[calc(1vw+4px)]">
+            <span className="mr-12">
+              ★ {media.vote_average.toFixed(1)}&nbsp;&nbsp;|&nbsp;&nbsp;{" "}
+              {media.vote_count}
+            </span>
+            <span className="text-gray-300">
+              {media.original_title || media.original_name}
+              &nbsp;&nbsp;·&nbsp;&nbsp;
+              {media.media_type === "tv"
+                ? media.first_air_date.split("-")[0]
+                : media.release_date.split("-")[0]}
+            </span>
+          </div>
+          <p className="w-[calc(100%-5vw)] md:w-[calc(50%-5vw)] text-[calc(1vw+4px)] text-gray-300 break-keep leading-[calc(1vw+10px)]">
+            {media.overview.split(". ").length > 3
+              ? media.overview.split(". ").slice(0, 3).join(". ") + "..."
+              : media.overview}
+          </p>
+          <div>
+            <button
+              className="mr-4 py-[1.3vw] px-[2.6vw] rounded-xl bg-white text-[calc(1vw+6px)] text-black transition-all duration-3000
+                              hover:text-white hover:bg-blue-600"
+            >
+              ▶&nbsp;&nbsp;재생
+            </button>
+            <button
+              className="py-[1.3vw] px-[2.6vw] rounded-xl bg-[#c0c0c070] text-[calc(1vw+6px)] transition-all duration-3000
+                              hover:bg-[#c0c0c0a7]"
+            >
+              ⓘ&nbsp;&nbsp;상세 정보
+            </button>
           </div>
         </div>
       </div>
