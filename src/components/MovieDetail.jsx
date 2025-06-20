@@ -68,7 +68,7 @@ export default function MovieDetail() {
           </p>
           <div>
             <p className="font-semibold">줄거리:</p>
-            <p className="text-gray-700">{overview}</p>
+            <p className="text-white">{overview}</p>
           </div>
         </div>
       </div>
