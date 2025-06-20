@@ -26,7 +26,7 @@ function MovieCard({ title, rating, poster, id, variant = "list" }) {
         <div className="flex flex-col gap-2 p-3">
           <h3 className="text-sm font-semibold text-white truncate">{title}</h3>
           <div className="flex items-center justify-between text-xs text-gray-300">
-            <span>⭐ {rating}</span>
+            <span>⭐ {rating.toFixed(1)}</span>
             <button className="px-2 py-1 bg-purple-600 text-white rounded hover:bg-purple-700">
               예매
             </button>
