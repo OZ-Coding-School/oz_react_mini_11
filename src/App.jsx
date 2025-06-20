@@ -1,23 +1,26 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "./App.css";
-import MovieCard from "./components/MovieCard";
+
 import MainBanner from "./components/MainBanner";
 import SubTitle from "./components/SubTitle";
+import Main from "./pages/Main";
+import { useNavigate } from "react-router";
 
 function App() {
   const [movies, setMovies] = useState([]);
   const navigate = useNavigate();
+  //useNavigate는 조건/이벤트 기반 이동
   const URL = "https://image.tmdb.org/t/p/w500";
 
   const token = import.meta.env.VITE_TMDB_READ_TOKEN;
 
+  //useEffect안에 api 넣어서 처음 렌더링시 마운트 될때만 ,[]
   useEffect(() => {
     const options = {
       method: "GET",
       headers: {
         accept: "application/json",
-        Authorization: token,
+        Authorization: `Bearer ${token}`,
       },
     };
 
@@ -26,32 +29,16 @@ function App() {
       options
     )
       .then((res) => res.json())
-      .then((data) => (setMovies(data.results), console.log(data.results)))
+      .then((data) => (console.log(data), setMovies(data.results)))
       .catch((err) => console.error(err));
   }, []);
 
   return (
     <>
-      <MainBanner movies={movies} URL={URL} />
+      <MainBanner movies={movies} URL={URL} navigate={navigate} />
       <div className="p-5 flex flex-col gap-8 ">
         <SubTitle />
-        <div className="flex flex-wrap gap-5">
-          {movies
-            .filter((movie) => !movie.adult)
-            .map((movie) => {
-              return (
-                <MovieCard
-                  key={movie.id}
-                  title={movie.title}
-                  rating={Math.ceil(movie.vote_average * 10) / 10}
-                  poster={`${URL}${movie.poster_path}`}
-                  onClick={() => {
-                    navigate(`/movies/${movie.id}`);
-                  }}
-                />
-              );
-            })}
-        </div>
+        <Main movies={movies} navigate={navigate} URL={URL} />
       </div>
     </>
   );

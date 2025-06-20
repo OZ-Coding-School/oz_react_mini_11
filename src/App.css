@@ -1,10 +1,13 @@
-* {
-  color: white;
-}
-
 html,
 body,
 #root {
   height: 100vh;
   background-color: black;
 }
+
+/*
+sm:	640px 이상	작은 모바일 이상
+md:	768px 이상	태블릿 이상
+lg:	1024px 이상	데스크탑 이상
+xl:	1280px 이상	큰 데스크탑 이상
+2xl:	1536px 이상	초대형 화면 */

@@ -35,21 +35,23 @@ export function MovieDetail() {
   // api처리할때 비동기라 처음에는 데이터가 없는상태, 따라서 poster_path읽으려고 하면 에러발생
 
   return (
-    <div className="flex flex-row w-[60vw] justify-center pt-50">
+    <div className=" flex justify-center items-center pt-[20%] md:pt-[4%]  flex-col md:flex-row text-white">
       <img
         src={`${IMAGE_BASE_URL}${movie.poster_path}`}
         alt={movie.title}
-        className="h-[500px] "
+        className="h-[40vh] md:h-[500px] w-[100vw] "
       />
-      <div className="flex flex-col justify-between ml-4  h-[60vh]">
-        <div className="flex w-full">
-          <div className="flex-2">{movie.title}</div>
-          <div className="flex-1">
+      <div className="flex flex-col justify-evenly h-[40vh] md:h-screen ml-4 py-20 px-10">
+        <div className="flex w-full md:text-xl">
+          <div className="flex-2 md:text-xl">{movie.title}</div>
+          <div className="flex-1 text-end md:text-xl">
             {`평점: ${Math.ceil(movie.vote_average * 10) / 10}`}
           </div>
         </div>
-        <div>{movie.genres.map((el) => el.name).join(", ")}</div>
-        <div>{movie.overview}</div>
+        <div className="md:text-xl">
+          {movie.genres.map((el) => el.name).join(", ")}
+        </div>
+        <div className=" md:text-xl   md:w-[30vw]">{movie.overview}</div>
       </div>
     </div>
   );
