@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
-import { useNavigate } from "react-router-dom";
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   height: 100%;
   flex: 1;
   display: flex;
@@ -10,7 +9,7 @@ const Wrapper = styled.div`
   /* background-color: green; */
 `;
 
-const Title = styled.div`
+export const Title = styled.div`
   font-size: 3rem;
   color: ${(props) => props.theme.colors.purple.dark};
   cursor: pointer;
@@ -19,12 +18,12 @@ const Title = styled.div`
   margin-bottom: -1rem;
 `;
 
-const InputWrapper = styled.div`
+export const InputWrapper = styled.div`
   width: 50%;
   /* background-color: pink; */
 `;
 
-const Input = styled.input`
+export const Input = styled.input`
   width: 100%;
   padding: 0.75rem 2rem;
   border: 0;
@@ -40,14 +39,14 @@ const Input = styled.input`
   }
 `;
 
-const ButtonWrapper = styled.div`
+export const ButtonWrapper = styled.nav`
   flex: 1 0 fill;
   display: flex;
   gap: 0.5rem;
   /* background-color: blueviolet; */
 `;
 
-const Button = styled.button`
+export const Button = styled.button`
   padding: 0.5rem 1rem;
   border: 0;
   border-radius: 1rem;
@@ -65,7 +64,7 @@ const Button = styled.button`
   }
 `;
 
-const Container = styled.div`
+export const Container = styled.header`
   position: sticky;
   top: 0;
   width: 100%;
@@ -77,28 +76,3 @@ const Container = styled.div`
   box-shadow: 0 0 10px 3px #00000015;
   background-color: #2c2c2c;
 `;
-
-function NavBar() {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate("/");
-  };
-
-  return (
-    <Container>
-      <Wrapper>
-        <Title onClick={handleClick}>MOVIEFLIX</Title>
-        <InputWrapper>
-          <Input />
-        </InputWrapper>
-      </Wrapper>
-      <ButtonWrapper>
-        <Button>로그인</Button>
-        <Button>회원가입</Button>
-      </ButtonWrapper>
-    </Container>
-  );
-}
-
-export default NavBar;

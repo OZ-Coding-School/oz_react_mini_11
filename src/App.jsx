@@ -1,18 +1,30 @@
+import "./App.styles";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import MovieDetail from "./components/MovieDetail";
-import Layout from "./layout/Layout";
+import { lazy, Suspense } from "react";
+import loadingAnimation from "./assets/animations/loading-animation.json";
+import { StyledLottie, Wrapper } from "./App.styles";
+
+const Layout = lazy(() => import("./layout/Layout"));
+const Home = lazy(() => import("./pages/Home/Home"));
+const MovieDetail = lazy(() => import("./components/MovieDetail/MovieDetail"));
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="/details" element={<MovieDetail />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <Suspense
+      fallback={
+        <Wrapper>
+          <StyledLottie animationData={loadingAnimation} loop autoplay />
+        </Wrapper>
+      }>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="/detail/:movieId" element={<MovieDetail />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </Suspense>
   );
 }
 

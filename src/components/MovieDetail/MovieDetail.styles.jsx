@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
-import MOVIE_DETAIL_DATA from "../data/movieDetailData.json";
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   width: 85%;
   height: 85%;
   display: flex;
@@ -10,7 +9,7 @@ const Wrapper = styled.div`
   min-width: min-content;
 `;
 
-const Image = styled.img`
+export const Image = styled.img`
   flex: 1;
   margin: 1.5rem;
   max-height: 100%;
@@ -21,7 +20,7 @@ const Image = styled.img`
   box-shadow: 0px 12px 30px 5px #ffffff20;
 `;
 
-const ContentWrapper = styled.div`
+export const ContentWrapper = styled.div`
   flex: 1;
   padding: 3rem 2rem 3rem 1rem;
   height: 100%;
@@ -31,21 +30,21 @@ const ContentWrapper = styled.div`
   overflow-y: auto;
 `;
 
-const TopWrapper = styled.div`
+export const TopWrapper = styled.div`
   padding: 1rem 0;
   display: flex;
   flex-direction: column;
   gap: 1rem;
 `;
 
-const Title = styled.div`
+export const Title = styled.div`
   padding: 0 2rem;
   font-size: 2.5rem;
   font-weight: 700;
   color: #eeeeee;
 `;
 
-const Rating = styled.div`
+export const Rating = styled.div`
   padding: 0 2rem;
   display: flex;
   justify-content: flex-end;
@@ -54,13 +53,13 @@ const Rating = styled.div`
   color: #b0b0b0;
 `;
 
-const GenresWrapper = styled.div`
+export const GenresWrapper = styled.div`
   display: flex;
   justify-content: space-evenly;
   /* align-items: center; */
 `;
 
-const Genres = styled.div`
+export const Genres = styled.div`
   padding: 0.75rem 1rem;
   border: 3px solid ${(props) => props.theme.colors.yellow.normal};
   border-radius: 0.5rem;
@@ -71,45 +70,17 @@ const Genres = styled.div`
   align-items: center;
 `;
 
-const Overview = styled.div`
+export const Overview = styled.div`
   flex: 1;
   font-size: 1.125rem;
   line-height: 1.5;
   color: #eeeeee;
 `;
 
-const Container = styled.div`
+export const Container = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
-
-function MovieDetail() {
-  const data = MOVIE_DETAIL_DATA;
-  return (
-    <Container>
-      <Wrapper>
-        <Image
-          src={`https://image.tmdb.org/t/p/w500${data.backdrop_path}`}
-          alt="poster"
-        />
-        <ContentWrapper>
-          <TopWrapper>
-            <Title>{data.title}</Title>
-            <Rating>평점: {data.vote_average}</Rating>
-          </TopWrapper>
-          <GenresWrapper>
-            {data.genres.map(({ id, name }) => (
-              <Genres key={id}>{name}</Genres>
-            ))}
-          </GenresWrapper>
-          <Overview>{data.overview}</Overview>
-        </ContentWrapper>
-      </Wrapper>
-    </Container>
-  );
-}
-
-export default MovieDetail;

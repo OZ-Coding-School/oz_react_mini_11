@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
-import { useNavigate } from "react-router-dom";
 
-const Image = styled.img`
+export const Image = styled.img`
   width: 100%;
   aspect-ratio: 5/6;
   object-fit: cover;
@@ -9,14 +8,14 @@ const Image = styled.img`
   border-top-right-radius: 0.45rem;
 `;
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
   padding: 1.5rem;
 `;
 
-const Title = styled.div`
+export const Title = styled.div`
   color: #eeeeee;
   font-size: 1.125rem;
   font-weight: 700;
@@ -28,14 +27,14 @@ const Title = styled.div`
   white-space: nowrap;
 `;
 
-const Rating = styled.div`
+export const Rating = styled.div`
   align-self: flex-end;
   font-size: 1rem;
   font-weight: 500;
   color: gray;
 `;
 
-const Container = styled.div`
+export const Container = styled.div`
   width: 100%;
   height: 100%;
   border-radius: 0.5rem;
@@ -45,25 +44,3 @@ const Container = styled.div`
     filter: brightness(1.2);
   }
 `;
-
-function MovieCard({ data }) {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate("/details");
-  };
-
-  return (
-    <Container onClick={handleClick}>
-      <Image
-        src={`https://image.tmdb.org/t/p/w500${data.backdrop_path}`}
-        alt="movie-image"></Image>
-      <Wrapper>
-        <Title>{data.title}</Title>
-        <Rating>평점: {data.vote_average}</Rating>
-      </Wrapper>
-    </Container>
-  );
-}
-
-export default MovieCard;
