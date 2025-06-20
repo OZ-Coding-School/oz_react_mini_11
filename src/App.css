@@ -1,8 +1,12 @@
 .movie-grid{
+  background-color: black;
+}
+
+.movie-grid-grid{
   display: grid;
-  grid-template-columns: repeat(10,1fr);
+  grid-template-columns: repeat(8,1fr);
   gap: 30px;
-  padding: 20px;
+  padding: 50px 100px;
   background-color: black;
 }
 
@@ -15,6 +19,8 @@
 
 .movie-card{
   /* display: flex; */
+  width: 170px;
+  height: 320px;
   border-radius: 10px;
   gap: 10px;
   padding: 10px;
@@ -49,11 +55,13 @@
   flex-direction: column;
   justify-content: space-between;
   flex: 1;
+  height: auto;
 }
 
 .movie-title_average {
   justify-content: space-between;
   gap: 10px;
+  height: auto;
 }
 .movie-title_average2 {
   display: flex;
