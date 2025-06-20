@@ -1,18 +1,25 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import useDebounce from "../hooks/useDebounce";
-import { Link } from "react-router-dom";
 
 function NavBar() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+  const location = useLocation();
   const navigate = useNavigate();
 
+  const currentQuery = new URLSearchParams(location.search).get("query") || "";
+  const [searchTerm, setSearchTerm] = useState(currentQuery);
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+
   useEffect(() => {
-    if (debouncedSearchTerm.trim()) {
-      navigate(`/search?query=${debouncedSearchTerm}`);
+    // query가 없는 경로면 검색 페이지로 이동
+    if (
+      debouncedSearchTerm.trim() &&
+      (location.pathname !== "/search" || currentQuery !== debouncedSearchTerm)
+    ) {
+      navigate(`/search?query=${debouncedSearchTerm}`, { replace: true });
     }
-  }, [debouncedSearchTerm, navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedSearchTerm]);
 
   return (
     <div className="w-full bg-black px-6 py-4 shadow-md flex justify-between items-center">
