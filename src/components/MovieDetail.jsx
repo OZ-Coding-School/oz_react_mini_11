@@ -10,7 +10,7 @@ function MovieDetail() {
     data: detail,
     loading,
     error,
-  } = useFetch(`${apiBaseUrl}${id}?language=ko-KR`, {
+  } = useFetch(`${apiBaseUrl}/movie/${id}?language=ko-KR`, {
     method: 'GET',
     headers: {
       accept: 'application/json',

@@ -1,3 +1,5 @@
+// 요구사항인 useDebounce 훅 활용을 위해 검색버튼 삭제
+// 재사용 가능성을 고려하여 별도 컴포넌트로 보관.
 const handleSearch = value => {
   navigate(`/searchresults?query=${value}`);
 };
