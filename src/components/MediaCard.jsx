@@ -1,16 +1,12 @@
 import { BASE_URL } from "../constant/index";
 
-function MediaCard({ title, avg, imgSrc }) {
+function MediaCard({ title, imgSrc }) {
   return (
-    <div className="w-[120px]">
-      <img
-        className="aspect-[0.7] object-cover"
-        src={`${BASE_URL}${imgSrc}`}
-        alt={title}
-      />
-      {/* <div>{title}</div>
-      <div>{avg}</div> */}
-    </div>
+    <img
+      className="max-w-[200px] aspect-[0.7] object-cover rounded-sm"
+      src={`${BASE_URL}${imgSrc}`}
+      alt={title}
+    />
   );
 }
 
