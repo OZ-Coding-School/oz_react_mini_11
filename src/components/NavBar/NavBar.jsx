@@ -13,6 +13,7 @@ import {
 import Lottie from "lottie-react";
 import menuAnimation from "../../assets/animations/menu-animation.json";
 import { useEffect, useState } from "react";
+import { useDebounce } from "../../hooks/useDebounce";
 
 function NavBar() {
   const [query, setQuery] = useState("");
@@ -29,13 +30,7 @@ function NavBar() {
     }
   }, [location.pathname]);
 
-  useEffect(() => {
-    if (query === "") return;
-    const debouncedSearch = setTimeout(() => {
-      navigate(`/search?q=${query}`);
-    }, 500);
-    return () => clearTimeout(debouncedSearch);
-  }, [query]);
+  useDebounce(() => navigate(`/search?q=${query}`), query, 500);
 
   return (
     <Container>
