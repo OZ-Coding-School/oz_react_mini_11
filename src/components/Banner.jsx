@@ -12,7 +12,6 @@ function Banner() {
   const trendingMediaList = data?.results.filter(
     (el) => !el.adult && (el.media_type === "tv" || el.media_type === "movie")
   );
-  console.log(trendingMediaList);
 
   const media = trendingMediaList?.[currontIndex];
   const nodeRef = useRef(null);
