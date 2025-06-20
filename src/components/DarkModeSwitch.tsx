@@ -12,12 +12,14 @@ export default function DarkModeSwitch() {
 
   return (
     <button
-      className="rounded-full border-neutral-100 border-2 relative "
+      className={`rounded-full border-2 relative ${
+        isDark ? "border-neutral-100" : "border-neutral-900"
+      }`}
       onClick={handleClick}
     >
       <div
-        className={`absolute bg-neutral-100 z-10 size-7 rounded-full top-0.5 transition-all left-0.5 ${
-          isDark ? "" : "translate-x-10"
+        className={`absolute  z-10 size-7 rounded-full top-0.5 transition-all left-0.5 ease-in-out duration-300 ${
+          isDark ? "bg-neutral-100" : "translate-x-10 bg-neutral-900"
         }`}
       />
       <div className="flex space-x-4 justify-between items-center p-1">

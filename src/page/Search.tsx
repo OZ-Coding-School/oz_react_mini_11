@@ -5,8 +5,10 @@ import axios from "axios";
 import { getAxiosTMDBMovieSearchOption } from "../utils/axiosUtils";
 import Loading from "../components/lodaing/Loading";
 import MovieCard from "../components/MovieCard";
+import useDarkModeStore from "../hooks/zustand/useIsDarkStore";
 
 export default function Search() {
+  const isDark = useDarkModeStore((state) => state.isDark);
   const searchParam = useSearchParams()[0].get("searchParam");
 
   const { data: movieList, isPending } = useQuery<MovieListData>({
@@ -33,7 +35,11 @@ export default function Search() {
             ))}
         </div>
       ) : (
-        <div className="text-xl text-neutral-50">
+        <div
+          className={`text-xl ${
+            isDark ? "text-neutral-50" : "text-neutral-900"
+          }`}
+        >
           해당 검색어에 맞는 영화가 없습니다.
         </div>
       )}

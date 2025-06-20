@@ -6,8 +6,10 @@ import axios from "axios";
 import { getAxiosTMDBMovieListOption } from "../utils/axiosUtils";
 import Loading from "../components/lodaing/Loading";
 import { useEffect, useState } from "react";
+import useDarkModeStore from "../hooks/zustand/useIsDarkStore";
 
 export default function Home() {
+  const isDark = useDarkModeStore((state) => state.isDark);
   const [topTenMovies, setTopTenMoives] = useState<MovieData[]>([]);
   const { scrollRef, onDragStart, onDragEnd, onDragMove, isDrag } =
     useDraggableScroll();
@@ -49,11 +51,17 @@ export default function Home() {
       {isMovieListPending && isTopRatedMovieListPending ? (
         <Loading />
       ) : movieList ? (
-        <div className="flex flex-col gap-5 justify-center">
+        <div
+          className={`flex flex-col gap-5 justify-center
+          ${
+            isDark
+              ? "bg-neutral-900 text-neutral-50"
+              : "bg-neutral-50 text-neutral-900"
+          }
+        `}
+        >
           <div className=" w-full">
-            <h1 className="text-neutral-100 font-semibold text-2xl">
-              Top 10 Movies
-            </h1>
+            <h1 className=" font-semibold text-2xl">Top 10 Movies</h1>
             <div
               ref={scrollRef}
               onMouseDown={onDragStart}
@@ -66,7 +74,7 @@ export default function Home() {
             >
               {topTenMovies.map((movie, i) => (
                 <div key={movie.id} className="p-5 flex flex-col space-y-5">
-                  <span className="text-neutral-100">{`TOP ${i + 1}`}</span>
+                  <span>{`TOP ${i + 1}`}</span>
                   <MovieCard movie={movie} />
                 </div>
               ))}

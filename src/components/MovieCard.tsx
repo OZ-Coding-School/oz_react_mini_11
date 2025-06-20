@@ -3,12 +3,14 @@ import type { MovieData } from "../types";
 import StarPoints from "./StarPoints";
 import { IMAGE_BASE_URL } from "../constants";
 import useSearchParamStore from "../hooks/zustand/useSearchParamStore";
+import useDarkModeStore from "../hooks/zustand/useIsDarkStore";
 
 interface MovieCardProps {
   movie: MovieData;
 }
 
 export default function MovieCard({ movie }: MovieCardProps) {
+  const isDark = useDarkModeStore((state) => state.isDark);
   const updateSearchParam = useSearchParamStore(
     (state) => state.updateSearchParam
   );
@@ -22,7 +24,9 @@ export default function MovieCard({ movie }: MovieCardProps) {
   return (
     <div
       onClick={handleClick}
-      className="w-[240px] flex bg-neutral-100 items-center flex-col p-2  shadow-lg shadow-purple-800 transition-transform hover:scale-105 space-y-1 rounded-xl"
+      className={`w-[240px] flex text-neutral-900 bg-neutral-100 items-center flex-col p-2  shadow-lg  transition-transform hover:scale-105 space-y-1 rounded-xl
+        ${isDark ? "shadow-purple-800" : "shadow-purple-300"}
+        `}
     >
       <img
         src={`${IMAGE_BASE_URL}/${movie.poster_path}`}
