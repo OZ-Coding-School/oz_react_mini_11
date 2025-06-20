@@ -27,9 +27,7 @@ export default function Layout() {
             <div className="min-h-screen flex flex-col">
                 <NavBar setSearchResultMovies={setSearchResultMovies} setIsSearching={setIsSearching} />
                 <main className="flex-grow px-4 py-6">
-                    <Outlet
-                        context={{ allMovies, searchResultMovies, setSearchResultMovies, isSearching, setIsSearching }}
-                    />
+                    <Outlet context={{ allMovies, searchResultMovies, isSearching }} />
                 </main>
 
                 <Footer />
