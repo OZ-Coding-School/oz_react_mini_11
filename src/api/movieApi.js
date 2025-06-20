@@ -7,6 +7,21 @@ function getAuthHeaders() {
       "Content-Type": "application/json",
   };
 }
+export async function fetchMoviesByGenre(genreId) {
+  try {
+    const response = await fetch (
+      `${BASE_URL}/discover/movie?language=ko-KR&sort_by=popularity.desc&with_genres=${genreId}page=1`,
+      {method: "GET", 
+      headers: getAuthHeaders() }
+    );
+    if (!response.ok) throw new Error("장르별 영화 조회 실패");
+    const data = await response.json();
+    return data.results.filter((movie) => movie.adult === false);
+  } catch (error) {
+    console.error(`장르(${genreId}영화 로드 오류`, error);
+    return [];
+  }
+}
 
 export async function fetchPopularMovies() {
     try {
@@ -19,7 +34,6 @@ export async function fetchPopularMovies() {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      // 성인 영화 제외 필터링
       const filtered = data.results.filter(movie => movie.adult === false);
       return filtered;
     } catch (error) {
@@ -51,7 +65,7 @@ export async function fetchSearchMovies(query) {
     if (!query.trim()){
       return [];
     }
-    
+
     const response = await fetch(`${BASE_URL}/search/movie?language=ko-KR&query=` + encodeURIComponent(query), {
       method: "GET",
         headers: getAuthHeaders()
