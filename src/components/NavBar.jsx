@@ -1,12 +1,17 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import useDebounce from '../hooks/useDebounce';
 
 function NavBar() {
-  const [query, setQuery] = useState([]);
+  const [query, setQuery] = useState('');
+  const debouncedQuery = useDebounce(query);
+  const navigate = useNavigate();
 
-  const handleSearch = () => {
-    window.location.href = `/searchresults?query=${query}`;
-  };
+  const handleSearch = useEffect(() => {
+    if (debouncedQuery !== '') {
+      navigate(`/searchresults?query=${query}`);
+    }
+  }, [debouncedQuery, navigate]);
 
   return (
     <>
@@ -41,7 +46,6 @@ function NavBar() {
         />
         <div
           onClick={handleSearch}
-          div
           className="p-2 hover:bg-gray-200 rounded-full transition bg-white"
         >
           <svg
