@@ -4,10 +4,12 @@ import NavBar from "./NavBar";
 
 function Layout() {
   return (
-    <>
+    <div className="min-h-screen bg-[#1e1e1e] text-white">
       <NavBar />
-      <Outlet />
-    </>
+      <main className="p-4">
+        <Outlet />
+      </main>
+    </div>
   );
 }
 

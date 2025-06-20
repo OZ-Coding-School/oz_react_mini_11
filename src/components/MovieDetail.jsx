@@ -1,43 +1,42 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import "./MovieDetail.css";
-import { TMDB_GET_OPTION, TMDB_MOIVE_API_BASE_URL } from "../constans";
-
-const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+import {
+  IMAGE_BASE_URL,
+  TMDB_GET_OPTION,
+  TMDB_MOIVE_API_BASE_URL,
+} from "../constants";
 
 function MovieDetail() {
   const { id } = useParams();
-  const [movie, setMovie] = useState();
+  const [movie, setMovie] = useState(null);
 
   useEffect(() => {
     fetch(`${TMDB_MOIVE_API_BASE_URL}/${id}?language=ko`, TMDB_GET_OPTION)
       .then((res) => res.json())
-      .then((res) => {
-        setMovie(res);
-      })
-      .catch((err) => console.error("❌ 영화 데이터 요청 실패:", err));
+      .then((data) => setMovie(data))
+      .catch((err) => console.error("영화 상세 정보 불러오기 실패:", err));
   }, [id]);
 
-  if (!movie) {
-    return <p>영화를 찾을 수 없습니다</p>;
-  }
+  if (!movie) return <div className="text-white p-10">로딩 중...</div>;
 
   return (
-    <div className="detail-container">
-      <img
-        className="detail-poster"
-        src={`${IMAGE_BASE_URL}${movie.poster_path}`}
-        alt={movie.title}
-      />
-      <div className="detail-info">
-        <div className="detail-title-row">
-          <h2>{movie.title}</h2>
-          <span className="vote"> ⭐ {movie.vote_average}</span>
+    <div className="bg-[#1e1e1e] min-h-screen text-white px-6 py-12">
+      <div className="flex flex-col md:flex-row items-center md:items-start gap-8 max-w-5xl mx-auto">
+        <img
+          src={`${IMAGE_BASE_URL}${movie.poster_path}`}
+          alt={movie.title}
+          className="w-full max-w-xs rounded-xl shadow-lg border border-gray-700"
+        />
+        <div className="flex flex-col gap-4">
+          <h1 className="text-3xl font-bold text-purple-400">{movie.title}</h1>
+          <p className="text-gray-400">{movie.overview}</p>
+          <div className="text-sm text-gray-300">
+            <p>📅 개봉일: {movie.release_date}</p>
+            <p>⭐ 평점: {movie.vote_average.toFixed(1)}</p>
+            <p>🎬 장르: {movie.genres.map((g) => g.name).join(", ")}</p>
+            <p>🕒 상영 시간: {movie.runtime}분</p>
+          </div>
         </div>
-        <div className="detail-genres">
-          {movie.genres?.map((genre) => genre.name).join(", ")}
-        </div>
-        <p className="detail-overview">{movie.overview}</p>
       </div>
     </div>
   );
