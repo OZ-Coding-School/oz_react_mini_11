@@ -2,6 +2,7 @@ import { useNavigate } from "react-router";
 import Button from "./Button";
 import SearchInput from "./SearchInput";
 import useSearchParamStore from "../hooks/zustand/useSearchParamStore";
+import DarkModeSwitch from "./DarkModeSwitch";
 export default function Navbar() {
   const navigate = useNavigate();
   const updateSearchParam = useSearchParamStore(
@@ -23,6 +24,7 @@ export default function Navbar() {
       </div>
       <SearchInput className="bg-neutral-50 text-neutral-900 rounded-full focus:outline-none px-3 py-1 w-[90%] md:flex-1 md:max-w-2xl" />
       <div className="flex items-center justify-center space-x-2">
+        <DarkModeSwitch />
         <Button theme="outline">회원가입</Button>
         <Button theme="default">로그인</Button>
       </div>
