@@ -35,26 +35,29 @@ export default function NavBar() {
   }, [debouncedInput]);
 
   return (
-    <div className="flex bg-emerald-800 h-[30px] flex-wrap">
-      <Link to={`/`} className="pr-[50px] pl-[10px] text-[19px]">
-        재은TV
-      </Link>
-      <div>
+    <div className="flex items-center bg-white h-[40px] px-4">
+      {/* 왼쪽: 로고 */}
+      <div className="flex-1">
+        <Link to="/" className="text-sm">
+          재은TV
+        </Link>
+      </div>
+
+      {/* 가운데: 검색창 */}
+      <div className="flex-2 relative">
         <input
-          className="w-[60%] mt-[2px] h-[25px] text-black bg-green-50 rounded-[10px] pr-[10px] pl-[10px]"
+          className="w-full h-[25px] text-white bg-gray-800 rounded-[10px] px-2 text-sm"
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
         {movieList.results && movieList.results.length > 0 && (
-          <ul className="absolute top-[30px] left-0 w-full bg-white text-black rounded-md shadow-md z-10">
+          <ul className="absolute top-[35px] left-0 w-full bg-white text-black rounded-md shadow-md z-10">
             {movieList.results.map((movie) => (
               <li key={movie.id} className="p-2 hover:bg-emerald-100">
                 <Link
                   to={`/detail/${movie.id}`}
                   className="block w-full h-full"
-                  onClick={() => {
-                    setMovieList([]);
-                  }}
+                  onClick={() => setMovieList([])}
                 >
                   {movie.title}
                 </Link>
@@ -63,8 +66,10 @@ export default function NavBar() {
           </ul>
         )}
       </div>
-      <div className="pl-[50px] text-[19px]">로그인</div>
-      <div className="pl-[10px] text-[19px]">회원가입</div>
+      <div className="flex-1 flex justify-end gap-3 text-sm">
+        <div>로그인</div>
+        <div>회원가입</div>
+      </div>
     </div>
   );
 }

@@ -44,7 +44,7 @@ export default function MovieCard() {
             <img
               src={`https://image.tmdb.org/t/p/w500${results.poster_path}`}
               alt={results.title}
-              className="w-[180px] h-[270px] object-cover"
+              className="w-[200px] aspect-[2/3] object-cover"
             />
             <nav className="text-[12px] p-[2px] border-t-[1px] bg-amber-50">
               {results.title}
