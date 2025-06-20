@@ -22,6 +22,10 @@ export default function Search() {
         fetchData();
     }, [keyword]);
 
+    useEffect(() => {
+        console.log("📄 Search page mounted");
+    }, []);
+
     return (
         <div className="p-6 text-white">
             <h2 className="text-xl mb-4">"{keyword}" 검색 결과</h2>

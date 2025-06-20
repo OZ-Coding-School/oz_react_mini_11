@@ -2,20 +2,34 @@ import { useEffect, useRef, useState } from "react";
 import useDebounce from "../hooks/useDebounce";
 import { fetchsearchMovies } from "../api/tmdb";
 import MovieCard from "./MovieCard";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function SearchMovie() {
     const [inputValue, setInputValue] = useState("");
     const debounceValue = useDebounce(inputValue, 1000);
+    const location = useLocation();
 
+    // const [key, setKey] = useState();
     // const [isOpen, setIsOpen] = useState(false); //검색창 오픈 상태관리
     // const inputRef = useRef(null);
 
     const navigate = useNavigate();
 
     useEffect(() => {
+        console.log("inputValue:", inputValue);
+    }, [inputValue]);
+
+    useEffect(() => {
+        if (location.pathname !== "/") {
+            setInputValue("");
+        }
+    }, [location.pathname]);
+
+    useEffect(() => {
         if (debounceValue) {
             navigate(`search?keyword=${debounceValue}`);
+
+            //  Search 페이지로 이동 URL 파라미터 전달 (debounceValue값으로)
         }
         // const fetchData = async () => {
         //검색어 없으면 초기화
