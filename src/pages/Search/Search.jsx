@@ -1,11 +1,12 @@
 import styled from "@emotion/styled";
 import MovieCard from "../../components/MovieCard/MovieCard";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "swiper/css/navigation";
 import "swiper/css";
 import { getSearchMovie } from "../../apis/searchMovieApi";
 import MovieCardSkeleton from "../../components/MovieCard/MovieCardSkeleton";
 import { useSearchParams } from "react-router-dom";
+import { useFetch } from "../../hooks/useFetch";
 
 const Container = styled.div`
   width: 100%;
@@ -31,24 +32,15 @@ function Search() {
   const [movies, setMovies] = useState([]); // 검색된 영화 데이터
   const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams();
+  const query = searchParams.get("q");
 
-  useEffect(() => {
-    const fetchGetSearchMovie = async () => {
-      try {
-        const query = searchParams.get("q");
-        const data = await getSearchMovie(query);
-        setMovies(data.results);
-      } catch (error) {
-        console.error("getSearchMovie 실행 실패 : ", error);
-        throw error;
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchGetSearchMovie();
-  }, [searchParams]);
-
-  console.log("검색한 영화 리스트 : ", movies);
+  useFetch(
+    () => getSearchMovie(query),
+    [searchParams],
+    (data) => setMovies(data.results),
+    setLoading,
+    "searched movies"
+  );
 
   return (
     <Container>

@@ -15,6 +15,7 @@ import {
   SwiperWrapper,
 } from "./Home.styles";
 import MovieCardSkeleton from "../../components/MovieCard/MovieCardSkeleton";
+import { useFetch } from "../../hooks/useFetch";
 
 function Home() {
   const [swiper, setSwiper] = useState(false);
@@ -32,21 +33,29 @@ function Home() {
     }
   }, [swiper]);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const data = await getPopularMovies();
-        setMovies(data.results.filter((el) => el.adult === false));
-      } catch (error) {
-        console.error("getPopularMovies 실행 실패 : ", error);
-        throw error;
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, []);
+  useFetch(
+    () => getPopularMovies(),
+    undefined,
+    (data) => setMovies(data.results.filter((el) => el.adult === false)),
+    setLoading,
+    "movies"
+  );
 
-  console.log(movies);
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const data = await getPopularMovies();
+  //       setMovies(data.results.filter((el) => el.adult === false));
+  //     } catch (error) {
+  //       console.error("getPopularMovies 실행 실패 : ", error);
+  //       throw error;
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   })();
+  // }, []);
+
+  // console.log(movies);
 
   return (
     <Container>
