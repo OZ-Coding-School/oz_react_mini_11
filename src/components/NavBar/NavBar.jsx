@@ -12,20 +12,33 @@ import {
 } from "./NavBar.styles";
 import Lottie from "lottie-react";
 import menuAnimation from "../../assets/animations/menu-animation.json";
+import { useEffect, useState } from "react";
 
 function NavBar() {
+  const [query, setQuery] = useState("");
   const navigate = useNavigate();
 
   const handleClick = () => {
     navigate("/");
   };
 
+  useEffect(() => {
+    if (query === "") return;
+    const debouncedSearch = setTimeout(() => {
+      navigate(`/search?q=${query}`);
+    }, 500);
+    return () => clearTimeout(debouncedSearch);
+  }, [query]);
+
   return (
     <Container>
       <Wrapper>
         <Title onClick={handleClick}>MOVIEFLIX</Title>
         <InputWrapper>
-          <Input />
+          <Input
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+          />
         </InputWrapper>
       </Wrapper>
       <ButtonWrapper>
