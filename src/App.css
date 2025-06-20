@@ -1,5 +1,13 @@
 .movie-grid{
   display: grid;
+  grid-template-columns: repeat(10,1fr);
+  gap: 30px;
+  padding: 20px;
+  background-color: black;
+}
+
+.movie-grid2{
+  display: grid;
   grid-template-columns: repeat(3,1fr);
   gap: 30px;
   padding: 20px

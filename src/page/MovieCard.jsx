@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import movieListData from "../data/movieListData.json"
 
 const baseUrl = "https://image.tmdb.org/t/p/w500"
@@ -7,12 +7,15 @@ function MovieCard () {
     return(
         <>
             <div className="movie-grid">
-                {movieListData.results.slice(0,20).map(el => 
+                    {movieListData.results.slice(0,20).map(el => 
                     <div className="movie-card" key={el.id}>
-                        <img src={baseUrl+el.poster_path}/>
-                        <MovieDetailed el={el}/>
+                        <Link to='/panda'>
+                            <img src={baseUrl+el.poster_path}/>
+                            <MovieDetailed el={el}/>
+                        </Link>
                     </div>
-                )}
+                )}    
+                
             </div>
         </>
     );

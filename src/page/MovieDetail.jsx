@@ -5,7 +5,7 @@ const baseUrl = "https://image.tmdb.org/t/p/w500"
 function MovieDetail () {
     return (
         <>
-            <div className="movie-grid">
+            <div className="movie-grid2">
                 {movieListData.results.slice(0,20).map(el => 
                     <div className="movie-card2" key={el.id}>
                         <img src={baseUrl+el.poster_path}/>
