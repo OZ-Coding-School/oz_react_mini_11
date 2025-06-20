@@ -1,49 +1,56 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./App.css";
 import MovieCard from "./components/MovieCard";
-import movieData from "./data/movieListData.json";
-import { SwiperComponent } from "./components/Swiper";
-
-const URL = "https://image.tmdb.org/t/p/w500";
+import MainBanner from "./components/MainBanner";
+import SubTitle from "./components/SubTitle";
 
 function App() {
-  const [movies] = useState(movieData.results);
+  const [movies, setMovies] = useState([]);
   const navigate = useNavigate();
+  const URL = "https://image.tmdb.org/t/p/w500";
+
+  const token = import.meta.env.VITE_TMDB_READ_TOKEN;
+
+  useEffect(() => {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: token,
+      },
+    };
+
+    fetch(
+      "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
+      options
+    )
+      .then((res) => res.json())
+      .then((data) => (setMovies(data.results), console.log(data.results)))
+      .catch((err) => console.error(err));
+  }, []);
 
   return (
     <>
-      <div className="relative w-full h-[90vh] ">
-        <div className="absolute z-1 w-full h-full bg-[rgba(34,34,34,0.69)]"></div>
-        <img
-          src="src/img/img01.jpg"
-          alt=""
-          className="absolute w-full overflow-hidden h-full"
-        />
-        <span className="flex absolute z-30 top-40 left-30 w-full text-white text-5xl font-[900]">
-          Watch it, Will be happy
-        </span>
-        <SwiperComponent movies={movies.slice(0, 5)} URL={URL} />
-      </div>
+      <MainBanner movies={movies} URL={URL} />
       <div className="p-5 flex flex-col gap-8 ">
-        <span className="text-white text-center text-4xl pt-50 font-[900]">
-          Bom TV 오리지널 시리즈
-        </span>
-        <span className="text-white text-center text-2xl pb-10 font-[400]">
-          오직 봄TV에서만 만날 수 있는 <br /> 오리지널 콘텐츠를 감상해 보세요.
-        </span>
+        <SubTitle />
         <div className="flex flex-wrap gap-5">
-          {movies.map((movie) => (
-            <MovieCard
-              key={movie.id}
-              title={movie.title}
-              rating={Math.ceil(movie.vote_average * 10) / 10}
-              poster={`${URL}${movie.poster_path}`}
-              onClick={() => {
-                navigate(`/movies/${movie.id}`);
-              }}
-            />
-          ))}
+          {movies
+            .filter((movie) => !movie.adult)
+            .map((movie) => {
+              return (
+                <MovieCard
+                  key={movie.id}
+                  title={movie.title}
+                  rating={Math.ceil(movie.vote_average * 10) / 10}
+                  poster={`${URL}${movie.poster_path}`}
+                  onClick={() => {
+                    navigate(`/movies/${movie.id}`);
+                  }}
+                />
+              );
+            })}
         </div>
       </div>
     </>
