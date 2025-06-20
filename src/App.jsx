@@ -6,6 +6,7 @@ import { StyledLottie, Wrapper } from "./App.styles";
 
 const Layout = lazy(() => import("./layout/Layout"));
 const Home = lazy(() => import("./pages/Home/Home"));
+const Search = lazy(() => import("./pages/Search/Search"));
 const MovieDetail = lazy(() => import("./components/MovieDetail/MovieDetail"));
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
+            <Route path="/search" element={<Search />} />
             <Route path="/detail/:movieId" element={<MovieDetail />} />
           </Route>
         </Routes>
