@@ -9,7 +9,9 @@ export default function MovieCard({ movie }) {
     <>
       <div onClick={handleClick} className="lg:w-[25%] w-[50%] movie-card">
         <div>
-          <img src={`${baseUrl}${movie.poster_path}`} />
+          <div className="img-wrap">
+            <img src={`${baseUrl}${movie.poster_path}`} />
+          </div>
           <div>
             <h2>{movie.title}</h2>
             <p>평점 : {movie.vote_average}</p>

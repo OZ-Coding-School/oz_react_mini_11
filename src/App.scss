@@ -1,10 +1,11 @@
+$bg-gray: #202020;
 nav {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 70px;
-  background: #000000;
+  background: $bg-gray;
   color: #ffffff;
   z-index: 999;
   .logo {
@@ -17,7 +18,7 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 50px 0 50px;
+    padding: 0 70px;
 
     li > ul {
       display: flex;
@@ -37,12 +38,13 @@ nav {
     width: 300px;
     border-radius: 100px;
     padding: 7px;
-    color: #000000;
+    border: 1px solid #555555;
+    background: #161616;
   }
 }
 
 main {
-  background: #222222;
+  background: $bg-gray;
 
   .swiper {
     padding-top: 70px;
@@ -85,11 +87,15 @@ main {
 .movie-card {
   color: #ffffff;
   margin-bottom: 50px;
-  img {
+  .img-wrap {
     width: 100%;
     aspect-ratio: 2/3;
-    object-fit: cover;
-    object-position: top;
+    overflow: hidden;
+  }
+  img {
+    width: 100%;
+    height: 100%;
+    transition: 0.5s;
   }
 
   h2 {
@@ -102,12 +108,30 @@ main {
     padding-left: 10px;
     margin: 5px 0 30px 0;
   }
+
+  &:hover {
+    img {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.detail-movie {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0a0a0ae5;
+  }
 }
 
 .loading {
   width: 100%;
   height: 100vh;
-  background: #222222;
+  background: $bg-gray;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -126,10 +150,12 @@ main {
   text-align: center;
   color: #ffffff;
   > div {
-    width: 400px;
+    width: 500px;
+    padding: 50px 70px;
+    background: #2c2c2c;
   }
   h2 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     letter-spacing: -0.05rem;
     font-weight: 600;
     margin-bottom: 20px;
@@ -138,24 +164,44 @@ main {
     width: 100%;
     border-radius: 10px;
     padding: 10px 15px;
-    color: #000000;
+    color: #ffffff;
+    background: #3b3b3b;
     margin: 10px 0;
+    &::placeholder {
+      color: #9c9c9c;
+    }
   }
   button {
-    width: 400px;
+    width: 100%;
     height: 50px;
     margin-top: 10px;
     background: #5914c7;
     border-radius: 10px;
+    font-weight: 600;
+  }
+
+  hr {
+    border-color: #646464;
+    margin: 30px 0 20px 0;
+  }
+  p {
+    color: #999;
+    margin-bottom: 10px;
+  }
+
+  .kakao button {
+    background: #fff100;
+    color: #3c1e1e;
   }
 }
 
 .join {
   div div {
-    width: 400px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
   }
 }
 
@@ -176,9 +222,6 @@ main {
 
   .login {
     > div {
-      width: 80vw;
-    }
-    button {
       width: 80vw;
     }
   }
