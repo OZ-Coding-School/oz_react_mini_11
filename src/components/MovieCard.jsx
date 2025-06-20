@@ -25,11 +25,11 @@ export default function MovieCard({ id, title, rating, movieImg }) {
         // Link 사용으로 페이지 이동
         <>
             <Link to={`/details/${id}`} className="black">
-                <div className="relative rounded-xl overflow-hidden shadow-md hover:scale-115 transition-transform cursor-pointer group">
+                <div className="relative rounded-xl overflow-hidden shadow-md transition-transform cursor-pointer group">
                     <img
                         src={`${TMDB_IMAGE_BASE_URL}${movieImg}`}
                         alt={title}
-                        className="w-full h-72 object-cover transition-all duration-300 grayscale group-hover:grayscale-0"
+                        className="w-full h-72 object-contain scale-110 group-hover:scale-100 transition-all duration-300 grayscale group-hover:grayscale-0"
                     />
                     <div
                         className="absolute bottom-0 left-0 right-0 px-4 py-3 bg-gradient-to-t from-black via-black/100 to-black/5

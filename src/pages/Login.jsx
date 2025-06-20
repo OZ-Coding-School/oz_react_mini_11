@@ -1,7 +1,5 @@
-export default function Login() {
-    return (
-        <>
-            <div>로그인 페이지 입니다.</div>
-        </>
-    );
-}
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import styled from "styled-components";
+
+export default function Login() {}

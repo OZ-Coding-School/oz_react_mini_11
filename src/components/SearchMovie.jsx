@@ -7,6 +7,9 @@ export default function SearchMovie({ setSearchResultMovies, setIsSearching }) {
     const [inputValue, setInputValue] = useState("");
     const debounceValue = useDebounce(inputValue, 1000);
 
+    const [isOpen, setIsOpen] = useState(false); //검색창 오픈 상태관리
+    const inputRef = useRef(null);
+
     useEffect(() => {
         const fetchData = async () => {
             //검색어 없으면 초기화
