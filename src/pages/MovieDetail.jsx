@@ -54,7 +54,9 @@ function MovieDetail() {
           <p className="w-fit mb-4 border-solid border-b-4 border-red-600 text-xl leading-9">
             OVERVIEW
           </p>
-          <p className="leading-6 break-keep">{data.overview}</p>
+          <p className="leading-6 break-keep">
+            {data.overview || "줄거리 정보가 없습니다."}
+          </p>
 
           <p className="w-fit mt-10 mb-4 border-solid border-b-4 border-red-600 text-xl leading-9">
             STEEL CUT
