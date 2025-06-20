@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import type { MovieData } from "../types";
 import StarPoints from "./StarPoints";
 import { IMAGE_BASE_URL } from "../constants";
