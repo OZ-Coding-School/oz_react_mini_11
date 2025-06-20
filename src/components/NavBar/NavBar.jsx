@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Button,
   ButtonWrapper,
@@ -17,10 +17,17 @@ import { useEffect, useState } from "react";
 function NavBar() {
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleClick = () => {
     navigate("/");
   };
+
+  useEffect(() => {
+    if (location.pathname !== "/search") {
+      setQuery("");
+    }
+  }, [location.pathname]);
 
   useEffect(() => {
     if (query === "") return;
