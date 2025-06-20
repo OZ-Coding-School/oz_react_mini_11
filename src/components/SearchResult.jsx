@@ -7,28 +7,36 @@ import useSearchMovies from "../hooks/useSearchMovies";
 function SearchResult() {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query");
-
   const { results, loading } = useSearchMovies(query);
 
   return (
-    <div className="movie-grid">
-      <h2>🔍 검색 결과: {query}</h2>
+    <div className="bg-gray-900 min-h-screen p-6 text-white">
+      <h2 className="text-2xl font-bold mb-6">
+        🔍 검색 결과: <span className="text-rose-400">{query}</span>
+      </h2>
+
       {loading ? (
-        Array(8)
-          .fill(0)
-          .map((_, idx) => <SkeletonCard key={idx} />)
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+          {Array(8)
+            .fill(0)
+            .map((_, idx) => (
+              <SkeletonCard key={idx} />
+            ))}
+        </div>
       ) : results.length === 0 ? (
-        <p>해당하는 영화가 없습니다.</p>
+        <p className="text-gray-400">해당하는 영화가 없습니다.</p>
       ) : (
-        results.map((movie) => (
-          <MovieCard
-            key={movie.id}
-            id={movie.id}
-            title={movie.title}
-            rating={movie.vote_average}
-            poster={movie.poster_path}
-          />
-        ))
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+          {results.map((movie) => (
+            <MovieCard
+              key={movie.id}
+              id={movie.id}
+              title={movie.title}
+              rating={movie.vote_average}
+              poster={movie.poster_path}
+            />
+          ))}
+        </div>
       )}
     </div>
   );

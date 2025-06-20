@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useDebounce from "../hooks/useDebounce";
 import { TMDB_GET_OPTION, TMDB_SEARCH_API_BASE_URL } from "../constants";
-import { useNavigate } from "react-router-dom";
 
 function NavBar() {
   const [keyword, setKeyword] = useState("");
   const debouncedKeyword = useDebounce(keyword);
   const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (keyword.trim()) {
@@ -27,58 +27,27 @@ function NavBar() {
   }, [debouncedKeyword]);
 
   return (
-    <nav style={styles.nav}>
-      <h2 style={styles.logo}>🎬 Movie App</h2>
-      <div style={styles.menu}>
-        <Link to="/" style={styles.link}>
-          {" "}
-          홈{" "}
+    <nav className="flex justify-between items-center px-6 py-4 bg-gray-950 text-white shadow-md">
+      <h2 className="text-xl font-bold text-pink-400">🎬 Movie App</h2>
+      <div className="flex gap-4 items-center">
+        <Link to="/" className="hover:text-pink-400 transition">
+          홈
         </Link>
-        <Link to="/movies/1" style={styles.link}>
-          {" "}
-          상세페이지{" "}
+        <Link to="/movies/1" className="hover:text-pink-400 transition">
+          상세페이지
         </Link>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
             placeholder="영화 이름을 입력하세요"
+            className="bg-gray-800 text-white px-3 py-1 rounded focus:outline-none focus:ring focus:ring-pink-300"
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
-            style={styles.search}
           />
         </form>
       </div>
     </nav>
   );
 }
-
-const styles = {
-  nav: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "1rem 2rem",
-    backgroundColor: "#333",
-    color: "#fff",
-  },
-  logo: {
-    margin: 0,
-  },
-  menu: {
-    display: "flex",
-    alignItems: "center",
-    gap: "1rem",
-  },
-  link: {
-    color: "#fff",
-    textDecoration: "none",
-    fontSize: "1rem",
-  },
-  search: {
-    padding: "0.5rem",
-    borderRadius: "4px",
-    border: "none",
-  },
-};
 
 export default NavBar;
