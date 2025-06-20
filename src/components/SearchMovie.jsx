@@ -2,35 +2,37 @@ import { useEffect, useRef, useState } from "react";
 import useDebounce from "../hooks/useDebounce";
 import { fetchsearchMovies } from "../api/tmdb";
 import MovieCard from "./MovieCard";
+import { useNavigate } from "react-router-dom";
 
-export default function SearchMovie({ setSearchResultMovies, setIsSearching }) {
+export default function SearchMovie() {
     const [inputValue, setInputValue] = useState("");
     const debounceValue = useDebounce(inputValue, 1000);
 
-    const [isOpen, setIsOpen] = useState(false); //검색창 오픈 상태관리
-    const inputRef = useRef(null);
+    // const [isOpen, setIsOpen] = useState(false); //검색창 오픈 상태관리
+    // const inputRef = useRef(null);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchData = async () => {
-            //검색어 없으면 초기화
-            if (!debounceValue || !debounceValue.trim()) {
-                setSearchResultMovies([]);
-                setIsSearching(false);
-                return;
-            }
-            try {
-                setIsSearching(true);
-                const data = await fetchsearchMovies(debounceValue);
+        if (debounceValue) {
+            navigate(`search?keyword=${debounceValue}`);
+        }
+        // const fetchData = async () => {
+        //검색어 없으면 초기화
+        // if (!debounceValue || !debounceValue.trim()) {
+        //     setSearchResultMovies([]);
 
-                const safeMovies = data.results.filter((moive) => moive.adult === false);
-                setSearchResultMovies(safeMovies);
-            } catch (error) {
-                console.log("검색 실패:", error.message);
-                setSearchResultMovies([]);
-            }
-        };
+        //     return;
+        // }
+        // try {
+        //     const data = await fetchsearchMovies(debounceValue);
 
-        fetchData();
+        //     const safeMovies = data.results.filter((moive) => moive.adult === false);
+        //     setSearchResultMovies(safeMovies);
+        // } catch (error) {
+        //     console.log("검색 실패:", error.message);
+        //     setSearchResultMovies([]);
+        // }
     }, [debounceValue]);
 
     return (

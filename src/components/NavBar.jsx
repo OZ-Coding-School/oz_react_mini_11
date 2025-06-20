@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import SearchMovie from "./SearchMovie";
 
-export default function NavBar({ setSearchResultMovies, setIsSearching }) {
+export default function NavBar() {
     return (
         <div className="bg-neutral-900 px-4 py-4 md:px-8 md:py-4">
             <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -10,7 +10,7 @@ export default function NavBar({ setSearchResultMovies, setIsSearching }) {
                 </Link>
 
                 <div className="flex justify-center md:justify-center w-full md:w-[400px]">
-                    <SearchMovie setSearchResultMovies={setSearchResultMovies} setIsSearching={setIsSearching} />
+                    <SearchMovie />
                 </div>
 
                 <div className="flex justify-center md:justify-end gap-4">

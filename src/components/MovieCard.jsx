@@ -29,7 +29,7 @@ export default function MovieCard({ id, title, rating, movieImg }) {
                     <img
                         src={`${TMDB_IMAGE_BASE_URL}${movieImg}`}
                         alt={title}
-                        className="w-full h-72 object-contain scale-110 group-hover:scale-100 transition-all duration-300 grayscale group-hover:grayscale-0"
+                        className="w-full h-72 object-contain scale-110 group-hover:scale-90 transition-all duration-300 grayscale group-hover:grayscale-0"
                     />
                     <div
                         className="absolute bottom-0 left-0 right-0 px-4 py-3 bg-gradient-to-t from-black via-black/100 to-black/5

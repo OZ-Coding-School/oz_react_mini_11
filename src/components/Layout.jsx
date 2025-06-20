@@ -10,24 +10,14 @@ export default function Layout() {
     const [searchResultMovies, setSearchResultMovies] = useState([]); // 검색결과를 보여주기 위한
     const [isSearching, setIsSearching] = useState(false);
 
-    useEffect(() => {
-        fetchMovies()
-            .then((data) => {
-                console.log("초기 데이터", data);
-                const safeMovies = data.results.filter((movie) => movie.adult === false);
-                setAllMovies(safeMovies);
-            })
-            .catch((error) => console.error("api error", error));
-    }, []);
-
     // console.log(movies);
 
     return (
         <>
             <div className="min-h-screen flex flex-col">
-                <NavBar setSearchResultMovies={setSearchResultMovies} setIsSearching={setIsSearching} />
+                <NavBar />
                 <main className="flex-grow px-4 py-6">
-                    <Outlet context={{ allMovies, searchResultMovies, isSearching }} />
+                    <Outlet />
                 </main>
 
                 <Footer />
