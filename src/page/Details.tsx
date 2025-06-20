@@ -5,10 +5,12 @@ import type { MovieDetailData } from "../types";
 import Loading from "../components/lodaing/Loading";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { getAxoiosTMDBMovieDetailOption } from "../utils/axiosUtils";
+import { getAxiosTMDBMovieDetailOption } from "../utils/axiosUtils";
+import useDarkModeStore from "../hooks/zustand/useIsDarkStore";
 
 export default function Details() {
   const { id } = useParams();
+  const isDark = useDarkModeStore((state) => state.isDark);
 
   const { isPending, data: movie } = useQuery<MovieDetailData>({
     queryKey: ["movie", "detail", id],
@@ -17,7 +19,7 @@ export default function Details() {
         throw new Error("no id");
       }
 
-      const response = await axios(getAxoiosTMDBMovieDetailOption(id));
+      const response = await axios(getAxiosTMDBMovieDetailOption(id));
 
       return response.data;
     },
@@ -28,7 +30,16 @@ export default function Details() {
       {isPending ? (
         <Loading />
       ) : movie ? (
-        <div className="text-neutral-100 w-full flex justify-center space-y-10 flex-col items-center md:flex-row md:items-start md:space-x-5">
+        <div
+          className={`w-full flex justify-center space-y-10 flex-col items-center md:flex-row md:items-start md:space-x-5
+            ${
+              isDark
+                ? "bg-neutral-900 text-neutral-50"
+                : "bg-neutral-50 text-neutral-900"
+            }
+            
+            `}
+        >
           <img
             src={`${IMAGE_BASE_URL}/${movie.poster_path}`}
             alt={`${movie.title}-poster`}
@@ -43,7 +54,7 @@ export default function Details() {
             <div className="space-x-1">
               {movie.genres.map((genre) => (
                 <span
-                  className="text-sm px-2 py-1 rounded-full bg-neutral-600"
+                  className="text-sm px-2 py-1 rounded-full bg-neutral-600 text-neutral-50"
                   key={genre.id}
                 >
                   {genre.name}

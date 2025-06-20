@@ -3,44 +3,65 @@ import MovieCard from "../components/MovieCard";
 import { useDraggableScroll } from "../hooks/useDraggableScroll";
 import type { MovieData, MovieListData } from "../types";
 import axios from "axios";
-import { getAxoiosTMDBMovieListOption } from "../utils/axiosUtils";
+import { getAxiosTMDBMovieListOption } from "../utils/axiosUtils";
 import Loading from "../components/lodaing/Loading";
 import { useEffect, useState } from "react";
+import useDarkModeStore from "../hooks/zustand/useIsDarkStore";
 
 export default function Home() {
+  const isDark = useDarkModeStore((state) => state.isDark);
   const [topTenMovies, setTopTenMoives] = useState<MovieData[]>([]);
   const { scrollRef, onDragStart, onDragEnd, onDragMove, isDrag } =
     useDraggableScroll();
 
-  const { data: movieList, isPending } = useQuery<MovieListData>({
-    queryKey: ["movieList", "popular"],
-    queryFn: async () => {
-      const response = await axios(
-        getAxoiosTMDBMovieListOption({ page: 1, order: "now_playing" })
-      );
+  const { data: movieList, isPending: isMovieListPending } =
+    useQuery<MovieListData>({
+      queryKey: ["movieList", "now_playing"],
+      queryFn: async () => {
+        const response = await axios(
+          getAxiosTMDBMovieListOption({ page: 1, order: "now_playing" })
+        );
 
-      return response.data;
-    },
-  });
+        return response.data;
+      },
+    });
+
+  const { data: topRatedmovieList, isPending: isTopRatedMovieListPending } =
+    useQuery<MovieListData>({
+      queryKey: ["movieList", "top_rated"],
+      queryFn: async () => {
+        const response = await axios(
+          getAxiosTMDBMovieListOption({ page: 1, order: "top_rated" })
+        );
+
+        return response.data;
+      },
+    });
 
   useEffect(() => {
-    if (movieList) {
+    if (topRatedmovieList) {
       setTopTenMoives(
-        movieList.results.filter((movie) => !movie.adult).slice(0, 10)
+        topRatedmovieList.results.filter((movie) => !movie.adult).slice(0, 10)
       );
     }
-  }, [movieList]);
+  }, [topRatedmovieList]);
 
   return (
     <>
-      {isPending ? (
+      {isMovieListPending && isTopRatedMovieListPending ? (
         <Loading />
       ) : movieList ? (
-        <div className="flex flex-col gap-5 justify-center">
+        <div
+          className={`flex flex-col gap-5 justify-center
+          ${
+            isDark
+              ? "bg-neutral-900 text-neutral-50"
+              : "bg-neutral-50 text-neutral-900"
+          }
+        `}
+        >
           <div className=" w-full">
-            <h1 className="text-neutral-100 font-semibold text-2xl">
-              Top 10 Movies
-            </h1>
+            <h1 className=" font-semibold text-2xl">Top 10 Movies</h1>
             <div
               ref={scrollRef}
               onMouseDown={onDragStart}
@@ -53,7 +74,7 @@ export default function Home() {
             >
               {topTenMovies.map((movie, i) => (
                 <div key={movie.id} className="p-5 flex flex-col space-y-5">
-                  <span className="text-neutral-100">{`TOP ${i + 1}`}</span>
+                  <span>{`TOP ${i + 1}`}</span>
                   <MovieCard movie={movie} />
                 </div>
               ))}
