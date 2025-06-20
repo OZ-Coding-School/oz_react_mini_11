@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { BASE_URL, IMAGE_URL } from "../constant/constant";
 
 export default function MovieDetail() {
   const [movie, setMovie] = useState(null);
@@ -8,15 +9,12 @@ export default function MovieDetail() {
   useEffect(() => {
     const fetchMovie = async () => {
       try {
-        const res = await fetch(
-          `https://api.themoviedb.org/3/movie/${id}?language=ko-KR`,
-          {
-            headers: {
-              Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_KEY}`,
-              accept: "application/json",
-            },
-          }
-        );
+        const res = await fetch(`${BASE_URL}/movie/${id}?language=ko-KR`, {
+          headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_KEY}`,
+            accept: "application/json",
+          },
+        });
         const data = await res.json();
         setMovie(data);
       } catch (error) {
@@ -38,7 +36,7 @@ export default function MovieDetail() {
       <div
         className="hidden md:flex h-72 items-center text-white px-8"
         style={{
-          backgroundImage: `url(https://image.tmdb.org/t/p/original${backdrop_path})`,
+          backgroundImage: `url(${IMAGE_URL}/original${backdrop_path})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           textShadow: "2px 2px 8px rgba(0,0,0,0.7)",
@@ -51,7 +49,7 @@ export default function MovieDetail() {
       <div className="flex flex-col md:flex-row gap-4 md:gap-8 p-4">
         {/* 포스터 */}
         <img
-          src={`https://image.tmdb.org/t/p/w300${poster_path}`}
+          src={`${IMAGE_URL}/w300${poster_path}`}
           alt={title}
           className="rounded-xl shadow-lg w-full max-w-[250px] mx-auto md:mx-0"
         />

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import MovieCard from "../components/MovieCard";
+import { BASE_URL, IMAGE_URL } from "../constant/constant";
 
 export default function SearchResult() {
   const [searchParams] = useSearchParams();
@@ -13,7 +14,7 @@ export default function SearchResult() {
 
       try {
         const res = await fetch(
-          `https://api.themoviedb.org/3/search/movie?query=${query}&language=ko-KR`,
+          `${BASE_URL}/search/movie?query=${query}&language=ko-KR`,
           {
             headers: {
               Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_KEY}`,
@@ -42,7 +43,7 @@ export default function SearchResult() {
                 key={movie.id}
                 id={movie.id}
                 title={movie.title}
-                poster={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                poster={`${IMAGE_URL}/w200${movie.poster_path}`}
                 rating={movie.vote_average}
               />
             ))
