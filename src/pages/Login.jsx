@@ -17,20 +17,23 @@ function Login() {
           <input
             type="text"
             placeholder="id"
-            className="w-full py-[calc(4px+0.75vw)] px-[calc(16px+0.75vw)] rounded-full bg-[#96969644] text-base text-white"
+            className="w-full py-[calc(4px+0.75vw)] px-[calc(16px+0.75vw)] rounded-full outline-none bg-[#96969644] text-base text-white"
           />
           <input
             type="password"
             placeholder="password"
-            className="w-full py-[calc(4px+0.75vw)] px-[calc(16px+0.75vw)] rounded-full bg-[#96969644] text-base text-white"
+            className="w-full py-[calc(4px+0.75vw)] px-[calc(16px+0.75vw)] rounded-full outline-none bg-[#96969644] text-base text-white"
           />
-          <button className="w-full py-[calc(4px+0.75vw)] px-[calc(16px+0.75vw)] rounded-full bg-blue-primary hover:bg-blue-hover text-base text-white">
+          <button
+            className="w-full py-[calc(4px+0.75vw)] px-[calc(16px+0.75vw)] rounded-full bg-blue-primary hover:bg-blue-hover text-base text-white
+                      transition-all duration-300"
+          >
             Log In
           </button>
           <p className="text-sm">
             회원이 아니신가요? &nbsp;
             <Link to="/">
-              <span className="underline text-sm hover:text-blue-500">
+              <span className="underline text-sm hover:text-blue-500 transition-all duration-300">
                 회원가입하기
               </span>
             </Link>
