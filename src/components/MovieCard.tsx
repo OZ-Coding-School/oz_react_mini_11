@@ -1,16 +1,27 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import type { MovieData } from "../types";
 import StarPoints from "./StarPoints";
 import { IMAGE_BASE_URL } from "../constants";
+import useSearchParamStore from "../hooks/zustand/useSearchParamStore";
 
 interface MovieCardProps {
   movie: MovieData;
 }
 
 export default function MovieCard({ movie }: MovieCardProps) {
+  const updateSearchParam = useSearchParamStore(
+    (state) => state.updateSearchParam
+  );
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    updateSearchParam("");
+    navigate(`/details/${movie.id}`);
+  };
+
   return (
-    <Link
-      to={`/details/${movie.id}`}
+    <div
+      onClick={handleClick}
       className="w-[240px] flex bg-neutral-100 items-center flex-col p-2  shadow-lg shadow-purple-800 transition-transform hover:scale-105 space-y-1 rounded-xl"
     >
       <img
@@ -21,6 +32,6 @@ export default function MovieCard({ movie }: MovieCardProps) {
       />
       <p className="text-lg truncate w-full px-1">{movie.title}</p>
       <StarPoints point={movie.vote_average} />
-    </Link>
+    </div>
   );
 }
