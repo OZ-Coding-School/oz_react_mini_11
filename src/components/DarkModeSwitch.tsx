@@ -1,12 +1,13 @@
-import { useState } from "react";
 import Moon from "./icons/Moon";
 import Sun from "./icons/Sun";
+import useDarkModeStore from "../hooks/zustand/useIsDarkStore";
 
 export default function DarkModeSwitch() {
-  const [isDark, setIsDark] = useState(false);
+  const isDark = useDarkModeStore((state) => state.isDark);
+  const switchDarkMode = useDarkModeStore((state) => state.switchDarkMode);
 
   const handleClick = () => {
-    setIsDark(!isDark);
+    switchDarkMode();
   };
 
   return (
