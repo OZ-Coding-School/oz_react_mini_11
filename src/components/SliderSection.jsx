@@ -84,7 +84,7 @@ function SliderSection({ title, datas, type }) {
 
       <button
         className="absolute top-[calc(2vw+16px)] left-0 z-10 w-[4vw] h-[calc(100%-2vw-20px)]
-                    rounded bg-black/50 text-transparent text-3xl
+                    rounded-r-sm bg-black/50 text-transparent text-3xl
                     transition-all duration-200 ease-in-out
                     group-hover:bg-black/80 group-hover:text-white hover:bg-black/80 hover:text-white hover:text-4xl
                   "
@@ -96,7 +96,7 @@ function SliderSection({ title, datas, type }) {
 
       <button
         className="absolute top-[calc(2vw+16px)] right-0 z-10 w-[4vw] h-[calc(100%-2vw-20px)]
-                    rounded bg-black/50 text-transparent text-3xl
+                    rounded-l-sm bg-black/50 text-transparent text-3xl
                     transition-all duration-200 ease-in-out
                     group-hover:bg-black/80 group-hover:text-white hover:bg-black/80 hover:text-white hover:text-4xl
                   "
