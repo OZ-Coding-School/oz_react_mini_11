@@ -1,43 +1,44 @@
 import { Link } from "react-router-dom";
+import AuthLayout from "../components/AuthLayout";
+import Input from "../components/Input";
 
 function Login() {
   return (
     <div className="relative w-full min-h-screen h-full overflow-x-hidden">
-      <div
-        className="absolute inset-0 overflow-hidden bg-cover bg-center brightness-50"
-        style={{ backgroundImage: `url(src/assets/bg.png)` }}
-      />
+      <AuthLayout />
 
-      <div className="relative flex flex-col items-center pb-20">
-        <Link to="/">
-          <h1 className="pt-12 pb-20 text-3xl font-bold">OZMOVIE</h1>
-        </Link>
-        <div className="flex flex-col gap-4 w-[calc(280px+10vw)] p-8 rounded-3xl bg-[#000000c1]">
-          <h2 className="mb-4 text-2xl font-bold text-center">Log In</h2>
-          <input
-            type="text"
-            placeholder="id"
-            className="w-full py-[calc(4px+0.75vw)] px-[calc(16px+0.75vw)] rounded-full outline-none bg-[#96969644] text-base text-white"
-          />
-          <input
-            type="password"
-            placeholder="password"
-            className="w-full py-[calc(4px+0.75vw)] px-[calc(16px+0.75vw)] rounded-full outline-none bg-[#96969644] text-base text-white"
-          />
-          <button
-            className="w-full py-[calc(4px+0.75vw)] px-[calc(16px+0.75vw)] rounded-full bg-blue-primary hover:bg-blue-hover text-base text-white
+      <div
+        className="relative flex flex-col gap-4 w-full min-w-[340px] mt-14 mx-auto mb-20 p-[5vw] rounded-2xl bg-black
+                  sm:w-[500px] sm:mt-24 sm:p-14 sm:bg-[#000000c1]"
+      >
+        <h2 className="mb-4 text-3xl font-bold sm:text-center">로그인</h2>
+        <Input
+          id="email"
+          label="이메일"
+          type="email"
+          placeholder="이메일 주소"
+          hideLabel
+        />
+        <Input
+          id="password"
+          label="비밀번호"
+          type="password"
+          placeholder="비밀번호"
+          hideLabel
+        />
+        <button
+          className="w-full py-2 px-6 rounded-md bg-red-primary hover:bg-red-hover text-lg text-white
                       transition-all duration-300"
-          >
-            Log In
-          </button>
-          <p className="text-sm">
-            회원이 아니신가요? &nbsp;
-            <Link to="/">
-              <span className="underline text-sm hover:text-blue-500 transition-all duration-300">
-                회원가입하기
-              </span>
-            </Link>
-          </p>
+        >
+          로그인
+        </button>
+        <div className="text-base">
+          <span className="text-gray-300">
+            오즈무비 회원이 아닌가요? &nbsp;
+          </span>
+          <Link to="/register">
+            <span className="hover:underline">지금 가입하세요.</span>
+          </Link>
         </div>
       </div>
     </div>
