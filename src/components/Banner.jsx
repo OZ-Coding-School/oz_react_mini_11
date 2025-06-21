@@ -1,36 +1,23 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { CSSTransition } from "react-transition-group";
 import { BASE_URL } from "../constant/index";
 import SkeletonBanner from "./skeletons/SkeletonBanner";
 import useFetch from "../hooks/useFetch";
+import useAutoRotation from "../hooks/useAutoRotation";
 
 function Banner() {
-  const { data, loading } = useFetch("trending/all/day?language=ko");
-  const [currontIndex, setcurrontIndex] = useState(0);
-  const [isVisible, setIsVisible] = useState(true);
+  const { data, loading } = useFetch(
+    "trending/all/day?language=ko&include_adult=false"
+  );
 
   const trendingMediaList = data?.results.filter(
-    (el) => !el.adult && (el.media_type === "tv" || el.media_type === "movie")
+    (el) => el.media_type === "tv" || el.media_type === "movie"
   );
+
+  const { currontIndex, isVisible } = useAutoRotation(trendingMediaList);
 
   const media = trendingMediaList?.[currontIndex];
   const nodeRef = useRef(null);
-
-  useEffect(() => {
-    const changeMedia = (newMedia) => {
-      setIsVisible(false);
-      setTimeout(() => {
-        setcurrontIndex(newMedia % trendingMediaList.length);
-        setIsVisible(true);
-      }, 300);
-    };
-
-    const interval = setInterval(() => {
-      changeMedia(currontIndex + 1);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [currontIndex, trendingMediaList?.length]);
 
   return loading ? (
     <SkeletonBanner />
