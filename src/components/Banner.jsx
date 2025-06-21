@@ -14,9 +14,9 @@ function Banner() {
     (el) => el.media_type === "tv" || el.media_type === "movie"
   );
 
-  const { currontIndex, isVisible } = useAutoRotation(trendingMediaList);
+  const { currentIndex, isVisible } = useAutoRotation(trendingMediaList);
 
-  const media = trendingMediaList?.[currontIndex];
+  const media = trendingMediaList?.[currentIndex];
   const nodeRef = useRef(null);
 
   return loading ? (
