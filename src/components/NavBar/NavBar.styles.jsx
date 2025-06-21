@@ -91,7 +91,7 @@ export const Menu = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #000000;
+  background: #00000075;
   border-radius: 0.5rem;
   padding: 1rem;
   z-index: 10;
