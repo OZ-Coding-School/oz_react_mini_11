@@ -5,12 +5,14 @@ export default function SearchPage() {
   //useSearchParams는 현재url의 쿼리 파라미터 사용할수있게해줌
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query");
+  //result에 빈배열을 넣어놓고 레이아웃단에서 map으로 movie를 grid로 뿌려줌
   const [results, setResults] = useState([]);
+
   const token = import.meta.env.VITE_TMDB_READ_TOKEN;
   const navigate = useNavigate();
 
   useEffect(() => {
-    //혹시모를 공백도제거한 값이 false면 빈배열로 셋팅
+    //혹시모를 공백도제거한 값이 false면 빈배열로 셋팅하고 끝냄
     if (!query || !query.trim()) {
       setResults([]);
       return;
