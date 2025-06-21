@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import MovieCard from "./MediaCard";
+import MediaCard from "./MediaCard";
 import { useState } from "react";
 
-function SliderSection({ title, datas }) {
+function SliderSection({ title, datas, type }) {
   const [currentPage, setCurrentPage] = useState(0);
   const [cardsPerPage, setCardsPerPage] = useState(7);
   const containerRef = useRef(null);
@@ -52,7 +52,7 @@ function SliderSection({ title, datas }) {
   };
 
   return (
-    <div className="relative w-full overflow-hidden px-[4vw] group">
+    <div className="relative w-full overflow-hidden mb-10 px-[4vw] group">
       <h3 className="mb-2 text-[calc(1vw+8px)] leading-[calc(2vw+4px)]">
         {title}
       </h3>
@@ -64,18 +64,18 @@ function SliderSection({ title, datas }) {
           width: `${(datas.length / cardsPerPage) * 100}%`,
         }}
       >
-        {datas?.map((movie) => (
-          <Link to={`/details/movie/${movie.id}`} key={movie.id}>
+        {datas?.map((data) => (
+          <Link to={`/details/${type}/${data.id}`} key={data.id}>
             <div
               style={{
                 flex: `0 0 ${100 / (cardsPerPage * totalPages)}%`,
                 padding: "4px",
               }}
             >
-              <MovieCard
-                title={movie.title}
-                avg={movie.vote_average}
-                imgSrc={movie.poster_path}
+              <MediaCard
+                title={data.title}
+                avg={data.vote_average}
+                imgSrc={data.poster_path}
               />
             </div>
           </Link>
