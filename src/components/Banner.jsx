@@ -67,13 +67,13 @@ function Banner() {
           </p>
           <div>
             <button
-              className="mr-4 py-[1.3vw] px-[2.6vw] rounded-xl bg-white text-[calc(1vw+6px)] text-black transition-all duration-3000
+              className="mr-4 py-[1.3vw] px-[2.6vw] rounded-lg bg-white text-[calc(1vw+6px)] text-black transition-all duration-3000
                               hover:text-white hover:bg-blue-600"
             >
               ▶&nbsp;&nbsp;재생
             </button>
             <button
-              className="py-[1.3vw] px-[2.6vw] rounded-xl bg-[#c0c0c070] text-[calc(1vw+6px)] transition-all duration-3000
+              className="py-[1.3vw] px-[2.6vw] rounded-lg bg-[#c0c0c070] text-[calc(1vw+6px)] transition-all duration-3000
                               hover:bg-[#c0c0c0a7]"
             >
               ⓘ&nbsp;&nbsp;상세 정보
