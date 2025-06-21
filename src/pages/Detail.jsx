@@ -11,7 +11,7 @@ export default function MovieDetail() {
       const apiUrl = import.meta.env.VITE_API_URL;
       // 같은 토큰 가져와 변수 저장
 
-      const res = await fetch(`${apiUrl}${id}?language=ko-KR`, {
+      const res = await fetch(`${apiUrl}movie/${id}?language=ko-KR`, {
         headers: {
           Authorization: `Bearer ${token}`,
           accept: "application/json",
@@ -26,22 +26,26 @@ export default function MovieDetail() {
   }, [id]); // id가 바뀔때마다 리랜더링
 
   return (
-    <div className="flex items-center justify-center gap-8 p-8 bg-emerald-900 min-h-screen text-white">
+    <div className="flex flex-col md:flex-row items-center md:items-start justify-center gap-8 p-4 md:p-8 bg-gray-900 min-h-screen text-white">
       {detailData && (
         <>
           <img
-            className="w-[200] h-[600px] rounded shadow-lg"
+            className="w-60 md:w-[400px] h-[400px] md:h-[600px] rounded-xl shadow-lg "
             src={`https://image.tmdb.org/t/p/w500${detailData.poster_path}`}
             alt={detailData.title}
           />
 
-          <div className="flex flex-col gap-4">
-            <h2 className="text-3xl font-bold">제목: {detailData.title}</h2>
-            <p className="text-xl">평점: {detailData.vote_average}</p>
-            <p className="text-lg">
+          <div className="flex flex-col gap-3 text-center md:text-left">
+            <h2 className="text-base md:text-lg font-bold">
+              제목: {detailData.title}
+            </h2>
+            <p className="text-sm md:text-base">
+              평점: {detailData.vote_average}
+            </p>
+            <p className="text-sm md:text-base">
               장르: {detailData.genres.map((genre) => genre.name).join(", ")}
             </p>
-            <p className="text-base leading-relaxed max-w-xl">
+            <p className="text-sm md:text-base leading-relaxed max-w-xs md:max-w-xl">
               줄거리: {detailData.overview}
             </p>
           </div>
