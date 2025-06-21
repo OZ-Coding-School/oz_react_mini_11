@@ -1,38 +1,31 @@
-import { useEffect, useState } from 'react';
 import { MovieCard } from './MovieCard';
-import { AccessToken } from '../data/ApiInfo';
+import { apiBaseUrl, apiPopularUrl, AccessToken } from '../data/ApiInfo';
+import useFetch from '../hooks/useFetch';
+import { useSearchParams } from 'react-router-dom';
 
 function Index() {
-  const [Movie, setMovie] = useState([]);
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get('query');
+  const indexUrl = query
+    ? `${apiBaseUrl}/search/movie?query=${encodeURIComponent(query)}&language=ko-KR`
+    : apiPopularUrl;
 
-  useEffect(() => {
-    const fetchPopularMovies = async () => {
-      try {
-        const response = await fetch(
-          'https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=1',
-          {
-            method: 'GET',
-            headers: {
-              accept: 'application/json',
-              Authorization: `Bearer ${AccessToken}`,
-            },
-          },
-        );
+  const { data, loading, error } = useFetch(indexUrl, {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: `Bearer ${AccessToken}`,
+    },
+  });
 
-        const data = await response.json();
-        const filtered = data.results.filter(movie => movie.adult === false);
-        setMovie(filtered);
-      } catch (error) {
-        console.error('인기 영화 가져오기 실패:', error);
-      }
-    };
-    fetchPopularMovies();
-  }, []);
+  if (loading) return <p>로딩 중...</p>;
+  if (error) return <p>에러 발생: {error.message}</p>;
+  const movies = data?.results?.filter(movie => movie.adult === false) || [];
 
   return (
     <>
       <div className="flex flex-row flex-wrap bg-violet-950 justify-around">
-        {Movie.map(movie => (
+        {movies.map(movie => (
           <MovieCard
             key={movie.id}
             id={movie.id}
