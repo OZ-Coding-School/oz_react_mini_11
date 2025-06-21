@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import Lottie from "lottie-react";
+import { Link } from "react-router-dom";
 
 export const Wrapper = styled.div`
   height: 100%;
@@ -67,6 +68,7 @@ export const Button = styled.button`
 
 export const MenuWrapper = styled.div`
   display: none;
+  position: relative;
   background: transparent;
   cursor: pointer;
 
@@ -80,9 +82,32 @@ export const StyledLottie = styled(Lottie)`
   height: 3.5rem;
 `;
 
+export const Menu = styled.div`
+  width: max-content;
+  position: absolute;
+  top: 150%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #000000;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  z-index: 10;
+`;
+
+export const StyledLink = styled(Link)`
+  padding: 1rem;
+  color: #eee;
+  text-decoration: none;
+  font-size: 1rem;
+`;
+
 export const Container = styled.header`
   position: sticky;
   top: 0;
+  z-index: 999;
   width: 100%;
   padding: 1.5rem 10rem;
   display: flex;
