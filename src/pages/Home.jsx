@@ -2,10 +2,10 @@ import MovieList from '@/components/MovieList';
 import MovieSlide from '@/components/MovieSlide';
 import { useEffect, useState } from 'react';
 import { fetchMovie } from '../api/tmdbApi';
+import { IMG_BASE_URL } from '../api/constants';
 
-export default function Home() {
+export default function Home({ searchParams }) {
   const [movies, setMovies] = useState([]);
-  const BASE_URL = 'https://image.tmdb.org/t/p/w500';
 
   useEffect(() => {
     fetchMovie()
@@ -16,7 +16,7 @@ export default function Home() {
             id: movie.id,
             title: movie.title,
             score: movie.vote_average,
-            poster: BASE_URL + movie.poster_path,
+            poster: IMG_BASE_URL + movie.poster_path,
           }));
         setMovies(moviesData);
       })
@@ -25,7 +25,7 @@ export default function Home() {
 
   return (
     <>
-      <MovieList movies={movies} />
+      <MovieList movies={movies} searchParams={searchParams} />
       <MovieSlide movies={movies} />
     </>
   );

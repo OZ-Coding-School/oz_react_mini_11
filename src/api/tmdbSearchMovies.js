@@ -2,9 +2,12 @@ import { TMDB_BASE_URL } from './constants';
 
 const token = import.meta.env.VITE_TMDB_TOKEN;
 
-export async function fetchMovieDetail(id) {
+export async function fetchSearchMovies(query) {
+  if (!query) return [];
+
+  const encodedQuery = encodeURIComponent(query);
   const res = await fetch(
-    `${TMDB_BASE_URL}/${id}?api_key=${token}&language=ko-KR`,
+    `${TMDB_BASE_URL}/search/movie?language=ko-KR&query=${encodedQuery}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -19,5 +22,5 @@ export async function fetchMovieDetail(id) {
     throw new Error(data.status_message || 'API 요청 실패');
   }
 
-  return data;
+  return data.results;
 }

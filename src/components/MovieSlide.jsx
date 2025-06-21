@@ -4,7 +4,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-export default function MovieList({ movies }) {
+export default function MovieSlide({ movies }) {
   return (
     <div className="p-4 w-[1250px]">
       <Swiper

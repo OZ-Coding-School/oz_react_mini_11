@@ -1,10 +1,10 @@
 import { Outlet } from 'react-router-dom';
 import NavBar from '@/pages/NavBar';
 
-export default function Layout() {
+export default function Layout({ inputValue, setInputValue }) {
   return (
     <>
-      <NavBar />
+      <NavBar inputValue={inputValue} setInputValue={setInputValue} />
       <Outlet />
     </>
   );
