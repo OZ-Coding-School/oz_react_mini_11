@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { CSSTransition } from "react-transition-group";
-import { BASE_URL } from "../constant/index";
+import { BASE_URL_ORIGIN } from "../constant/index";
 import SkeletonBanner from "./skeletons/SkeletonBanner";
 import useFetch from "../hooks/useFetch";
 import useAutoRotation from "../hooks/useAutoRotation";
@@ -36,7 +36,7 @@ function Banner() {
         <div className="fixed w-full aspect-[1] sm:aspect-[1.4] lg:aspect-[1.8] z-0">
           <img
             className="w-full aspect-[1] sm:aspect-[1.4] lg:aspect-[1.8] object-cover "
-            src={`${BASE_URL}${media.backdrop_path}`}
+            src={`${BASE_URL_ORIGIN}${media.backdrop_path}`}
             alt={media.title}
           />
           <div
