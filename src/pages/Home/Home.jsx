@@ -7,6 +7,7 @@ import { getPopularMovies } from "../../apis/popularMovieApi";
 import {
   ButtonWrapper,
   Container,
+  HeadingWrapper,
   SectionTitle,
   StyledNextButton,
   StyledPrevButton,
@@ -59,13 +60,28 @@ function Home() {
 
   return (
     <Container>
-      <SectionTitle>Trending Now</SectionTitle>
+      <HeadingWrapper>
+        <SectionTitle>Trending Now</SectionTitle>
+        <ButtonWrapper>
+          <button ref={prevRef} disabled={isBeginning}>
+            <StyledPrevButton />
+          </button>
+          <button ref={nextRef} disabled={isEnd}>
+            <StyledNextButton />
+          </button>
+        </ButtonWrapper>
+      </HeadingWrapper>
       <SwiperWrapper>
         <StyledSwiper
           modules={[Navigation]}
           navigation={{ prevEl: prevRef.current, nextEl: nextRef.current }}
           spaceBetween={16}
-          slidesPerView={5}
+          slidesPerView={2}
+          breakpoints={{
+            1024: { slidesPerView: 5 },
+            768: { slidesPerView: 4 },
+            480: { slidesPerView: 3 },
+          }}
           onSwiper={setSwiper}
           onSlideChange={(swiper) => {
             setBeginning(swiper.isBeginning);
@@ -83,14 +99,6 @@ function Home() {
                 </StyledSwiperSlide>
               ))}
         </StyledSwiper>
-        <ButtonWrapper>
-          <button ref={prevRef} disabled={isBeginning}>
-            <StyledPrevButton />
-          </button>
-          <button ref={nextRef} disabled={isEnd}>
-            <StyledNextButton />
-          </button>
-        </ButtonWrapper>
       </SwiperWrapper>
     </Container>
   );

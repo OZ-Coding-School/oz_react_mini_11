@@ -16,10 +16,34 @@ export const Title = styled.div`
   cursor: pointer;
   font-family: "Tenada";
   margin-bottom: -1rem;
+
+  @media (max-width: ${(props) => props.theme.breakPoints.laptop}) {
+    font-size: 2.5rem;
+  }
+  @media (max-width: ${(props) => props.theme.breakPoints.tablet}) {
+    font-size: 2rem;
+  }
+  @media (max-width: ${(props) => props.theme.breakPoints.mobile}) {
+    font-size: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & > span {
+      display: block;
+    }
+  }
 `;
 
 export const InputWrapper = styled.div`
   width: 45%;
+
+  @media (max-width: ${(props) => props.theme.breakPoints.tablet}) {
+    width: 50%;
+  }
+  @media (max-width: ${(props) => props.theme.breakPoints.mobile}) {
+    width: 60%;
+  }
 `;
 
 export const Input = styled.input`
@@ -35,6 +59,10 @@ export const Input = styled.input`
   &:focus {
     box-shadow: 0 0 0 3px ${(props) => props.theme.colors.purple.lightActive}
       inset;
+  }
+
+  @media (max-width: ${(props) => props.theme.breakPoints.mobile}) {
+    padding: 0.5rem 2rem;
   }
 `;
 
@@ -118,6 +146,6 @@ export const Container = styled.header`
   background-color: #2c2c2c;
 
   @media (max-width: ${(props) => props.theme.breakPoints.laptop}) {
-    padding: 1.2rem 10rem;
+    padding: 1.2rem 5%;
   }
 `;

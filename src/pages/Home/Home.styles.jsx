@@ -3,65 +3,72 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import PrevButton from "../../assets/images/angle-left.svg?react";
 import NextButton from "../../assets/images/angle-right.svg?react";
 
+export const HeadingWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export const SectionTitle = styled.h2`
   padding: 1rem 0;
   color: #eeeeee;
   font-size: 2rem;
   font-weight: 600;
-`;
 
-export const SwiperWrapper = styled.div`
-  width: auto;
-  height: fit-content;
-  position: relative;
-  /* background-color: beige; */
-`;
-
-export const StyledSwiper = styled(Swiper)`
-  padding: 0.5rem;
-`;
-
-export const StyledSwiperSlide = styled(SwiperSlide)`
-  box-shadow: 0 0 6px 3px #edd4ff08;
-  border-radius: 0.5rem;
+  @media (max-width: ${(props) => props.theme.breakPoints.mobile}) {
+    font-size: 1.5rem;
+  }
 `;
 
 export const ButtonWrapper = styled.div`
+  padding: 0.5rem;
+  border: 1px solid #ffffff25;
+  border-radius: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+
   & > button {
-    position: absolute;
-    padding: 1rem;
+    padding: 0.5rem;
     border: 0;
-    background-color: transparent;
+    border-radius: 0.25rem;
+    background: #ffffff25;
     cursor: pointer;
-    top: 50%;
-    transform: translate(0, -50%);
+  }
+
+  & > button:hover {
+    background: ${(props) => props.theme.colors.purple.dark};
   }
 
   & > button:disabled {
     opacity: 0.3;
     pointer-events: none;
   }
-
-  & > *:first-of-type {
-    position: absolute;
-    left: -4rem;
-  }
-
-  & > *:nth-of-type(2) {
-    right: -4rem;
-  }
 `;
 
 export const StyledPrevButton = styled(PrevButton)`
-  width: 40px;
-  height: 40px;
-  fill: ${(props) => props.theme.colors.purple.normal};
+  width: 28px;
+  height: 28px;
+  fill: #eee;
+  /* fill: ${(props) => props.theme.colors.purple.normal}; */
 `;
 
 export const StyledNextButton = styled(NextButton)`
-  width: 40px;
-  height: 40px;
-  fill: ${(props) => props.theme.colors.purple.normal};
+  width: 28px;
+  height: 28px;
+  fill: #eee;
+  /* fill: ${(props) => props.theme.colors.purple.normal}; */
+`;
+
+export const SwiperWrapper = styled.div``;
+
+export const StyledSwiper = styled(Swiper)`
+  padding: 0.5rem !important;
+`;
+
+export const StyledSwiperSlide = styled(SwiperSlide)`
+  box-shadow: 0 0 6px 3px #edd4ff10;
+  border-radius: 0.5rem;
 `;
 
 export const Container = styled.section`

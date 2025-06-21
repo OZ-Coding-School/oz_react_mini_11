@@ -57,7 +57,10 @@ function NavBar() {
   return (
     <Container>
       <Wrapper>
-        <Title onClick={handleTitleClick}>MOVIEFLIX</Title>
+        <Title onClick={handleTitleClick}>
+          <span>MOVIE</span>
+          <span>FLIX</span>
+        </Title>
         <InputWrapper>
           <Input
             value={query}
