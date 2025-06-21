@@ -5,7 +5,7 @@ import {
   Container,
   Input,
   InputWrapper,
-  MenuButton,
+  MenuWrapper,
   StyledLottie,
   Title,
   Wrapper,
@@ -19,7 +19,7 @@ function NavBar() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleClick = () => {
+  const handleTitleClick = () => {
     navigate("/");
   };
 
@@ -34,7 +34,7 @@ function NavBar() {
   return (
     <Container>
       <Wrapper>
-        <Title onClick={handleClick}>MOVIEFLIX</Title>
+        <Title onClick={handleTitleClick}>MOVIEFLIX</Title>
         <InputWrapper>
           <Input
             value={query}
@@ -46,9 +46,9 @@ function NavBar() {
         <Button>로그인</Button>
         <Button>회원가입</Button>
       </ButtonWrapper>
-      <MenuButton>
-        <StyledLottie animationData={menuAnimation} loop autoplay />
-      </MenuButton>
+      <MenuWrapper>
+        <StyledLottie animationData={menuAnimation} loop autoPlay />
+      </MenuWrapper>
     </Container>
   );
 }

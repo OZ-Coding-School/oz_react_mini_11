@@ -65,10 +65,9 @@ export const Button = styled.button`
   }
 `;
 
-export const MenuButton = styled.button`
+export const MenuWrapper = styled.div`
   display: none;
   background: transparent;
-  border: 0;
   cursor: pointer;
 
   @media (max-width: ${(props) => props.theme.breakPoints.laptop}) {
@@ -77,8 +76,8 @@ export const MenuButton = styled.button`
 `;
 
 export const StyledLottie = styled(Lottie)`
-  width: 5rem;
-  height: 5rem;
+  width: 3.5rem;
+  height: 3.5rem;
 `;
 
 export const Container = styled.header`
@@ -94,6 +93,6 @@ export const Container = styled.header`
   background-color: #2c2c2c;
 
   @media (max-width: ${(props) => props.theme.breakPoints.laptop}) {
-    padding: 0.38rem 10rem;
+    padding: 1.2rem 10rem;
   }
 `;
