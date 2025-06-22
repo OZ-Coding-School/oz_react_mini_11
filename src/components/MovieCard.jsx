@@ -2,7 +2,7 @@ import React from "react";
 
 const baseUrl = "https://image.tmdb.org/t/p/w500";
 
-function MovieCard({ movie, onClick, large }) {
+function MovieCard({ movie, onClick, large, darkMode }) {
   const title = movie.title || movie.original_title || "제목 없음";
   const rating = movie.vote_average ? movie.vote_average.toFixed(1) : "평점 없음";
 
@@ -10,31 +10,35 @@ function MovieCard({ movie, onClick, large }) {
     <div
       style={{
         width: large ? "240px" : "180px",
-        minWidth: large ? "240px" : "180px", // ✅ 최소 너비 고정
+        minWidth: large ? "240px" : "180px",
         cursor: "pointer",
-        transition: "transform 0.2s",
         marginBottom: "16px",
+        transition: "transform 0.3s ease",
+        borderRadius: "8px",
       }}
-      onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
+      onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.04)")}
       onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
       onClick={onClick}
     >
       <img
-        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+        src={`${baseUrl}${movie.poster_path}`}
         alt={title}
         style={{
           width: "100%",
+          height: "auto",
           borderRadius: "8px",
-          boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+          boxShadow: darkMode
+            ? "0 4px 10px rgba(255, 255, 255, 0.08)"
+            : "0 4px 10px rgba(0, 0, 0, 0.12)",
           display: "block",
         }}
       />
       <h3
         style={{
-          marginTop: "8px",
+          marginTop: "10px",
           fontSize: "1rem",
-          fontWeight: "500",
-          color: "#000",
+          fontWeight: 600,
+          color: darkMode ? "#f0f0f0" : "#000",
           whiteSpace: "nowrap",
           overflow: "hidden",
           textOverflow: "ellipsis",
@@ -47,7 +51,7 @@ function MovieCard({ movie, onClick, large }) {
           display: "flex",
           alignItems: "center",
           gap: "4px",
-          marginTop: "4px",
+          marginTop: "6px",
           userSelect: "none",
         }}
       >
@@ -55,12 +59,22 @@ function MovieCard({ movie, onClick, large }) {
           style={{
             color: "#FFD700",
             fontSize: "1.25rem",
-            textShadow: "0 0 2px rgba(0,0,0,0.3)",
+            textShadow: darkMode
+              ? "0 0 6px rgba(255, 215, 0, 0.9)"
+              : "0 0 2px rgba(0,0,0,0.3)",
           }}
         >
           ★
         </span>
-        <span style={{ color: "#000" }}>{rating}</span>
+        <span
+          style={{
+            fontSize: "0.95rem",
+            fontWeight: 500,
+            color: darkMode ? "#eee" : "#000",
+          }}
+        >
+          {rating}
+        </span>
       </div>
     </div>
   );
