@@ -7,7 +7,7 @@ import MovieList from "../../components/MovieList/MovieList";
 function Home() {
   return (
     <Container>
-      <MovieList api={getPopularMovies} sectionTitle="Trending Now" />
+      <MovieList api={getPopularMovies} sectionTitle="Popular" />
     </Container>
   );
 }

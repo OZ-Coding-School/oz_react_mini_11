@@ -15,7 +15,7 @@ export async function getPopularMovies() {
     );
     return response.data;
   } catch (error) {
-    console.error("Trending now 영화 목록 불러오기 실패 : ", error);
+    console.error("Popular 영화 목록 불러오기 실패 : ", error);
     throw error;
   }
 }
