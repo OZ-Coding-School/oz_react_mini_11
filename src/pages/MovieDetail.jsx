@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchMovieDetail } from "../api/movieApi";
+import { useTheme } from "../contexts/ThemeContext";
 
 const baseUrl = "https://image.tmdb.org/t/p/w500";
 
@@ -9,6 +10,8 @@ function MovieDetail() {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const { darkMode } = useTheme();
 
   useEffect(() => {
     const loadMovie = async () => {
@@ -26,16 +29,15 @@ function MovieDetail() {
     };
     loadMovie();
   }, [id]);
-  
+
   if (loading) {
-    return <div style={{ padding: "20px", color: "#fff" }}>로딩 중...</div>
+    return <div style={{ padding: "20px", color: darkMode ? "#f7fafc" : "#1a202c" }}>로딩 중...</div>;
   }
   if (error) {
-    return <div style={{ padding: "20px", color: "#fff" }}>{error}</div>;
+    return <div style={{ padding: "20px", color: darkMode ? "#f7fafc" : "#1a202c" }}>{error}</div>;
   }
-
   if (!movie) {
-    return <div style={{ padding: "20px", color: "#fff" }}>영화를 찾을 수 없습니다.</div>;
+    return <div style={{ padding: "20px", color: darkMode ? "#f7fafc" : "#1a202c" }}>영화를 찾을 수 없습니다.</div>;
   }
 
   const title = movie.title || movie.original_title;
@@ -43,71 +45,104 @@ function MovieDetail() {
   const rating = movie.vote_average ? movie.vote_average.toFixed(1) : "평점 없음";
 
   return (
-    <div style={{ backgroundColor: "#fff", color: "#000", minHeight: "100vh", padding: "40px 24px" }}>
-    <style>{`
-      @media (prefers-color-scheme: dark) {
-        body {
-          background-color: #000;
-          color: #fff;
-        }
-      }
-    `}</style>
-
-    <div style={{ maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "40px", flexWrap: "wrap" }}>
-      <div style={{ display: "flex", flexDirection: "column", gap: "20px", width: "100%" }}>
-
-        {/* 포스터 */}
+    <div
+      style={{
+        backgroundColor: darkMode ? "#1a202c" : "#fff",
+        color: darkMode ? "#f7fafc" : "#000",
+        minHeight: "100vh",
+        padding: "40px 24px",
+        transition: "background-color 0.3s ease, color 0.3s ease",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: "1200px",
+          margin: "0 auto",
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          gap: "40px",
+          alignItems: "flex-start",
+        }}
+      >
         <img
           src={`${baseUrl}${imagePath}`}
           alt={title}
-          style={{ width: "100%", borderRadius: "12px", boxShadow: "0 4px 10px rgba(0,0,0,0.2)", maxWidth: "600px" }}
+          style={{
+            width: "100%",
+            maxWidth: "400px",
+            borderRadius: "12px",
+            boxShadow: darkMode ? "0 4px 10px rgba(255,255,255,0.2)" : "0 4px 10px rgba(0,0,0,0.2)",
+            flexShrink: 0,
+          }}
         />
 
-        {/* 제목 & 평점 */}
-        <div>
-          <h1 style={{ fontSize: "32px", fontWeight: "bold", marginBottom: "12px" }}>{title}</h1>
-          <div style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "20px", fontWeight: "bold" }}>
-            <span style={{ color: "#facc15", fontSize: "28px" }}>★</span>
-            <span>{rating}</span>
+        <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "24px" }}>
+          <div>
+            <h1 style={{ fontSize: "32px", fontWeight: "bold", marginBottom: "12px" }}>{title}</h1>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                fontSize: "20px",
+                fontWeight: "bold",
+                color: darkMode ? "#facc15" : "#facc15",
+              }}
+            >
+              <span style={{ fontSize: "28px" }}>★</span>
+              <span>{rating}</span>
+            </div>
+          </div>
+
+          <div>
+            <h3 style={{ fontSize: "24px", fontWeight: "600", marginBottom: "12px" }}>장르</h3>
+            <ul
+              style={{
+                display: "flex",
+                gap: "8px",
+                flexWrap: "wrap",
+                padding: 0,
+                listStyle: "none",
+              }}
+            >
+              {movie.genres && movie.genres.length > 0 ? (
+                movie.genres.map((genre) => (
+                  <li
+                    key={genre.id}
+                    style={{
+                      padding: "6px 12px",
+                      borderRadius: "999px",
+                      backgroundColor: darkMode ? "#374151" : "#e5e7eb",
+                      color: darkMode ? "#f7fafc" : "#111827",
+                      fontSize: "14px",
+                    }}
+                  >
+                    {genre.name}
+                  </li>
+                ))
+              ) : (
+                <li>장르 정보 없음</li>
+              )}
+            </ul>
+          </div>
+
+          <div>
+            <h3 style={{ fontSize: "24px", fontWeight: "600", marginBottom: "12px" }}>줄거리</h3>
+            <p
+              style={{
+                fontSize: "16px",
+                lineHeight: "1.7",
+                color: darkMode ? "#d1d5db" : "#333",
+              }}
+            >
+              {movie.overview || "줄거리 정보가 없습니다."}
+            </p>
           </div>
         </div>
-
-        {/* 장르 */}
-        <div>
-          <h3 style={{ fontSize: "24px", fontWeight: "600", marginBottom: "12px" }}>장르</h3>
-          <ul style={{ display: "flex", gap: "8px", flexWrap: "wrap", padding: 0, listStyle: "none" }}>
-            {movie.genres && movie.genres.length > 0 ? (
-              movie.genres.map((genre) => (
-                <li
-                  key={genre.id}
-                  style={{
-                    padding: "6px 12px",
-                    borderRadius: "999px",
-                    backgroundColor: "#e5e7eb",
-                    fontSize: "14px",
-                  }}
-                >
-                  {genre.name}
-                </li>
-              ))
-            ) : (
-              <li>장르 정보 없음</li>
-            )}
-          </ul>
-        </div>
-
-        {/* 줄거리 */}
-        <div>
-          <h3 style={{ fontSize: "24px", fontWeight: "600", marginBottom: "12px" }}>줄거리</h3>
-          <p style={{ fontSize: "16px", lineHeight: "1.7", color: "#333" }}>
-            {movie.overview || "줄거리 정보가 없습니다."}
-          </p>
-        </div>
-
       </div>
     </div>
-  </div>
-);
+  );
 }
 
 export default MovieDetail;
