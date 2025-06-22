@@ -36,12 +36,10 @@ const NavBar = ({ onSearch }) => {
         flexWrap: "wrap",
       }}
     >
-      {/* Logo */}
       <div style={{ fontWeight: "bold", fontSize: "1.25rem", color: darkMode ? "#f7fafc" : "#1a202c" }}>
         🎬 MovieIcon
       </div>
 
-      {/* Search */}
       <div style={{ flex: 1, textAlign: "center", minWidth: isMobile ? "100%" : "300px" }}>
         <input
           type="text"
@@ -68,7 +66,6 @@ const NavBar = ({ onSearch }) => {
         />
       </div>
 
-      {/* Buttons */}
       <div
         style={{
           display: "flex",

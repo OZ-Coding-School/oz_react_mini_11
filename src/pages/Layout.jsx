@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import NavBar from "../components/Navbar";
+import NavBar from "../components/NavBar";
 import { useTheme } from "../contexts/ThemeContext";
 
 const Layout = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const { darkMode } = useTheme();
+  const { darkMode, toggleDarkMode } = useTheme();
+
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
 
   return (
     <div
@@ -16,8 +23,13 @@ const Layout = () => {
         transition: "background-color 0.3s, color 0.3s",
       }}
     >
-      <NavBar searchTerm={searchTerm} onSearch={setSearchTerm} />
-      <Outlet context={{ searchTerm }} />
+      <NavBar
+        searchTerm={searchTerm}
+        onSearch={setSearchTerm}
+        darkMode={darkMode}
+        toggleDarkMode={toggleDarkMode}
+      />
+      <Outlet context={{ searchTerm, darkMode, toggleDarkMode }} />
     </div>
   );
 };
