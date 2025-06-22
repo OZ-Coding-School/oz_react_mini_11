@@ -3,13 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import loginBgImage from "../../assets/images/login-bg.jpg";
 
 export const Logo = styled.div`
-  padding: 2rem 0 1rem 1rem;
+  width: fit-content;
   font-size: 3rem;
   color: ${(props) => props.theme.colors.purple.dark};
   cursor: pointer;
   font-family: "Tenada";
   margin-bottom: -1rem;
-  z-index: 1;
 
   @media (max-width: ${(props) => props.theme.breakPoints.laptop}) {
     font-size: 2.5rem;
@@ -129,6 +128,22 @@ const Wrapper = styled.div`
   }
 `;
 
+const LogoWrapper = styled.div`
+  width: 100%;
+  padding: 1.5rem 10rem;
+  z-index: 1;
+  /* background-color: green; */
+
+  @media (max-width: ${(props) => props.theme.breakPoints.laptop}) {
+    padding: 2.2rem 5%;
+  }
+  @media (max-width: ${(props) => props.theme.breakPoints.tablet}) {
+    padding: 2.5rem 5%;
+  }
+  @media (max-width: ${(props) => props.theme.breakPoints.mobile}) {
+  }
+`;
+
 const Container = styled.div`
   width: 100%;
   height: 100vh;
@@ -162,10 +177,13 @@ function Login() {
 
   return (
     <Container>
-      <Logo onClick={handleTitleClick}>
-        <span>MOVIE</span>
-        <span>FLIX</span>
-      </Logo>
+      <LogoWrapper>
+        <Logo onClick={handleTitleClick}>
+          <span>MOVIE</span>
+          <span>FLIX</span>
+        </Logo>
+      </LogoWrapper>
+
       <Wrapper>
         <Card>
           <Title>로그인</Title>
