@@ -14,30 +14,78 @@ import GenreMovieList from "../components/GenreMovieList";
 import useDebounce from "../hooks/useDebounce";
 import useAppLogic from "../hooks/useAppLogic";
 
-
 function App() {
   const navigate = useNavigate();
-  
-  const { searchTerm } = useOutletContext();
+  const { searchTerm, darkMode } = useOutletContext();
   const debouncedSearch = useDebounce(searchTerm, 500);
-
-  const {movies, genreMovies, loading, favoriteGenres,} = useAppLogic(debouncedSearch);
+  const { movies, genreMovies, loading, favoriteGenres } = useAppLogic(debouncedSearch);
 
   const handleClick = (id) => {
     navigate(`/details/${id}`);
   };
 
-  const slideCount = loading ? 5 : Math.min(5, movies.length);
+  const filteredMovies = movies.slice(0, 20); 
+  const slideCount = loading ? 1 : Math.min(5, filteredMovies.length);
 
   return (
     <div
-    style={{
-      backgroundColor: '#fff',
-      color: '#000',
-      minHeight: '100vh',
-      padding: '40px 24px',
-    }}>
-      <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '24px' }}>
+      style={{
+        backgroundColor: darkMode ? "#121212" : "#fff", 
+        color: darkMode ? "#f9f9f9" : "#000", 
+        minHeight: "100vh",
+        padding: "40px 16px",
+        transition: "all 0.3s ease-in-out",
+      }}
+    >
+
+      <style>{`
+        @media (max-width: 1024px) {
+          .swiper-slide {
+            width: 80% !important;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .swiper-slide {
+            width: 100% !important;
+          }
+        }
+
+        /* 슬라이드 네비게이션 화살표 */
+        .swiper-button-prev,
+        .swiper-button-next {
+          color: ${darkMode ? "#ccc" : "#333"};
+          top: 50%;
+          transform: translateY(-50%);
+          z-index: 10;
+        }
+
+        .swiper-button-prev {
+          left: -25px;
+        }
+
+        .swiper-button-next {
+          right: -25px;
+        }
+
+        @media (max-width: 768px) {
+          .swiper-button-prev {
+            left: -15px;
+          }
+          .swiper-button-next {
+            right: -15px;
+          }
+        }
+      `}</style>
+
+      <h2
+        style={{
+          fontSize: "1.8rem",
+          fontWeight: "bold",
+          marginBottom: "24px",
+          textAlign: "center",
+        }}
+      >
         {debouncedSearch ? `"${debouncedSearch}" 검색 결과` : "인기 영화"}
       </h2>
 
@@ -48,8 +96,7 @@ function App() {
         slidesPerGroup={slideCount}
         navigation
         pagination={{ clickable: true }}
-        loop={!loading && movies.length >= 5}
-        className="w-full max-w-screen-lg mx-auto po-10"
+        loop={!loading && filteredMovies.length >= slideCount}
       >
         {loading
           ? Array.from({ length: slideCount }).map((_, idx) => (
@@ -57,21 +104,32 @@ function App() {
                 <SkeletonMovieCard />
               </SwiperSlide>
             ))
-          : movies.map((movie) => (
+          : filteredMovies.map((movie) => (
               <SwiperSlide key={movie.id}>
-                <MovieCard movie={movie} onClick={() => handleClick(movie.id)} />
+                <MovieCard
+                  movie={movie}
+                  onClick={() => handleClick(movie.id)}
+                  large={true} 
+                />
               </SwiperSlide>
             ))}
       </Swiper>
 
-      {!debouncedSearch.trim() && favoriteGenres.map((genre) => (
-        <GenreMovieList 
-        key={genre.id} 
-        title={genre.name}
-        movies={genreMovies[genre.name] || []}
-        onClick={handleClick}
-        />
-      ))}
+      {!debouncedSearch.trim() &&
+        favoriteGenres.map((genre) => {
+          const movies = (genreMovies[genre.name] || [])
+            .filter((movie) => !movie.adult)
+            .slice(0, 10); 
+
+          return (
+            <GenreMovieList
+              key={genre.id}
+              title={genre.name}
+              movies={movies}
+              onClick={handleClick}
+            />
+          );
+        })}
     </div>
   );
 }
