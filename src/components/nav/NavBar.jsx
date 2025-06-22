@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import HomeLogo from "../../assets/HomeLogo.png";
 import { CiSearch } from "react-icons/ci";
 import { Outlet, useNavigate } from "react-router-dom";
@@ -10,6 +10,7 @@ export function NavBar() {
   const [searchResults, setSearchResults] = useState([]);
   const debouncedSearch = useDebounce(search);
   const navigate = useNavigate();
+  const inputRef = useRef(null); // enter 사용시 검색창이 focus가 되도록 할 ref 생성.
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -40,6 +41,18 @@ export function NavBar() {
     }
   };
 
+  useEffect(() => {
+    const handleGlobalkeyDown = (e) => {
+      if (e.key === "Enter" && document.activeElement !== inputRef.current) {
+        inputRef.current?.focus();
+      }
+    };
+
+    window.addEventListener("keydown", handleGlobalkeyDown);
+
+    return () => window.removeEventListener("keydown", handleGlobalkeyDown);
+  }, []);
+
   return (
     <div className="flex items-center justify-around w-screen h-22 bg-[#D6EAF8]">
       <div className="flex-1/4 flex justify-center items-center">
@@ -50,6 +63,7 @@ export function NavBar() {
         <input
           type="text"
           placeholder="영화 이름 ..."
+          ref={inputRef}
           onChange={(e) => setSearch(e.target.value)}
           onKeyDown={handleKeyDown}
           className="border-none bg-white rounded-2xl p-3 pl-13 sm:w-80 md:w-96 lg:w-[50rem]"
