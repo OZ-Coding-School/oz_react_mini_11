@@ -51,7 +51,6 @@ function App() {
           }
         }
 
-        /* 슬라이드 네비게이션 화살표 */
         .swiper-button-prev,
         .swiper-button-next {
           color: ${darkMode ? "#ccc" : "#333"};
@@ -91,6 +90,39 @@ function App() {
 
       <Swiper
         modules={[Navigation, Pagination]}
+        slidesPerView={slideCount}
+        slidesPerGroup={slideCount}
+        spaceBetween={16} // ✅ 카드 간격 설정
+        navigation // ✅ 화살표 다시 보이게
+        pagination={{ clickable: true }}
+        loop={!loading && filteredMovies.length >= 5}
+        breakpoints={{
+          320: { slidesPerView: 1.2, spaceBetween: 12 },
+          640: { slidesPerView: 2.2, spaceBetween: 14 },
+          768: { slidesPerView: 3.2, spaceBetween: 16 },
+          1024: { slidesPerView: 4.2, spaceBetween: 20 },
+          1280: { slidesPerView: 5, spaceBetween: 20 },
+        }}
+      >
+        {loading
+          ? Array.from({ length: slideCount }).map((_, idx) => (
+              <SwiperSlide key={idx}>
+                <SkeletonMovieCard />
+              </SwiperSlide>
+            ))
+          : filteredMovies.map((movie) => (
+              <SwiperSlide key={movie.id}>
+                <MovieCard
+                  movie={movie}
+                  onClick={() => handleClick(movie.id)}
+                  large={true} 
+                />
+              </SwiperSlide>
+            ))}
+      </Swiper>
+
+      {/* <Swiper
+        modules={[Navigation, Pagination]}
         spaceBetween={20}
         slidesPerView={slideCount}
         slidesPerGroup={slideCount}
@@ -113,7 +145,7 @@ function App() {
                 />
               </SwiperSlide>
             ))}
-      </Swiper>
+      </Swiper> */}
 
       {!debouncedSearch.trim() &&
         favoriteGenres.map((genre) => {
