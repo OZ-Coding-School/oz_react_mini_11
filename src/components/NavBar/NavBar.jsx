@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Button,
   ButtonWrapper,
@@ -69,8 +69,12 @@ function NavBar() {
         </InputWrapper>
       </Wrapper>
       <ButtonWrapper>
-        <Button>로그인</Button>
-        <Button>회원가입</Button>
+        <Link to="/login">
+          <Button>로그인</Button>
+        </Link>
+        <Link to="/signup">
+          <Button>회원가입</Button>
+        </Link>
       </ButtonWrapper>
       <MenuWrapper
         onMouseEnter={handleMenuMouseEnter}
