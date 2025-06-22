@@ -130,6 +130,10 @@ export const StyledLink = styled(Link)`
   color: #eee;
   text-decoration: none;
   font-size: 1rem;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 export const Container = styled.header`
