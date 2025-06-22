@@ -50,14 +50,14 @@ export const StyledPrevButton = styled(PrevButton)`
   width: 28px;
   height: 28px;
   fill: #eee;
-  /* fill: ${(props) => props.theme.colors.purple.normal}; */
+  padding-top: 1.5px;
 `;
 
 export const StyledNextButton = styled(NextButton)`
   width: 28px;
   height: 28px;
   fill: #eee;
-  /* fill: ${(props) => props.theme.colors.purple.normal}; */
+  padding-top: 1.5px;
 `;
 
 export const SwiperWrapper = styled.div``;
@@ -73,6 +73,6 @@ export const StyledSwiperSlide = styled(SwiperSlide)`
 
 export const Container = styled.section`
   width: 100%;
-  height: 100%;
-  padding: 1rem 0;
+  height: fit-content;
+  padding: 2rem 0;
 `;
