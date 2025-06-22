@@ -82,6 +82,8 @@ export const Logo = styled.div`
 const TextBold = styled.span`
   font-weight: 700;
   font-size: 2.75rem;
+  word-break: keep-all;
+  text-align: center;
 `;
 
 const TextRegular = styled.span`
@@ -90,6 +92,7 @@ const TextRegular = styled.span`
 
 const Card = styled.div`
   width: fit-content;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -165,7 +168,7 @@ function Signup() {
         <Card>
           <TextBold>영화를 무제한으로</TextBold>
           <TextRegular>
-            시청할 준비가 되셨나요? 시작하려면 가입 정보를 입력하세요
+            시청할 준비가 되셨나요? 시작하려면 가입 정보를 입력하세요.
           </TextRegular>
           <Input type="text" placeholder="이름" />
           <Input type="text" placeholder="이메일 주소" />
