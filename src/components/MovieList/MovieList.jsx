@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from "react";
 import { Navigation } from "swiper/modules";
 import "swiper/css/navigation";
 import "swiper/css";
-import { getPopularMovies } from "../../apis/popularMovieApi";
 import {
   ButtonWrapper,
   Container,
@@ -18,7 +17,7 @@ import {
 import MovieCardSkeleton from "../../components/MovieCard/MovieCardSkeleton";
 import { useFetch } from "../../hooks/useFetch";
 
-function MovieList({api, sectionTitle}) {
+function MovieList({ api, setMovieId, sectionTitle }) {
   const [swiper, setSwiper] = useState(false);
   const [isBeginning, setBeginning] = useState(true);
   const [isEnd, setEnd] = useState(false);
@@ -41,6 +40,15 @@ function MovieList({api, sectionTitle}) {
     setLoading,
     "movies"
   );
+
+  useEffect(() => {
+    if (sectionTitle === "Popular" && movies.length > 0) {
+      setMovieId(movies[0].id);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [movies]);
+
+  console.log("movies!! : ", movies);
 
   return (
     <Container>
