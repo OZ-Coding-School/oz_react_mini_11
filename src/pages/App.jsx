@@ -24,33 +24,32 @@ function App() {
     navigate(`/details/${id}`);
   };
 
-  const filteredMovies = movies.slice(0, 20); 
-  const slideCount = loading ? 1 : Math.min(5, filteredMovies.length);
+  const filteredMovies = movies.slice(0, 20);
+  const MAX_SLIDES = 5;
+  const slideCount = loading ? 1 : Math.min(MAX_SLIDES, filteredMovies.length);
+
 
   return (
     <div
       style={{
-        backgroundColor: darkMode ? "#121212" : "#fff", 
-        color: darkMode ? "#f9f9f9" : "#000", 
+        backgroundColor: darkMode ? "#121212" : "#fff",
+        color: darkMode ? "#f9f9f9" : "#333",
         minHeight: "100vh",
         padding: "40px 16px",
-        transition: "all 0.3s ease-in-out",
+        transition: "background-color 0.3s, color 0.3s",
       }}
     >
-
       <style>{`
         @media (max-width: 1024px) {
           .swiper-slide {
             width: 80% !important;
           }
         }
-
         @media (max-width: 768px) {
           .swiper-slide {
             width: 100% !important;
           }
         }
-
         .swiper-button-prev,
         .swiper-button-next {
           color: ${darkMode ? "#ccc" : "#333"};
@@ -58,15 +57,12 @@ function App() {
           transform: translateY(-50%);
           z-index: 10;
         }
-
         .swiper-button-prev {
           left: -25px;
         }
-
         .swiper-button-next {
           right: -25px;
         }
-
         @media (max-width: 768px) {
           .swiper-button-prev {
             left: -15px;
@@ -83,6 +79,7 @@ function App() {
           fontWeight: "bold",
           marginBottom: "24px",
           textAlign: "center",
+          color: darkMode ? "#f9f9f9" : "#000",
         }}
       >
         {debouncedSearch ? `"${debouncedSearch}" 검색 결과` : "인기 영화"}
@@ -92,8 +89,8 @@ function App() {
         modules={[Navigation, Pagination]}
         slidesPerView={slideCount}
         slidesPerGroup={slideCount}
-        spaceBetween={16} // ✅ 카드 간격 설정
-        navigation // ✅ 화살표 다시 보이게
+        spaceBetween={16}
+        navigation
         pagination={{ clickable: true }}
         loop={!loading && filteredMovies.length >= 5}
         breakpoints={{
@@ -107,7 +104,7 @@ function App() {
         {loading
           ? Array.from({ length: slideCount }).map((_, idx) => (
               <SwiperSlide key={idx}>
-                <SkeletonMovieCard />
+                <SkeletonMovieCard darkMode={darkMode} />
               </SwiperSlide>
             ))
           : filteredMovies.map((movie) => (
@@ -115,43 +112,18 @@ function App() {
                 <MovieCard
                   movie={movie}
                   onClick={() => handleClick(movie.id)}
-                  large={true} 
+                  large={true}
+                  darkMode={darkMode}
                 />
               </SwiperSlide>
             ))}
       </Swiper>
 
-      {/* <Swiper
-        modules={[Navigation, Pagination]}
-        spaceBetween={20}
-        slidesPerView={slideCount}
-        slidesPerGroup={slideCount}
-        navigation
-        pagination={{ clickable: true }}
-        loop={!loading && filteredMovies.length >= slideCount}
-      >
-        {loading
-          ? Array.from({ length: slideCount }).map((_, idx) => (
-              <SwiperSlide key={idx}>
-                <SkeletonMovieCard />
-              </SwiperSlide>
-            ))
-          : filteredMovies.map((movie) => (
-              <SwiperSlide key={movie.id}>
-                <MovieCard
-                  movie={movie}
-                  onClick={() => handleClick(movie.id)}
-                  large={true} 
-                />
-              </SwiperSlide>
-            ))}
-      </Swiper> */}
-
       {!debouncedSearch.trim() &&
         favoriteGenres.map((genre) => {
           const movies = (genreMovies[genre.name] || [])
             .filter((movie) => !movie.adult)
-            .slice(0, 10); 
+            .slice(0, 10);
 
           return (
             <GenreMovieList
@@ -159,6 +131,7 @@ function App() {
               title={genre.name}
               movies={movies}
               onClick={handleClick}
+              darkMode={darkMode}
             />
           );
         })}
