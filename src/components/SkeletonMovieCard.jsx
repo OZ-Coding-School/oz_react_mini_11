@@ -1,14 +1,63 @@
 import React from "react";
 
 function SkeletonMovieCard() {
+  const baseStyle = {
+    borderRadius: "12px",
+    width: "100%",
+    height: "300px",
+    backgroundColor: "#e5e7eb",
+    animation: "pulse 1.5s ease-in-out infinite",
+    overflow: "hidden",
+  };
+
+  const imageStyle = {
+    height: "75%",
+    backgroundColor: "#d1d5db",
+    borderTopLeftRadius: "12px",
+    borderTopRightRadius: "12px",
+  };
+
+  const textContainerStyle = {
+    padding: "12px",
+    display: "flex",
+    flexDirection: "column",
+    gap: "8px",
+  };
+
+  const textLineStyle1 = {
+    height: "16px",
+    backgroundColor: "#d1d5db",
+    borderRadius: "8px",
+    width: "75%",
+  };
+
+  const textLineStyle2 = {
+    height: "12px",
+    backgroundColor: "#d1d5db",
+    borderRadius: "8px",
+    width: "50%",
+  };
+  
     return (
-    <div className="animate-pulse bg-gray-200 dark:bg-gray-700 rounded-xl w-full h-[300px]">
-    <div className="h-[75%] bg-gray-300 dark:bg-gray-600 rounded-t-xl" />
-    <div className="p-3 space-y-2">
-      <div className="h-4 bg-gray-300 dark:bg-gray-600 rounded w-3/4" />
-      <div className="h-3 bg-gray-300 dark:bg-gray-600 rounded w-1/2" />
-    </div>
-  </div>
+      <>
+      <style>{`
+        @keyframes pulse {
+          0%, 100% {
+            opacity: 1;
+          }
+          50% {
+            opacity: 0.4;
+          }
+        }
+      `}</style>
+        <div baseStyle>
+          <div style={imageStyle} />
+          <div style={textContainerStyle}>
+            <div style={textLineStyle1} />
+            <div style={textLineStyle2} />
+          </div>
+        </div>
+      </>
     )
 } 
 

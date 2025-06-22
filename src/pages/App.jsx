@@ -31,8 +31,13 @@ function App() {
 
   return (
     <div
-      className="bg-white dark:bg-black text-black dark:text-white min-h-screen px-6 py-10">
-      <h2 className="text-2xl font-bold mb-6">
+    style={{
+      backgroundColor: '#fff',
+      color: '#000',
+      minHeight: '100vh',
+      padding: '40px 24px',
+    }}>
+      <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '24px' }}>
         {debouncedSearch ? `"${debouncedSearch}" 검색 결과` : "인기 영화"}
       </h2>
 
