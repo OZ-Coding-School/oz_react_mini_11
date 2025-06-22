@@ -69,10 +69,10 @@ export default function SignUp() {
         if (error) {
           alert(`회원가입 실패: ${error.message}`);
         } else {
-          const user = data.user;
-          await supabase
-            .from("profiles")
-            .insert([{ id: user.id, username: formData.name }]);
+          // const user = data.user;
+          // await supabase
+          //   .from("profiles")
+          //   .insert([{ id: user.id, username: formData.name }]);
 
           const userInfo = await getUserInfo(); //supabase에서 유저 정보 가져옴
           setUser(userInfo); //전역상태 업데이트
@@ -91,7 +91,7 @@ export default function SignUp() {
       <div className="login join">
         <div>
           <h2>회원가입</h2>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} noValidate>
             <div>
               <Input
                 label="이름"

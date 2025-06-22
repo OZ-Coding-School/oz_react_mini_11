@@ -23,9 +23,17 @@ export default function Login() {
     e.preventDefault();
     const newErrors = {};
 
+    // if (!formData.email.trim()) {
+    //   newErrors.email = "이메일을 입력하세요";
+    // }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email.trim()) {
       newErrors.email = "이메일을 입력하세요";
+    } else if (!emailRegex.test(formData.email)) {
+      newErrors.email = "이메일 형식이 올바르지 않습니다";
     }
+
     if (!formData.password.trim()) {
       newErrors.password = "비밀번호를 입력하세요";
     }
@@ -55,7 +63,7 @@ export default function Login() {
       <div className="login">
         <div>
           <h2>로그인</h2>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} noValidate>
             <div>
               <p>이메일 계정으로 로그인</p>
               <Input
