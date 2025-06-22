@@ -1,6 +1,13 @@
 import "./MovieCard.styles";
 import { useNavigate } from "react-router-dom";
-import { Container, Image, Rating, Title, Wrapper } from "./MovieCard.styles";
+import {
+  Container,
+  Image,
+  Rating,
+  StyledStar,
+  Title,
+  Wrapper,
+} from "./MovieCard.styles";
 
 function MovieCard({ data }) {
   const navigate = useNavigate();
@@ -16,7 +23,9 @@ function MovieCard({ data }) {
         alt="movie-image"></Image>
       <Wrapper>
         <Title>{data.title}</Title>
-        <Rating>평점: {data.vote_average}</Rating>
+        <Rating>
+          <StyledStar /> {data.vote_average.toFixed(1)}
+        </Rating>
       </Wrapper>
     </Container>
   );
