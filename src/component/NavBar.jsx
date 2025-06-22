@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useDebounce from "../hooks/useDebounce";
+import { useUser } from "../contexts/UserContext";
+import { supabase } from "../constant/supabaseClient";
 
 export default function NavBar() {
+  const { user, setUser } = useUser();
   const [inputValue, setInputValue] = useState("");
   const debounceValue = useDebounce(inputValue); // debounce 500ms
   const navigate = useNavigate();
@@ -35,6 +38,14 @@ export default function NavBar() {
     }
   }, [debounceValue, prevQuery, navigate]);
 
+  //로그아웃
+  const handleLogout = async () => {
+    await supabase.auth.signOut(); //세션종료
+    localStorage.removeItem("userInfo"); //로컬스토리지 초기화
+    setUser(null); //전역상태 초기화
+    navigate("/login");
+  };
+
   return (
     <nav>
       <ul>
@@ -48,16 +59,47 @@ export default function NavBar() {
             <li>
               <input value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
             </li>
-            <li>
-              <Link to="/login" onClick={handleReset}>
-                로그인
-              </Link>
-            </li>
-            <li>
-              <Link to="/join" onClick={handleReset}>
-                회원가입
-              </Link>
-            </li>
+            {user ? (
+              <>
+                <li>
+                  <div className="profile">
+                    <div>
+                      <ul>
+                        <li>
+                          <Link to="/" onClick={handleReset}>
+                            마이페이지
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/logout"
+                            onClick={() => {
+                              handleReset();
+                              handleLogout();
+                            }}
+                          >
+                            로그아웃
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link to="/login" onClick={handleReset}>
+                    로그인
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/signup" onClick={handleReset}>
+                    회원가입
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </li>
       </ul>
