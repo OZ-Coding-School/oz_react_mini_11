@@ -3,6 +3,7 @@ import Button from "../components/Button";
 import FormInput from "../components/FormInput";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import useDarkModeStore from "../hooks/zustand/useIsDarkStore";
 
 // Zod 스키마 정의
 const signupSchema = z
@@ -35,6 +36,7 @@ const signupSchema = z
 type SignupForm = z.infer<typeof signupSchema>;
 
 export default function Signup() {
+  const isDark = useDarkModeStore((state) => state.isDark);
   const {
     register,
     handleSubmit,
@@ -51,7 +53,13 @@ export default function Signup() {
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <h1 className="text-4xl font-bold">회원가입</h1>
+      <h1
+        className={`text-4xl font-bold ${
+          isDark ? "text-neutral-100" : "text-neutral-900"
+        }`}
+      >
+        회원가입
+      </h1>
       <form
         className="flex flex-col space-y-2 p-2 mx-2 w-full max-w-[400px]"
         onSubmit={handleSubmit(onSubmit)}
