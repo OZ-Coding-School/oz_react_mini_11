@@ -65,20 +65,18 @@ export default function SignUp() {
         const { data, error } = await supabase.auth.signUp({
           email: formData.email,
           password: formData.password,
+          options: { data: { name: formData.name } },
         });
         if (error) {
           alert(`회원가입 실패: ${error.message}`);
         } else {
-          // const user = data.user;
-          // await supabase
-          //   .from("profiles")
-          //   .insert([{ id: user.id, username: formData.name }]);
-
           const userInfo = await getUserInfo(); //supabase에서 유저 정보 가져옴
           setUser(userInfo); //전역상태 업데이트
 
           alert("회원가입 성공!");
           navigate("/");
+
+          console.log(userInfo.name);
         }
       } catch (err) {
         console.error(err);

@@ -52,6 +52,7 @@ export default function Login() {
           setUser(userInfo); //전역상태 업데이트
           alert("로그인 성공");
           navigate("/");
+          console.log(userInfo.name);
         }
       } catch (err) {
         console.err(err);

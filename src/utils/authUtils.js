@@ -11,6 +11,7 @@ export const getUserInfo = async () => {
     const userInfo = {
       id: user.id,
       email: user.email,
+      name: user.user_metadata?.name || "",
     };
 
     // localStorage에 저장
