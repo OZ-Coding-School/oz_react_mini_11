@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {
-  IMAGE_BASE_URL,
-  TMDB_GET_OPTION,
-  TMDB_MOIVE_API_BASE_URL,
-} from "../constants";
+import { TMDB_BASE_URL, TMDB_GET_OPTION, IMAGE_BASE_URL } from "../constants"; // ✅ 이미지 URL import
 
 function MovieDetail() {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
 
   useEffect(() => {
-    fetch(`${TMDB_MOIVE_API_BASE_URL}/${id}?language=ko`, TMDB_GET_OPTION)
+    fetch(`${TMDB_BASE_URL}/movie/${id}?language=ko`, TMDB_GET_OPTION) // ✅ 경로 수정도 여기서 확인
       .then((res) => res.json())
       .then((data) => setMovie(data))
       .catch((err) => console.error("영화 상세 정보 불러오기 실패:", err));

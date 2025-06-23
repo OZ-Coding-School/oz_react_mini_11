@@ -1,32 +1,32 @@
-import { useEffect, useState } from "react";
-import { TMDB_GET_OPTION, TMDB_SEARCH_API_BASE_URL } from "../constants";
+import {
+  TMDB_BASE_URL,
+  TMDB_SEARCH_API_PATH,
+  TMDB_GET_OPTION,
+} from "../constants";
 
-function useSearchMovies(query) {
-  const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(false);
+/**
+ * 영화 검색 API 호출 함수
+ * @param {string} keyword - 검색 키워드
+ * @returns {Promise<Array>} - 검색된 영화 목록
+ */
+export async function searchMovies(keyword) {
+  try {
+    const response = await fetch(
+      `${TMDB_BASE_URL}${TMDB_SEARCH_API_PATH}?query=${encodeURIComponent(
+        keyword
+      )}&language=ko`,
+      TMDB_GET_OPTION
+    );
 
-  useEffect(() => {
-    if (!query) {
-      setResults([]);
-      return;
+    if (!response.ok) {
+      throw new Error("검색 요청 실패");
     }
 
-    setLoading(true);
-
-    fetch(
-      `${TMDB_SEARCH_API_BASE_URL}?query=${query}&language=ko`,
-      TMDB_GET_OPTION
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        const filtered = data.results.filter((movie) => !movie.adult);
-        setResults(filtered);
-      })
-      .catch((err) => console.error("검색 실패:", err))
-      .finally(() => setLoading(false));
-  }, [query]);
-
-  return { results, loading };
+    const data = await response.json();
+    const filtered = data.results.filter((movie) => !movie.adult);
+    return filtered;
+  } catch (err) {
+    console.error("❌ 영화 검색 실패:", err);
+    throw err;
+  }
 }
-
-export default useSearchMovies;

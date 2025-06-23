@@ -4,26 +4,36 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { supabase } from "../lib/supabase";
 
-function Login() {
+function Signup() {
   const navigate = useNavigate();
   const { login } = useAuth();
 
   const [formData, setFormData] = useState({
+    name: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
 
   const [errors, setErrors] = useState({});
 
   const validate = () => {
     const newErrors = {};
+    const nameRegex = /^[a-zA-Z0-9가-힣]{2,8}$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
 
+    if (!nameRegex.test(formData.name)) {
+      newErrors.name = "이름은 2~8자, 한글/영어/숫자만 가능합니다.";
+    }
     if (!emailRegex.test(formData.email)) {
       newErrors.email = "올바른 이메일 형식을 입력해주세요.";
     }
-    if (!formData.password) {
-      newErrors.password = "비밀번호를 입력해주세요.";
+    if (!passwordRegex.test(formData.password)) {
+      newErrors.password = "비밀번호는 대소문자 + 숫자 조합이어야 합니다.";
+    }
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = "비밀번호가 일치하지 않습니다.";
     }
 
     setErrors(newErrors);
@@ -39,34 +49,37 @@ function Login() {
     e.preventDefault();
     if (!validate()) return;
 
-    const { email, password } = formData;
+    const { email, password, name } = formData;
 
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        data: { name },
+      },
     });
 
     if (error) {
-      alert("로그인 실패: " + error.message);
+      alert("회원가입 실패: " + error.message);
     } else {
-      const user = data.user;
-      const profile = user.user_metadata;
-
-      login({
-        email: user.email,
-        name: profile?.name || "사용자",
-        thumbnail: "https://i.pravatar.cc/40?u=" + user.email,
-      });
-
-      navigate("/");
+      alert("회원가입 성공! 이메일 인증을 완료해주세요.");
+      navigate("/login");
     }
   };
 
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4">
       <div className="w-full max-w-md p-6 bg-white text-black shadow-lg rounded-lg">
-        <h2 className="text-2xl font-bold mb-6 text-center">로그인</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">회원가입</h2>
         <form onSubmit={handleSubmit}>
+          <CommonInput
+            label="이름"
+            name="name"
+            type="text"
+            value={formData.name}
+            onChange={handleChange}
+            error={errors.name}
+          />
           <CommonInput
             label="이메일"
             name="email"
@@ -83,11 +96,19 @@ function Login() {
             onChange={handleChange}
             error={errors.password}
           />
+          <CommonInput
+            label="비밀번호 확인"
+            name="confirmPassword"
+            type="password"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+            error={errors.confirmPassword}
+          />
           <button
             type="submit"
             className="w-full mt-4 py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-700"
           >
-            로그인
+            회원가입
           </button>
         </form>
       </div>
@@ -95,4 +116,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;
