@@ -1,7 +1,10 @@
 import styled from "@emotion/styled";
 import loginBgImage from "../../assets/images/login-bg.jpg";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import NextButton from "../../assets/images/angle-right.svg?react";
+import { useContext } from "react";
+import { FormContext } from "../../contexts/FormContext";
+import FormInput from "../../components/FormInput/FormInput";
 
 export const Input = styled.input`
   border: 1px solid #d0d0d0;
@@ -27,30 +30,32 @@ export const Input = styled.input`
   }
 `;
 
-const StyledLink = styled(Link)`
-  background-color: ${(props) => props.theme.colors.purple.dark};
+const Button = styled.button`
+  padding: 1rem 1.5rem;
+  border: 0;
   border-radius: 0.5rem;
   color: #fff;
-  text-decoration: none;
+  background-color: ${(props) => props.theme.colors.purple.dark};
+  font-size: 1.5rem;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   transition: 0.2s ease-out;
+
+  &:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
 
   &:hover {
     background-color: ${(props) => props.theme.colors.purple.darkActive};
   }
 `;
 
-const LoginLink = styled(StyledLink)`
+const LoginButton = styled(Button)`
   padding: 0.75rem 1rem;
   font-size: 1rem;
-`;
-
-const SignupLink = styled(StyledLink)`
-  padding: 1rem 1.5rem;
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
 `;
 
 export const StyledPrevIcon = styled(NextButton)`
@@ -102,6 +107,7 @@ const Card = styled.div`
 `;
 
 const SignupWrapper = styled.div`
+  flex: 1;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -128,7 +134,7 @@ const LogoWrapper = styled.div`
 
 const Container = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -151,18 +157,18 @@ const Container = styled.div`
 `;
 
 function Signup() {
+  const { formState } = useContext(FormContext);
+  const passwordValue = formState["password"].value;
+  const isFormValid = Object.values(formState).every((f) => f.isValid);
   const navigate = useNavigate();
 
-  const handleTitleClick = () => {
-    navigate("/");
-  };
   return (
     <Container>
       <LogoWrapper>
-        <Logo onClick={handleTitleClick}>MOVIEFLIX</Logo>
-        <LoginLink to="/login" type="button">
+        <Logo onClick={() => navigate("/")}>MOVIEFLIX</Logo>
+        <LoginButton onClick={() => navigate("/login")} type="button">
           로그인
-        </LoginLink>
+        </LoginButton>
       </LogoWrapper>
       <SignupWrapper>
         <Card>
@@ -170,13 +176,18 @@ function Signup() {
           <TextRegular>
             시청할 준비가 되셨나요? 시작하려면 가입 정보를 입력하세요.
           </TextRegular>
-          <Input type="text" placeholder="이름" />
-          <Input type="text" placeholder="이메일 주소" />
-          <Input type="password" placeholder="비밀번호" />
-          <Input type="password" placeholder="비밀번호 확인" />
-          <SignupLink to="/">
+          <FormInput type="text" placeholder="이름" label="name" />
+          <FormInput type="text" placeholder="이메일 주소" label="email" />
+          <FormInput type="password" placeholder="비밀번호" label="password" />
+          <FormInput
+            type="password"
+            placeholder="비밀번호 확인"
+            label="passwordConfirm"
+            confirmText={passwordValue}
+          />
+          <Button disabled={!isFormValid} onClick={() => navigate("/")}>
             시작하기 <StyledPrevIcon />
-          </SignupLink>
+          </Button>
         </Card>
       </SignupWrapper>
     </Container>

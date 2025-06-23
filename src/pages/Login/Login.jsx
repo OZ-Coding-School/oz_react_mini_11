@@ -1,10 +1,9 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Card,
   Checkbox,
   Container,
-  Input,
   Label,
   Logo,
   LogoWrapper,
@@ -13,8 +12,13 @@ import {
   Title,
   Wrapper,
 } from "./Login.styles";
+import { useContext } from "react";
+import FormInput from "../../components/FormInput/FormInput";
+import { FormContext } from "../../contexts/FormContext";
 
 function Login() {
+  const { formState } = useContext(FormContext);
+  const isFormValid = Object.values(formState).every((f) => f.isValid);
   const navigate = useNavigate();
 
   const handleTitleClick = () => {
@@ -24,20 +28,17 @@ function Login() {
   return (
     <Container>
       <LogoWrapper>
-        <Logo onClick={handleTitleClick}>
-          <span>MOVIE</span>
-          <span>FLIX</span>
-        </Logo>
+        <Logo onClick={handleTitleClick}>MOVIEFLIX</Logo>
       </LogoWrapper>
 
       <Wrapper>
         <Card>
           <Title>로그인</Title>
-          <Input type="text" placeholder="이메일 주소" />
-          <Input type="password" placeholder="비밀번호" />
-          <Button>로그인</Button>
+          <FormInput type="text" placeholder="이메일 주소" label="email" />
+          <FormInput type="password" placeholder="비밀번호" label="password" />
+          <Button disabled={!isFormValid}>로그인</Button>
           <StyledLink>비밀번호를 잊으셨나요?</StyledLink>
-          <Label for="checkbox">
+          <Label htmlFor="checkbox">
             <Checkbox type="checkbox" id="checkbox" />
             <span>로그인 정보 저장</span>
           </Label>
