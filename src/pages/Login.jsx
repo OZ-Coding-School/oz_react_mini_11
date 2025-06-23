@@ -67,6 +67,7 @@ function Login() {
             label="이메일"
             name="email"
             type="email"
+            autoComplete="email"
             value={formData.email}
             onChange={handleChange}
             error={errors.email}
@@ -75,6 +76,7 @@ function Login() {
             label="비밀번호"
             name="password"
             type="password"
+            autoComplete="email"
             value={formData.password}
             onChange={handleChange}
             error={errors.password}

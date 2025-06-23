@@ -3,6 +3,7 @@ import CommonInput from "../components/CommonInput";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { supabase } from "../lib/supabase";
+import SocialLoginButtons from "../components/SocialLoginButtons";
 
 function Signup() {
   const navigate = useNavigate();
@@ -92,6 +93,7 @@ function Signup() {
             label="비밀번호"
             name="password"
             type="password"
+            autoComplete="new-password"
             value={formData.password}
             onChange={handleChange}
             error={errors.password}
@@ -100,6 +102,7 @@ function Signup() {
             label="비밀번호 확인"
             name="confirmPassword"
             type="password"
+            autoComplete="new-password"
             value={formData.confirmPassword}
             onChange={handleChange}
             error={errors.confirmPassword}
