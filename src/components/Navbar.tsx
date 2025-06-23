@@ -4,12 +4,15 @@ import SearchInput from "./SearchInput";
 import useSearchParamStore from "../hooks/zustand/useSearchParamStore";
 import DarkModeSwitch from "./DarkModeSwitch";
 import useDarkModeStore from "../hooks/zustand/useIsDarkStore";
+import { useState } from "react";
+import UserMenu from "./UserMenu";
 export default function Navbar() {
   const isDark = useDarkModeStore((state) => state.isDark);
   const navigate = useNavigate();
   const updateSearchParam = useSearchParamStore(
     (state) => state.updateSearchParam
   );
+  const [isLogin] = useState(true);
 
   const handleLogoClick = () => {
     updateSearchParam("");
@@ -37,12 +40,18 @@ export default function Navbar() {
       />
       <div className="flex items-center justify-center space-x-2">
         <DarkModeSwitch />
-        <Link to="/signup">
-          <Button theme="outline">회원가입</Button>
-        </Link>
-        <Link to="/login">
-          <Button theme="default">로그인</Button>
-        </Link>
+        {isLogin ? (
+          <UserMenu />
+        ) : (
+          <>
+            <Link to="/signup">
+              <Button theme="outline">회원가입</Button>
+            </Link>
+            <Link to="/login">
+              <Button theme="default">로그인</Button>
+            </Link>
+          </>
+        )}
       </div>
     </header>
   );
