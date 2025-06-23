@@ -4,7 +4,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import Button from "../components/Button";
 import FormInput from "../components/FormInput";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import supabase from "../utils/supabase";
+import { useState } from "react";
+import SmallLoading from "../components/lodaing/SmallLoading";
 
 // Zod 스키마 정의
 const loginSchema = z.object({
@@ -31,9 +34,33 @@ export default function Login() {
     mode: "onChange",
   });
 
-  const onSubmit = (data: LoginForm) => {
-    console.log("로그인 정보:", data);
-    // 회원가입 처리 로직 추가
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isPending, setIsPending] = useState(false);
+
+  const navigate = useNavigate();
+
+  const onSubmit = async (data: LoginForm) => {
+    setIsPending(true);
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email: data.email,
+      password: data.password,
+    });
+
+    if (error) {
+      //예외 처리 나중에 더 추가
+      if (error.code === "email_provider_disabled") {
+        setErrorMessage("등록되지 않은 이메일이거나 비밀번호가 다릅니다.");
+      } else {
+        setErrorMessage(
+          "알 수 없는 에러가 발생했습니다. 잠시 다시 시도해주세요."
+        );
+      }
+    } else {
+      navigate("/");
+    }
+
+    setIsPending(false);
   };
   return (
     <div className="flex flex-col justify-center items-center">
@@ -67,8 +94,8 @@ export default function Login() {
           errorMessage={errors.password?.message}
           fieldName="password"
         />
-
-        <Button type="submit">로그인</Button>
+        <span className="text-sm text-red-500">{errorMessage}</span>
+        <Button type="submit">{isPending ? <SmallLoading /> : "로그인"}</Button>
       </form>
       <p className={`${isDark ? "text-neutral-100" : "text-neutral-900"}`}>
         계정이 없으신가요?{" "}
