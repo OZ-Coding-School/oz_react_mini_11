@@ -3,20 +3,20 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
-import MovieCard from "./MovieCard";
-import { TMDB_GET_OPTION, TMDB_POPULAR_API_URL } from "../constants";
+import { Link } from "react-router-dom";
+import { TMDB_BASE_URL, TMDB_GET_OPTION, IMAGE_BASE_URL } from "../constants";
 
 function MovieSlider() {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    fetch(TMDB_POPULAR_API_URL, TMDB_GET_OPTION)
+    fetch(`${TMDB_BASE_URL}/movie/top_rated?language=ko`, TMDB_GET_OPTION)
       .then((res) => res.json())
       .then((data) => {
         const filtered = data.results.filter((movie) => !movie.adult);
         setMovies(filtered);
       })
-      .catch((err) => console.error("영화 로딩 실패:", err));
+      .catch((err) => console.error("🔥 추천 영화 로딩 실패:", err));
   }, []);
 
   return (
@@ -29,26 +29,24 @@ function MovieSlider() {
           modules={[Navigation]}
           navigation
           spaceBetween={15}
+          slidesPerView={2}
           breakpoints={{
-            320: { slidesPerView: 1.2 },
-            640: { slidesPerView: 2 },
-            768: { slidesPerView: 3 },
-            1024: { slidesPerView: 4 },
+            640: { slidesPerView: 3 },
+            768: { slidesPerView: 4 },
+            1024: { slidesPerView: 5 },
           }}
         >
           {movies.map((movie) => (
-            <SwiperSlide
-              key={movie.id}
-              className="pb-4"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <MovieCard
-                id={movie.id}
-                title={movie.title}
-                rating={movie.vote_average}
-                poster={movie.poster_path}
-                variant="slider"
-              />
+            <SwiperSlide key={movie.id}>
+              <Link to={`/movie/${movie.id}`}>
+                <img
+                  src={`${IMAGE_BASE_URL}${
+                    movie.backdrop_path || movie.poster_path
+                  }`}
+                  alt={movie.title}
+                  className="rounded-lg object-cover w-full h-40 md:h-52 shadow hover:scale-105 transition-transform duration-200"
+                />
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>

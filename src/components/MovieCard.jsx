@@ -10,12 +10,10 @@ function MovieCard({ title, rating, poster, id, variant = "list" }) {
 
   return (
     <Link
-      to={`/movies/${id}`}
+      to={`/movie/${id}`} // ✅ 여기 수정
       className="block no-underline text-inherit hover:scale-105 transition-transform duration-300"
     >
-      <div
-        className={`flex flex-col bg-[#2b2b2b] rounded-xl overflow-hidden shadow-lg`}
-      >
+      <div className="flex flex-col bg-[#2b2b2b] rounded-xl overflow-hidden shadow-lg">
         <div className={imageWrapperClass}>
           <img
             src={`${IMAGE_BASE_URL}${poster}`}
