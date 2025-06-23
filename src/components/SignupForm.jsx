@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { signupUser } from "../api/auth";
 
 export default function SignipForm() {
     const navigate = useNavigate();
@@ -9,7 +10,7 @@ export default function SignipForm() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState();
 
-    const handleForm = (e) => {
+    const handleForm = async (e) => {
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
         const nameRegex = /^[가-힣]{2,}$/;
         e.preventDefault();
@@ -37,10 +38,16 @@ export default function SignipForm() {
             setError("비밀번호가 일치하지 않습니다.");
             return;
         }
-        setError("");
-        console.log("회원가입 성공:", { email, userName, password });
-        alert("로그인 페이지로 이동합니다.");
-        navigate("/login");
+
+        try {
+            const result = await signupUser({ email, password, userName });
+            console.log("회원가입 성공:", { email, userName, password });
+            alert("로그인 페이지로 이동합니다.");
+            navigate("/login");
+        } catch (error) {
+            console.error("회원가입 실패:", error);
+            setError(error.message);
+        }
     };
 
     return (

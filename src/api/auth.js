@@ -11,3 +11,20 @@ export async function loginUser({ email, password }) {
     }
     return data;
 }
+
+export async function signupUser({ email, password, userName }) {
+    const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        potion: {
+            data: {
+                name: userName,
+            },
+        },
+    });
+
+    if (error) {
+        throw new Error(error.message);
+    }
+    return data;
+}
