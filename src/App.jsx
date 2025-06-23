@@ -5,31 +5,21 @@ import MainBanner from "./components/MainBanner";
 import SubTitle from "./components/SubTitle";
 import Main from "./pages/Main";
 import { useNavigate } from "react-router";
+import { fetchPopularMovies } from "./api/fetchPopularMovies";
 
 function App() {
   const [movies, setMovies] = useState([]);
-  const navigate = useNavigate();
   //useNavigate는 조건/이벤트 기반 이동
-  const URL = "https://image.tmdb.org/t/p/w500";
-
-  const token = import.meta.env.VITE_TMDB_READ_TOKEN;
+  const navigate = useNavigate();
+  const URL = import.meta.env.VITE_TMDB_IMAGE_URL;
 
   //useEffect안에 api 넣어서 처음 렌더링시 마운트 될때만 ,[]
   useEffect(() => {
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    fetch(
-      "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
-      options
-    )
-      .then((res) => res.json())
-      .then((data) => (console.log(data), setMovies(data.results)))
+    fetchPopularMovies()
+      .then((data) => {
+        console.log(data);
+        setMovies(data);
+      })
       .catch((err) => console.error(err));
   }, []);
 

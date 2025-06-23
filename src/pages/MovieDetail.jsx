@@ -1,32 +1,19 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
-const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+import { useNavigate, useParams } from "react-router";
+import { fetchMovieDetails } from "../api/fetchMovieDetails";
+const URL = import.meta.env.VITE_TMDB_IMAGE_URL;
 
 export function MovieDetail() {
   const { movieId } = useParams();
   //params는 리액트 훅중에 하나로, url경로에 담긴 값을 읽어오는 용도.
   //라우터에 path 파라미터 지정해놓음
-  const token = import.meta.env.VITE_TMDB_READ_TOKEN;
-  //토큰 가져옴
   const [movie, setMovie] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    fetch(
-      `https://api.themoviedb.org/3/movie/${movieId}?language=ko-Korea`,
-      options
-    )
-      .then((res) => res.json())
+    fetchMovieDetails(movieId)
       .then((data) => {
         setMovie(data);
-        console.log(data);
       })
       .catch((err) => console.error(err));
   }, [movieId]);
@@ -37,9 +24,12 @@ export function MovieDetail() {
   return (
     <div className=" flex justify-center items-center pt-[20%] md:pt-[4%]  flex-col md:flex-row text-white">
       <img
-        src={`${IMAGE_BASE_URL}${movie.poster_path}`}
+        src={`${URL}${movie.poster_path}`}
         alt={movie.title}
         className="h-[40vh] md:h-[500px] w-[100vw] "
+        onClick={(e) => {
+          navigate(`/`);
+        }}
       />
       <div className="flex flex-col justify-evenly h-[40vh] md:h-screen ml-4 py-20 px-10">
         <div className="flex w-full md:text-xl">
