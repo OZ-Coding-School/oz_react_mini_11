@@ -10,13 +10,14 @@ function getAuthHeaders() {
 export async function fetchMoviesByGenre(genreId) {
   try {
     const response = await fetch (
-      `${BASE_URL}/discover/movie?language=ko-KR&sort_by=popularity.desc&with_genres=${genreId}page=1`,
+      `${BASE_URL}/discover/movie?language=ko-KR&sort_by=popularity.desc&with_genres=${genreId}&page=1`,
       {method: "GET", 
       headers: getAuthHeaders() }
     );
     if (!response.ok) throw new Error("장르별 영화 조회 실패");
     const data = await response.json();
-    return data.results.filter((movie) => movie.adult === false);
+    
+    return data.results?.filter((movie) => movie.adult === false);
   } catch (error) {
     console.error(`장르(${genreId}영화 로드 오류`, error);
     return [];

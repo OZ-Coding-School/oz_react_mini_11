@@ -54,7 +54,11 @@ function useAppLogic(debouncedSearch) {
     }
   }, [debouncedSearch]);
 
-  return { movies, genreMovies, loading, favoriteGenres };
+  return { 
+    movies: movies || [], 
+    genreMovies, 
+    loading, 
+    favoriteGenres };
 }
 
 export default useAppLogic;
