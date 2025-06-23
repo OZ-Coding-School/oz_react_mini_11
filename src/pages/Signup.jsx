@@ -1,7 +1,13 @@
+import SignipForm from "../components/\bSignupForm";
+import LoginBackground from "../components/LoginBackground";
+
 export default function Signup() {
     return (
         <>
-            <>회원가입 페이지입니다.</>
+            <div className="relative w-full h-screen overflow-hidden">
+                <LoginBackground />
+                <SignipForm />
+            </div>
         </>
     );
 }

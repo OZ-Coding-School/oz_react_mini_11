@@ -34,17 +34,24 @@ export default function LoginForm() {
                         border-2 border-white/10 bg-white/5 backdrop-blur-sm hover:border-white/50 transition-all duration-300"
                     onSubmit={handleForm}
                 >
-                    <label className="text-base sm:text-lg "> 아이디 </label>
+                    <label htmlFor="email" className="text-base sm:text-lg ">
+                        아이디
+                    </label>
                     <input
                         type="email"
+                        id="emial"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         className="p-2 rounded bg-white text-amber-950 bg-opacity-20 placeholder-gray-300"
                         placeholder="이메일"
                     />
-                    <label className="text-base sm:text-lg "> 비밀번호 </label>
+                    <label htmlFor="password" className="text-base sm:text-lg ">
+                        {" "}
+                        비밀번호{" "}
+                    </label>
                     <input
                         type="password"
+                        id="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         className="p-2 rounded bg-white bg-opacity-20 text-amber-950 placeholder-gray-300"
