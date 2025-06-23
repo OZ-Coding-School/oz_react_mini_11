@@ -6,6 +6,7 @@ import NavBar from "./components/NavBar";
 import Layout from "./components/Layout";
 import Login from "./pages/Login";
 import Search from "./pages/Search";
+import Signup from "./pages/Signup";
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
             </Route>
 
             <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
         </Routes>
     );
 }

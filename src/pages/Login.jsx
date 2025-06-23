@@ -9,7 +9,6 @@ export default function Login() {
         <>
             <div className="relative w-full h-screen overflow-hidden">
                 <LoginBackground />
-
                 <LoginForm />
             </div>
         </>

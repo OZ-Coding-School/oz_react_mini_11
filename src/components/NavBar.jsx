@@ -17,7 +17,9 @@ export default function NavBar() {
                     <Link to="/login" className="hover:underline">
                         로그인
                     </Link>
-                    <button className="text-white text-sm hover:underline">회원가입</button>
+                    <Link to="/signup" className="hover:underline">
+                        회원가입
+                    </Link>
                 </div>
             </div>
         </div>
