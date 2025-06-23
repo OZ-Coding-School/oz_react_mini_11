@@ -1,6 +1,13 @@
+import { useState } from "react";
 import Button from "../components/Button";
+import Eye from "../components/icons/Eye";
+import EyeSlash from "../components/icons/EyeSlash";
 
 export default function Signup() {
+  const [isPasswordVisible, setIsPaswordVisible] = useState(false);
+  const [isPasswordConfirmationVisible, setIsPaswordConfirmationVisible] =
+    useState(false);
+
   return (
     <div className="flex flex-col justify-center items-center">
       <h1 className="text-4xl font-bold">회원가입</h1>
@@ -25,21 +32,49 @@ export default function Signup() {
         </div>
         <div className="flex flex-col">
           <label htmlFor="password">비밀번호</label>
-          <input
-            type="password"
-            id="password"
-            placeholder="대소문자와 숫자를 포함한 8자 이상"
-            className="border-2 p-2 w-full rounded"
-          />
+          <div className="flex items-center space-x-0.5">
+            <input
+              type={isPasswordVisible ? "text" : "password"}
+              id="password"
+              placeholder="대소문자와 숫자를 포함한 8자 이상"
+              className="border-2 p-2 w-full rounded"
+            />
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                setIsPaswordVisible(!isPasswordVisible);
+              }}
+            >
+              {isPasswordVisible ? (
+                <Eye className="size-8" />
+              ) : (
+                <EyeSlash className="size-8" />
+              )}
+            </button>
+          </div>
         </div>
         <div className="flex flex-col">
           <label htmlFor="password-confirmation">비밀번호 확인</label>
-          <input
-            type="password"
-            id="password-confirmation"
-            placeholder="대소문자와 숫자를 포함한 8자 이상"
-            className="border-2 p-2 w-full rounded"
-          />
+          <div className="flex items-center space-x-0.5">
+            <input
+              type={isPasswordConfirmationVisible ? "text" : "password"}
+              id="password-confirmation"
+              placeholder="대소문자와 숫자를 포함한 8자 이상"
+              className="border-2 p-2 w-full rounded"
+            />
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                setIsPaswordConfirmationVisible(!isPasswordConfirmationVisible);
+              }}
+            >
+              {isPasswordConfirmationVisible ? (
+                <Eye className="size-8" />
+              ) : (
+                <EyeSlash className="size-8" />
+              )}
+            </button>
+          </div>
         </div>
         <Button>회원가입</Button>
       </form>
