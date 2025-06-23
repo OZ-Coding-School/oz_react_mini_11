@@ -1,23 +1,25 @@
-import { Link, useSearchParams } from 'react-router-dom';
-import MediaCard from '../components/MediaCard';
-import useFetch from '../hooks/useFetch';
-import SkeletonCard from '../components/skeletons/SkeletonCard';
 import { useEffect, useRef, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import useFetch from '../hooks/useFetch';
+import useInfiniteScroll from '../hooks/useInfiniteScroll';
+import MediaCard from '../components/MediaCard';
+import SkeletonCard from '../components/skeletons/SkeletonCard';
 
 function Search() {
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get('keyword');
 
-  const [page, setPage] = useState(1);
   const [resultList, setResultList] = useState([]);
+  const [page, setPage] = useState(1);
   const [isEnd, setIsEnd] = useState(false);
-  const loader = useRef(null);
 
   const { data, loading } = useFetch(
     `search/multi?query=${keyword}&include_adult=false&language=ko&page=${page}`
   );
 
   console.log('Search keyword: ', keyword);
+
+  const { loader } = useInfiniteScroll(() => setPage(prev => prev + 1), !loading && !isEnd);
 
   // 초기화
   useEffect(() => {
@@ -35,23 +37,6 @@ function Search() {
       if (data.page >= data.total_pages) setIsEnd(true);
     }
   }, [data]);
-
-  // 스크롤 감지
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && !loading && !isEnd) {
-        setPage(prev => prev + 1);
-      }
-    });
-
-    if (loader.current) {
-      observer.observe(loader.current);
-    }
-
-    return () => {
-      if (loader.current) observer.unobserve(loader.current);
-    };
-  }, [loading, isEnd]);
 
   const len = resultList?.length;
 
