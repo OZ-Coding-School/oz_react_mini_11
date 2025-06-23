@@ -4,7 +4,7 @@ import { getPopularMovies } from "../../apis/popularMovieApi";
 import { Banner, Container } from "./Home.styles";
 import MovieList from "../../components/MovieList/MovieList";
 import { getTopRatedMovies } from "../../apis/topRatedMoviesApi";
-import { getUpcomingMovies } from "../../apis/UpcomingMoviesApi";
+import { getUpcomingMovies } from "../../apis/upcomingMoviesApi";
 import { getTrendingNowMovies } from "../../apis/trendingMoviesApi";
 import { getFantasyMovies } from "../../apis/fantasyMoviesApi";
 import { getActionMovies } from "../../apis/actionMoviesApi";
@@ -18,25 +18,14 @@ function Home() {
   const [videoKey, setVideoKey] = useState("");
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (!movieId) return;
-
-    const fetchMovieVideos = async () => {
-      setLoading(true);
-      try {
-        const data = await getMovieVideo(movieId);
-        const trailers = data.results.filter((v) => v.type === "Trailer");
-        setVideoKey(trailers[0].key);
-        console.log(`영화 트레일러 영상 : `, trailers);
-      } catch (error) {
-        console.log(`getMovieVideo 실행 실패 : `, error);
-        throw error;
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchMovieVideos();
-  }, [movieId]);
+  useFetch(
+    () => getMovieVideo(movieId),
+    [movieId],
+    (data) =>
+      setVideoKey(data.results.filter((v) => v.type === "Trailer")[0].key),
+    setLoading,
+    "trailers"
+  );
 
   return (
     <Container>
