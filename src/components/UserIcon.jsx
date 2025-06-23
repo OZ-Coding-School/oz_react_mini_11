@@ -2,6 +2,11 @@ import { FaUserCircle } from 'react-icons/fa';
 import supabase from '../supabaseClient';
 
 function UserIcon() {
+  const handleSignOut = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) console.error('로그아웃 실패:', error.message);
+  };
+
   return (
     <div className="relative group">
       <FaUserCircle className="text-2xl cursor-pointer" />
@@ -9,7 +14,7 @@ function UserIcon() {
         <div className="mt-10 p-4 bg-[#000000c1] text-sm">
           <button
             className="hover:underline"
-            onClick={() => supabase.auth.signOut()}
+            onClick={handleSignOut}
           >
             로그아웃
           </button>
