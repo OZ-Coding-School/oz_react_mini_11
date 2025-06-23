@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import Lottie from "lottie-react";
 import { Link } from "react-router-dom";
+import UserIcon from "../../assets/images/user.svg?react";
 
 export const Wrapper = styled.div`
   height: 100%;
@@ -94,11 +95,14 @@ export const Button = styled.button`
   }
 `;
 
-export const MenuWrapper = styled.div`
-  display: none;
+export const NavWrapper = styled.div`
   position: relative;
   background: transparent;
   cursor: pointer;
+`;
+
+export const LaptopNavWrapper = styled(NavWrapper)`
+  display: none;
 
   @media (max-width: ${(props) => props.theme.breakPoints.laptop}) {
     display: block;
@@ -119,10 +123,14 @@ export const Menu = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #00000075;
+  background: #00000080;
   border-radius: 0.5rem;
   padding: 1rem;
   z-index: 10;
+
+  @media (max-width: ${(props) => props.theme.breakPoints.laptop}) {
+    left: ${(props) => (props.isLogin ? "-50%" : "-10%")};
+  }
 `;
 
 export const StyledLink = styled(Link)`
@@ -134,6 +142,30 @@ export const StyledLink = styled(Link)`
   &:hover {
     text-decoration: underline;
   }
+`;
+
+export const UserButton = styled.button`
+  margin: 0.35rem 0.55rem;
+  padding: 0.5rem;
+  background-color: ${(props) => props.theme.colors.purple.normal};
+  border-radius: 50%;
+  border: 1px solid #eeeeee25;
+  cursor: pointer;
+`;
+
+export const StyledUserIcon = styled(UserIcon)`
+  width: 1.7rem;
+  height: 1.5rem;
+  fill: #eee;
+`;
+
+export const LogoutButton = styled.button`
+  padding: 1rem;
+  background: transparent;
+  color: #eee;
+  border: 0;
+  cursor: pointer;
+  font-size: 1rem;
 `;
 
 export const Container = styled.header`

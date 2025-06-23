@@ -5,11 +5,15 @@ import {
   Container,
   Input,
   InputWrapper,
+  LaptopNavWrapper,
+  LogoutButton,
   Menu,
-  MenuWrapper,
+  NavWrapper,
   StyledLink,
   StyledLottie,
+  StyledUserIcon,
   Title,
+  UserButton,
   Wrapper,
 } from "./NavBar.styles";
 import menuAnimation from "../../assets/animations/menu-animation.json";
@@ -20,6 +24,7 @@ function NavBar() {
   const [query, setQuery] = useState("");
   const [isHovered, setIsHovered] = useState(false);
   const [isShowed, setIsShowed] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const lottieRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -29,7 +34,7 @@ function NavBar() {
   };
 
   const handleMenuMouseEnter = () => {
-    if (!isShowed) lottieRef.current.playSegments([0, 35], true);
+    if (!isLogin && !isShowed) lottieRef.current.playSegments([0, 35], true);
     setIsHovered(true);
     setIsShowed(true);
   };
@@ -45,9 +50,10 @@ function NavBar() {
   }, [location.pathname]);
 
   useDebounce(() => navigate(`/search?q=${query}`), query, 500);
+
   useDebounce(
     () => {
-      lottieRef.current.playSegments([40, 70], true);
+      if (!isLogin) lottieRef.current.playSegments([40, 70], true);
       setIsShowed(false);
     },
     !isHovered,
@@ -68,32 +74,55 @@ function NavBar() {
           />
         </InputWrapper>
       </Wrapper>
-      <ButtonWrapper>
-        <Link to="/login">
-          <Button>로그인</Button>
-        </Link>
-        <Link to="/signup">
-          <Button>회원가입</Button>
-        </Link>
-      </ButtonWrapper>
-      <MenuWrapper
-        onMouseEnter={handleMenuMouseEnter}
-        onMouseLeave={handleMenuMouseLeave}>
-        <StyledLottie
-          animationData={menuAnimation}
-          lottieRef={lottieRef}
-          loop={false}
-          autoplay={false}
-        />
-        {isShowed && (
-          <Menu
+      {isLogin ? (
+        <NavWrapper>
+          <UserButton
             onMouseEnter={handleMenuMouseEnter}
             onMouseLeave={handleMenuMouseLeave}>
-            <StyledLink to="/login">로그인</StyledLink>
-            <StyledLink to="/signup">회원가입</StyledLink>
-          </Menu>
-        )}
-      </MenuWrapper>
+            <StyledUserIcon />
+          </UserButton>
+          {isShowed && (
+            <Menu
+              isLogin={isLogin}
+              onMouseEnter={handleMenuMouseEnter}
+              onMouseLeave={handleMenuMouseLeave}>
+              <StyledLink to="/wishlist">위시리스트</StyledLink>
+              <LogoutButton onClick={() => setIsLogin(false)}>
+                로그아웃
+              </LogoutButton>
+            </Menu>
+          )}
+        </NavWrapper>
+      ) : (
+        <>
+          <ButtonWrapper>
+            <Link to="/login">
+              <Button>로그인</Button>
+            </Link>
+            <Link to="/signup">
+              <Button>회원가입</Button>
+            </Link>
+          </ButtonWrapper>
+          <LaptopNavWrapper
+            onMouseEnter={handleMenuMouseEnter}
+            onMouseLeave={handleMenuMouseLeave}>
+            <StyledLottie
+              animationData={menuAnimation}
+              lottieRef={lottieRef}
+              loop={false}
+              autoplay={false}
+            />
+            {isShowed && (
+              <Menu
+                onMouseEnter={handleMenuMouseEnter}
+                onMouseLeave={handleMenuMouseLeave}>
+                <StyledLink to="/login">로그인</StyledLink>
+                <StyledLink to="/signup">회원가입</StyledLink>
+              </Menu>
+            )}
+          </LaptopNavWrapper>
+        </>
+      )}
     </Container>
   );
 }
