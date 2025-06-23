@@ -111,6 +111,7 @@ function Signup() {
             회원가입
           </button>
         </form>
+        <SocialLoginButtons />
       </div>
     </div>
   );
