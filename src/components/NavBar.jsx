@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import SearchMovie from "./SearchMovie";
 import { Suspense, useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
+import UserMenu from "./UserMenu";
 
 export default function NavBar() {
     const [user, setUser] = useState(null);
@@ -39,7 +40,7 @@ export default function NavBar() {
                 <div className="flex justify-center md:justify-end gap-4">
                     {user ? (
                         <>
-                            <button onClick={handleLogout}>로그아웃</button>
+                            <UserMenu logout={handleLogout} />
                         </>
                     ) : (
                         <>
