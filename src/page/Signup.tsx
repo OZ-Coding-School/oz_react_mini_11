@@ -4,6 +4,10 @@ import FormInput from "../components/FormInput";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useDarkModeStore from "../hooks/zustand/useIsDarkStore";
+import supabase from "../utils/supabase";
+import { useState } from "react";
+import { useNavigate } from "react-router";
+import SmallLoading from "../components/lodaing/SmallLoading";
 
 // Zod 스키마 정의
 const signupSchema = z
@@ -46,9 +50,34 @@ export default function Signup() {
     mode: "onChange",
   });
 
-  const onSubmit = (data: SignupForm) => {
-    console.log("회원가입 정보:", data);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isPending, setIsPending] = useState(false);
+
+  const navigate = useNavigate();
+
+  const onSubmit = async (data: SignupForm) => {
     // 회원가입 처리 로직 추가
+    setIsPending(true);
+
+    const { error } = await supabase.auth.signUp({
+      email: data.email,
+      password: data.password,
+    });
+
+    if (error) {
+      //예외 처리 나중에 더 추가
+      if (error.code === "email_exists") {
+        setErrorMessage("이미 사용중인 이메일 입니다.");
+      } else {
+        setErrorMessage(
+          "알 수 없는 에러가 발생했습니다. 잠시 다시 시도해주세요."
+        );
+      }
+    } else {
+      navigate("/login");
+    }
+
+    setIsPending(false);
   };
 
   return (
@@ -103,7 +132,10 @@ export default function Signup() {
           errorMessage={errors.passwordConfirmation?.message}
           fieldName="password-confirmation"
         />
-        <Button type="submit">회원가입</Button>
+        <span className="text-sm text-red-500">{errorMessage}</span>
+        <Button type="submit">
+          {isPending ? <SmallLoading /> : "회원가입"}
+        </Button>
       </form>
     </div>
   );
