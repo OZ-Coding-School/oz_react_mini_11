@@ -4,20 +4,35 @@ import SearchInput from "./SearchInput";
 import useSearchParamStore from "../hooks/zustand/useSearchParamStore";
 import DarkModeSwitch from "./DarkModeSwitch";
 import useDarkModeStore from "../hooks/zustand/useIsDarkStore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UserMenu from "./UserMenu";
+import supabase from "../utils/supabase";
+import type { Session } from "@supabase/supabase-js";
+
 export default function Navbar() {
   const isDark = useDarkModeStore((state) => state.isDark);
   const navigate = useNavigate();
   const updateSearchParam = useSearchParamStore(
     (state) => state.updateSearchParam
   );
-  const [isLogin] = useState(true);
+  const [session, setSession] = useState<Session | null>(null);
 
   const handleLogoClick = () => {
     updateSearchParam("");
     navigate("/");
   };
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
 
   return (
     <header
@@ -40,7 +55,7 @@ export default function Navbar() {
       />
       <div className="flex items-center justify-center space-x-2">
         <DarkModeSwitch />
-        {isLogin ? (
+        {session ? (
           <UserMenu />
         ) : (
           <>
