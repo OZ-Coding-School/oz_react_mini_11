@@ -1,4 +1,6 @@
 import styled from "@emotion/styled";
+import Lottie from "lottie-react";
+import { Link } from "react-router-dom";
 
 export const Wrapper = styled.div`
   height: 100%;
@@ -6,7 +8,6 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
-  /* background-color: green; */
 `;
 
 export const Title = styled.div`
@@ -14,13 +15,35 @@ export const Title = styled.div`
   color: ${(props) => props.theme.colors.purple.dark};
   cursor: pointer;
   font-family: "Tenada";
-  /* background-color: pink; */
   margin-bottom: -1rem;
+
+  @media (max-width: ${(props) => props.theme.breakPoints.laptop}) {
+    font-size: 2.5rem;
+  }
+  @media (max-width: ${(props) => props.theme.breakPoints.tablet}) {
+    font-size: 2rem;
+  }
+  @media (max-width: ${(props) => props.theme.breakPoints.mobile}) {
+    font-size: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & > span {
+      display: block;
+    }
+  }
 `;
 
 export const InputWrapper = styled.div`
-  width: 50%;
-  /* background-color: pink; */
+  width: 45%;
+
+  @media (max-width: ${(props) => props.theme.breakPoints.tablet}) {
+    width: 50%;
+  }
+  @media (max-width: ${(props) => props.theme.breakPoints.mobile}) {
+    width: 60%;
+  }
 `;
 
 export const Input = styled.input`
@@ -37,13 +60,16 @@ export const Input = styled.input`
     box-shadow: 0 0 0 3px ${(props) => props.theme.colors.purple.lightActive}
       inset;
   }
+
+  @media (max-width: ${(props) => props.theme.breakPoints.mobile}) {
+    padding: 0.5rem 2rem;
+  }
 `;
 
 export const ButtonWrapper = styled.nav`
   flex: 1 0 fill;
   display: flex;
   gap: 0.5rem;
-  /* background-color: blueviolet; */
 `;
 
 export const Button = styled.button`
@@ -62,11 +88,58 @@ export const Button = styled.button`
     background-color: ${(props) => props.theme.colors.purple.normal};
     box-shadow: 0 0 20px 10px ${(props) => props.theme.colors.purple.normal};
   }
+
+  @media (max-width: ${(props) => props.theme.breakPoints.laptop}) {
+    display: none;
+  }
+`;
+
+export const MenuWrapper = styled.div`
+  display: none;
+  position: relative;
+  background: transparent;
+  cursor: pointer;
+
+  @media (max-width: ${(props) => props.theme.breakPoints.laptop}) {
+    display: block;
+  }
+`;
+
+export const StyledLottie = styled(Lottie)`
+  width: 3.5rem;
+  height: 3.5rem;
+`;
+
+export const Menu = styled.div`
+  width: max-content;
+  position: absolute;
+  top: 150%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #00000075;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  z-index: 10;
+`;
+
+export const StyledLink = styled(Link)`
+  padding: 1rem;
+  color: #eee;
+  text-decoration: none;
+  font-size: 1rem;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 export const Container = styled.header`
   position: sticky;
   top: 0;
+  z-index: 999;
   width: 100%;
   padding: 1.5rem 10rem;
   display: flex;
@@ -75,4 +148,8 @@ export const Container = styled.header`
   flex-wrap: wrap;
   box-shadow: 0 0 10px 3px #00000015;
   background-color: #2c2c2c;
+
+  @media (max-width: ${(props) => props.theme.breakPoints.laptop}) {
+    padding: 1.2rem 5%;
+  }
 `;

@@ -1,122 +1,53 @@
-import MovieCard from "../../components/MovieCard/MovieCard";
-import { useEffect, useRef, useState } from "react";
-import { Navigation } from "swiper/modules";
 import "swiper/css/navigation";
 import "swiper/css";
 import { getPopularMovies } from "../../apis/popularMovieApi";
-import {
-  ButtonWrapper,
-  Container,
-  SectionTitle,
-  StyledNextButton,
-  StyledPrevButton,
-  StyledSwiper,
-  StyledSwiperSlide,
-  SwiperWrapper,
-} from "./Home.styles";
-import MovieCardSkeleton from "../../components/MovieCard/MovieCardSkeleton";
-
-// const breakPoints = {
-//   desktop: 1440,
-//   laptop: 1024,
-//   tablet: 768,
-//   mobile: 480,
-// }
-
-// const ContainerGrid = styled.div`
-//   display: grid;
-//   grid-template-columns: repeat(6, 1fr);
-//   gap: 0.5rem;
-
-//   @media (max-width: 1440px) {
-//     grid-template-columns: repeat(5, 1fr);
-//   }
-//   @media (max-width: 1024px) {
-//     grid-template-columns: repeat(4, 1fr);
-//   }
-//   @media (max-width: 768px) {
-//     grid-template-columns: repeat(3, 1fr);
-//   }
-//   @media (max-width: 480px) {
-//     grid-template-columns: repeat(2, 1fr);
-//   }
-// `;
+import { Banner, Container } from "./Home.styles";
+import MovieList from "../../components/MovieList/MovieList";
+import { getTopRatedMovies } from "../../apis/topRatedMoviesApi";
+import { getUpcomingMovies } from "../../apis/upcomingMoviesApi";
+import { getTrendingNowMovies } from "../../apis/trendingMoviesApi";
+import { getFantasyMovies } from "../../apis/fantasyMoviesApi";
+import { getActionMovies } from "../../apis/actionMoviesApi";
+import { getComedyMovies } from "../../apis/comedyMoviesApi";
+import { useEffect, useState } from "react";
+import { useFetch } from "../../hooks/useFetch";
+import { getMovieVideo } from "../../apis/movieVideoApi";
 
 function Home() {
-  const [swiper, setSwiper] = useState(false);
-  const [isBeginning, setBeginning] = useState(true);
-  const [isEnd, setEnd] = useState(false);
-  const prevRef = useRef(null);
-  const nextRef = useRef(null);
-  const [movies, setMovies] = useState([]); // 인기순 영화 데이터
-  const [loading, setLoading] = useState(true);
+  const [movieId, setMovieId] = useState(null);
+  const [videoKey, setVideoKey] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (swiper) {
-      swiper.params.navigation.prevEl = prevRef.current;
-      swiper.params.navigation.nextEl = nextRef.current;
-    }
-  }, [swiper]);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const data = await getPopularMovies();
-        setMovies(data.results.filter((el) => el.adult === false));
-      } catch (error) {
-        console.error("getPopularMovies 실행 실패 : ", error);
-        throw error;
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, []);
-
-  console.log(movies);
+  useFetch(
+    () => getMovieVideo(movieId),
+    [movieId],
+    (data) =>
+      setVideoKey(data.results.filter((v) => v.type === "Trailer")[0].key),
+    setLoading,
+    "trailers"
+  );
 
   return (
-    // Swiper 적용 전
-    // <ContainerGrid>
-    //   {MOVIE_LIST_DATA.results.map((data) => (
-    //     <MovieCard data={data} />
-    //   ))}
-    // </ContainerGrid>
-
-    // Swiper 적용 후
     <Container>
-      <SectionTitle>Trending Now</SectionTitle>
-      <SwiperWrapper>
-        <StyledSwiper
-          modules={[Navigation]}
-          navigation={{ prevEl: prevRef.current, nextEl: nextRef.current }}
-          spaceBetween={16}
-          slidesPerView={5}
-          onSwiper={setSwiper}
-          onSlideChange={(swiper) => {
-            setBeginning(swiper.isBeginning);
-            setEnd(swiper.isEnd);
-          }}>
-          {loading
-            ? Array.from({ length: 5 }).map((_, i) => (
-                <StyledSwiperSlide>
-                  <MovieCardSkeleton key={i} />
-                </StyledSwiperSlide>
-              ))
-            : movies?.map((data) => (
-                <StyledSwiperSlide>
-                  <MovieCard data={data} />
-                </StyledSwiperSlide>
-              ))}
-        </StyledSwiper>
-        <ButtonWrapper>
-          <button ref={prevRef} disabled={isBeginning}>
-            <StyledPrevButton />
-          </button>
-          <button ref={nextRef} disabled={isEnd}>
-            <StyledNextButton />
-          </button>
-        </ButtonWrapper>
-      </SwiperWrapper>
+      <Banner>
+        <iframe
+          width="100%"
+          height="100%"
+          src={`https://www.youtube.com/embed/${videoKey}?autoplay=1&mute=1&loop=1&playlist=${videoKey}`}
+          title="Most Popluar Movie Trailer"
+          allowFullScreen></iframe>
+      </Banner>
+      <MovieList api={getTrendingNowMovies} sectionTitle="Trending Now" />
+      <MovieList
+        api={getPopularMovies}
+        setMovieId={setMovieId}
+        sectionTitle="Popular"
+      />
+      <MovieList api={getTopRatedMovies} sectionTitle="Top Rated" />
+      <MovieList api={getUpcomingMovies} sectionTitle="Upcoming" />
+      <MovieList api={getFantasyMovies} sectionTitle="Fantasy 인기 영화" />
+      <MovieList api={getActionMovies} sectionTitle="Action 인기 영화" />
+      <MovieList api={getComedyMovies} sectionTitle="Comedy 인기 영화" />
     </Container>
   );
 }

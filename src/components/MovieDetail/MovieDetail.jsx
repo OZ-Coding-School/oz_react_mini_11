@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getMovieDetail } from "../../apis/movieDetailApi";
 import {
   Container,
@@ -14,27 +14,20 @@ import {
   Wrapper,
 } from "./MovieDetail.styles";
 import MovieDetailSkeleton from "./MovieDetailSkeleton";
+import { useFetch } from "../../hooks/useFetch";
 
 function MovieDetail() {
   const { movieId } = useParams();
   const [detail, setDetail] = useState({});
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const data = await getMovieDetail(movieId);
-        setDetail(data);
-      } catch (error) {
-        console.error("getMovieDetail 실행 실패 : ", error);
-        throw error;
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, [movieId]);
-
-  console.log(detail);
+  useFetch(
+    () => getMovieDetail(movieId),
+    [movieId],
+    setDetail,
+    setLoading,
+    "detail"
+  );
 
   return (
     <>

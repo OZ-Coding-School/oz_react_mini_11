@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import Star from "../../assets/images/star.svg?react";
 
 export const Image = styled.img`
   width: 100%;
@@ -32,6 +33,16 @@ export const Rating = styled.div`
   font-size: 1rem;
   font-weight: 500;
   color: gray;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+`;
+
+export const StyledStar = styled(Star)`
+  width: 16px;
+  height: 16px;
+  padding-bottom: 1px;
+  fill: ${(props) => props.theme.colors.yellow.normal};
 `;
 
 export const Container = styled.div`
