@@ -52,13 +52,7 @@ function Home() {
                     bg-[linear-gradient(to_bottom,_rgba(0,0,0,0)_0%,_rgba(0,0,0,5)_80px,_rgba(0,0,0,1)_100%)]"
       >
         {sliders.map((slider, idx) =>
-          slider.loading ? (
-            <div key={idx}>
-              {Array.from({ length: 20 }).map((_, i) => (
-                <SkeletonCard key={i} />
-              ))}
-            </div>
-          ) : (
+          !slider.loading && (
             <SliderSection
               key={idx}
               title={slider.title}
