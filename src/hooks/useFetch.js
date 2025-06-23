@@ -13,7 +13,7 @@ export const useFetch = (
       try {
         const data = await apiFunc();
         setData(data);
-        dataLabel && console.log(`${dataLabel} : `, data);
+        // dataLabel && console.log(`${dataLabel} : `, data);
       } catch (error) {
         console.log(`${apiFunc} 실행 실패 : `, error);
         throw error;
