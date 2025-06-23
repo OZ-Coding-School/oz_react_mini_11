@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import loadingAnimation from "./assets/animations/loading-animation.json";
 import { StyledLottie, Wrapper } from "./App.styles";
-import { FormProvider } from "./contexts/FormContext";
 
 const Layout = lazy(() => import("./layout/Layout"));
 const Home = lazy(() => import("./pages/Home/Home"));
@@ -21,19 +20,17 @@ function App() {
         </Wrapper>
       }>
       <BrowserRouter>
-        <FormProvider>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Home />} />
-              <Route path="/search" element={<Search />} />
-              <Route path="/detail/:movieId" element={<MovieDetail />} />
-            </Route>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/detail/:movieId" element={<MovieDetail />} />
+          </Route>
 
-            <Route path="/login" element={<Login />}></Route>
+          <Route path="/login" element={<Login />}></Route>
 
-            <Route path="/signup" element={<Signup />}></Route>
-          </Routes>
-        </FormProvider>
+          <Route path="/signup" element={<Signup />}></Route>
+        </Routes>
       </BrowserRouter>
     </Suspense>
   );
