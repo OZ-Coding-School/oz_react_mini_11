@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -13,17 +13,18 @@ import GenreMovieList from "../components/GenreMovieList";
 
 import useDebounce from "../hooks/useDebounce";
 import useAppLogic from "../hooks/useAppLogic";
+import { useTheme } from "../contexts/ThemeContext"; 
 
 function App() {
   const navigate = useNavigate();
-  const { searchTerm, darkMode } = useOutletContext();
-  const debouncedSearch = useDebounce(searchTerm, 500);
+  const [ searchParams ]  = useSearchParams();
+  const { darkMode } = useTheme();
+
+  const query = searchParams.get("query") || "";
+  const debouncedSearch = useDebounce(query, 500);
   const { movies, genreMovies, loading, favoriteGenres } = useAppLogic(debouncedSearch);
 
-  const handleClick = (id) => {
-    navigate(`/details/${id}`);
-  };
-
+  const handleClick = (id) => navigate(`/details/${id}`);
   const filteredMovies = movies.slice(0, 20);
   const MAX_SLIDES = 5;
   const slideCount = loading ? 1 : Math.min(MAX_SLIDES, filteredMovies.length);

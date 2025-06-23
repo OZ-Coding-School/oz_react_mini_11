@@ -1,22 +1,20 @@
-import React, { useState, useEffect } from "react";
 import { useTheme } from "../contexts/ThemeContext";
+import { useSearchParams } from "react-router-dom";
 
-const NavBar = ({ onSearch }) => {
-  const [searchTerm, setSearchTerm] = useState("");
+const NavBar = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const { darkMode, toggleTheme } = useTheme();
 
   const handleSearch = (e) => {
     const value = e.target.value;
-    setSearchTerm(value);
-    if (onSearch) onSearch(value);
+    if (value.trim()) {
+      setSearchParams({query: value});
+    } else {
+      setSearchParams({})
+    }
   };
 
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const searchValue = searchParams.get("query") || "";
 
   return (
     <nav
@@ -29,7 +27,7 @@ const NavBar = ({ onSearch }) => {
         boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
         padding: "16px 24px",
         display: "flex",
-        flexDirection: isMobile ? "column" : "row",
+        flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
         gap: "12px",
@@ -40,11 +38,11 @@ const NavBar = ({ onSearch }) => {
         🎬 MovieIcon
       </div>
 
-      <div style={{ flex: 1, textAlign: "center", minWidth: isMobile ? "100%" : "300px" }}>
+      <div style={{ flex: 1, textAlign: "center", minWidth: "100%"}}>
         <input
           type="text"
           placeholder="영화 검색..."
-          value={searchTerm}
+          value={searchValue}
           onChange={handleSearch}
           style={{
             width: "100%",
@@ -72,7 +70,7 @@ const NavBar = ({ onSearch }) => {
           gap: "12px",
           alignItems: "center",
           flexWrap: "wrap",
-          justifyContent: isMobile ? "center" : "flex-end",
+          justifyContent: "center",
         }}
       >
         <button
