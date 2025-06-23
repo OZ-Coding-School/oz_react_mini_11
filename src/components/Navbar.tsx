@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Button from "./Button";
 import SearchInput from "./SearchInput";
 import useSearchParamStore from "../hooks/zustand/useSearchParamStore";
@@ -37,8 +37,12 @@ export default function Navbar() {
       />
       <div className="flex items-center justify-center space-x-2">
         <DarkModeSwitch />
-        <Button theme="outline">회원가입</Button>
-        <Button theme="default">로그인</Button>
+        <Link to="/signup">
+          <Button theme="outline">회원가입</Button>
+        </Link>
+        <Link to="/login">
+          <Button theme="default">로그인</Button>
+        </Link>
       </div>
     </header>
   );
