@@ -15,36 +15,38 @@ function SearchResult() {
       fetch(getSearchMoviesUrl(query), TMDB_GET_OPTION)
         .then((res) => res.json())
         .then((data) => {
-          const filtered = data.results.filter((movie) => !movie.adult);
-          setResults(filtered);
+          setResults(data.results);
         });
     }
   }, [query]);
 
   return (
-    <div className="p-6 max-w-screen-xl mx-auto">
-      {/* 검색어 표시 */}
-      <h2 className="text-xl font-bold mb-4 text-center">
-        🔍 "{query}" 검색 결과
-      </h2>
+    <section className="pt-[180px] sm:pt-[120px] md:pt-[130px] min-h-[calc(100vh+100px)] bg-gray-950 text-gray-900 px-6 py-16">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-sky-600">
+          🎞 '{query}' 검색 결과 🎞
+        </h2>
 
-      {/* 결과 리스트 */}
-      <div className="flex flex-wrap gap-4 justify-center">
         {results.length > 0 ? (
-          results.map((movie) => (
-            <MovieCard
-              key={movie.id}
-              id={movie.id}
-              title={movie.title}
-              posterPath={movie.poster_path}
-              voteAverage={movie.vote_average}
-            />
-          ))
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+            {results.map((movie) => (
+              <div className="flex justify-center" key={movie.id}>
+                <MovieCard
+                  id={movie.id}
+                  title={movie.title}
+                  posterPath={movie.poster_path}
+                  voteAverage={movie.vote_average}
+                />
+              </div>
+            ))}
+          </div>
         ) : (
-          <p className="text-gray-500">검색 결과가 없습니다.</p>
+          <p className="text-center text-gray-500 text-lg mt-12">
+            검색 결과가 없습니다.
+          </p>
         )}
       </div>
-    </div>
+    </section>
   );
 }
 
