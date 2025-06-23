@@ -4,6 +4,7 @@ import REGISTER_FIELDS from '../constant/registerFields';
 import useFormReducer from "../hooks/useFormReducer";
 import Input from "../components/Input";
 import AuthLayout from "../components/AuthLayout";
+import AuthButtons from "../components/AuthButtons";
 
 const initialState = {
   email: '',
@@ -74,11 +75,14 @@ function Register() {
 
         <button
           type="submit"
-          className="w-full py-2 px-6 rounded-md bg-red-primary hover:bg-red-hover text-lg text-white
-                      transition-all duration-300"
+          className="w-full h-[40px] py-[10px] px-[12px] rounded-md bg-red-primary hover:bg-red-hover text-white"
         >
           가입하기
         </button>
+
+        <p className="my-2 text-center text-sm text-gray-300">OR</p>
+
+        <AuthButtons />
       </form>
     </div>
   );

@@ -4,6 +4,7 @@ import LOGIN_FIELDS from '../constant/loginFields';
 import useFormReducer from "../hooks/useFormReducer";
 import AuthLayout from "../components/AuthLayout";
 import Input from "../components/Input";
+import AuthButtons from "../components/AuthButtons";
 
 const initialState = {
   email: '',
@@ -65,13 +66,16 @@ function Login() {
             hideLabel={field.hideLabel}
           />
         ))}
+
         <button
           type="submit"
-          className="w-full py-2 px-6 rounded-md bg-red-primary hover:bg-red-hover text-lg text-white
-                      transition-all duration-300"
+          className="w-full py-2 px-6 rounded-md bg-red-primary hover:bg-red-hover text-lg text-white"
         >
           로그인
         </button>
+
+        <AuthButtons />
+
         <div className="text-base">
           <span className="text-gray-300">
             오즈무비 회원이 아닌가요? &nbsp;
