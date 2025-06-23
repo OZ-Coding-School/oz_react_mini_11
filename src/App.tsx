@@ -6,6 +6,8 @@ import Loading from "./components/lodaing/Loading";
 const Home = lazy(() => import("./page/Home"));
 const Details = lazy(() => import("./page/Details"));
 const Search = lazy(() => import("./page/Search"));
+const Signup = lazy(() => import("./page/Signup"));
+const Login = lazy(() => import("./page/Login"));
 
 function App() {
   return (
@@ -32,6 +34,22 @@ function App() {
           element={
             <Suspense fallback={<Loading />}>
               <Search />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <Suspense fallback={<Loading />}>
+              <Signup />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <Suspense fallback={<Loading />}>
+              <Login />
             </Suspense>
           }
         />

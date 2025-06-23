@@ -1,20 +1,38 @@
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Button from "./Button";
 import SearchInput from "./SearchInput";
 import useSearchParamStore from "../hooks/zustand/useSearchParamStore";
 import DarkModeSwitch from "./DarkModeSwitch";
 import useDarkModeStore from "../hooks/zustand/useIsDarkStore";
+import { useEffect, useState } from "react";
+import UserMenu from "./UserMenu";
+import supabase from "../utils/supabase";
+import type { Session } from "@supabase/supabase-js";
+
 export default function Navbar() {
   const isDark = useDarkModeStore((state) => state.isDark);
   const navigate = useNavigate();
   const updateSearchParam = useSearchParamStore(
     (state) => state.updateSearchParam
   );
+  const [session, setSession] = useState<Session | null>(null);
 
   const handleLogoClick = () => {
     updateSearchParam("");
     navigate("/");
   };
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
 
   return (
     <header
@@ -37,8 +55,18 @@ export default function Navbar() {
       />
       <div className="flex items-center justify-center space-x-2">
         <DarkModeSwitch />
-        <Button theme="outline">회원가입</Button>
-        <Button theme="default">로그인</Button>
+        {session ? (
+          <UserMenu />
+        ) : (
+          <>
+            <Link to="/signup">
+              <Button theme="outline">회원가입</Button>
+            </Link>
+            <Link to="/login">
+              <Button theme="default">로그인</Button>
+            </Link>
+          </>
+        )}
       </div>
     </header>
   );
