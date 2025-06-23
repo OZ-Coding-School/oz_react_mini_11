@@ -1,20 +1,21 @@
+import { useEffect, useState } from "react";
 import { useTheme } from "../contexts/ThemeContext";
 import { useSearchParams } from "react-router-dom";
+import useDebounce from "../hooks/useDebounce";
 
 const NavBar = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { darkMode, toggleTheme } = useTheme();
-
-  const handleSearch = (e) => {
-    const value = e.target.value;
-    if (value.trim()) {
-      setSearchParams({query: value});
+  const [ input, setInput ] = useState(searchParams.get("query") || "");
+  const debouncedSearch = useDebounce(input, 500);
+  
+  useEffect(() => {
+    if (debouncedSearch) {
+      setSearchParams({ query: debouncedSearch });
     } else {
-      setSearchParams({})
+      setSearchParams({});
     }
-  };
-
-  const searchValue = searchParams.get("query") || "";
+  }, [debouncedSearch, setSearchParams]);
 
   return (
     <nav
@@ -42,8 +43,8 @@ const NavBar = () => {
         <input
           type="text"
           placeholder="영화 검색..."
-          value={searchValue}
-          onChange={handleSearch}
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
           style={{
             width: "100%",
             maxWidth: "600px",
@@ -66,11 +67,12 @@ const NavBar = () => {
 
       <div
         style={{
+          flex: "1 1 250px",
           display: "flex",
           gap: "12px",
           alignItems: "center",
           flexWrap: "wrap",
-          justifyContent: "center",
+          justifyContent: "flex-end",
         }}
       >
         <button

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -14,21 +14,45 @@ import GenreMovieList from "../components/GenreMovieList";
 import useDebounce from "../hooks/useDebounce";
 import useAppLogic from "../hooks/useAppLogic";
 import { useTheme } from "../contexts/ThemeContext"; 
+import { fetchPopularMovies, fetchSearchMovies } from "../api/movieApi";
 
 function App() {
   const navigate = useNavigate();
-  const [ searchParams ]  = useSearchParams();
-  const { darkMode } = useTheme();
-
+  const [searchParams] = useSearchParams();
   const query = searchParams.get("query") || "";
-  const debouncedSearch = useDebounce(query, 500);
-  const { movies, genreMovies, loading, favoriteGenres } = useAppLogic(debouncedSearch);
+
+  const debouncedQuery = useDebounce(query, 500);
+  const [movieData, setMovieData] = useState([]);
+  const [searchLoading, setSearchLoading] = useState(true);
+
+  const { darkMode } = useTheme();
+  const { movies, genreMovies, loading, favoriteGenres } = useAppLogic(debouncedQuery);
 
   const handleClick = (id) => navigate(`/details/${id}`);
   const filteredMovies = movies.slice(0, 20);
   const MAX_SLIDES = 5;
-  const slideCount = loading ? 1 : Math.min(MAX_SLIDES, filteredMovies.length);
+  const slideCount = searchLoading ? 1 : Math.min(MAX_SLIDES, filteredMovies.length);
 
+  useEffect(() => {
+    const loadMovies = async () => {
+      setSearchLoading(true);
+      try {
+        if (debouncedQuery) {
+          const data = await fetchSearchMovies(debouncedQuery);
+          setMovieData(data.results);
+        } else {
+          const data = await fetchPopularMovies();
+          setMovieData(data.results);
+        }
+      } catch (error) {
+        console.error("영화 데이터 로딩 오류", error);
+      } finally {
+        setSearchLoading(false);
+      }
+    };
+
+    loadMovies();
+  }, [debouncedQuery]);
 
   return (
     <div
@@ -83,7 +107,7 @@ function App() {
           color: darkMode ? "#f9f9f9" : "#000",
         }}
       >
-        {debouncedSearch ? `"${debouncedSearch}" 검색 결과` : "인기 영화"}
+        {debouncedQuery ? `"${debouncedQuery}" 검색 결과` : "인기 영화"}
       </h2>
 
       <Swiper
@@ -93,7 +117,7 @@ function App() {
         spaceBetween={16}
         navigation
         pagination={{ clickable: true }}
-        loop={!loading && filteredMovies.length >= 5}
+        loop={!searchLoading && filteredMovies.length >= 5}
         breakpoints={{
           320: { slidesPerView: 1.2, spaceBetween: 12 },
           640: { slidesPerView: 2.2, spaceBetween: 14 },
@@ -102,7 +126,7 @@ function App() {
           1280: { slidesPerView: 5, spaceBetween: 20 },
         }}
       >
-        {loading
+        {searchLoading
           ? Array.from({ length: slideCount }).map((_, idx) => (
               <SwiperSlide key={idx}>
                 <SkeletonMovieCard darkMode={darkMode} />
@@ -120,7 +144,7 @@ function App() {
             ))}
       </Swiper>
 
-      {!debouncedSearch.trim() &&
+      {!debouncedQuery.trim() &&
         favoriteGenres.map((genre) => {
           const movies = (genreMovies[genre.name] || [])
             .filter((movie) => !movie.adult)
