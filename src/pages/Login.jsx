@@ -2,17 +2,16 @@ import React, { useState } from "react";
 import CommonInput from "../components/CommonInput";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import { supabase } from "../lib/supabase";
+import SocialLoginButtons from "../components/SocialLoginButtons";
 
 function Login() {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { loginWithEmail, login } = useAuth();
 
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-
   const [errors, setErrors] = useState({});
 
   const validate = () => {
@@ -41,10 +40,7 @@ function Login() {
 
     const { email, password } = formData;
 
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    const { data, error } = await loginWithEmail(email, password); // ✅ 변경된 부분
 
     if (error) {
       alert("로그인 실패: " + error.message);
@@ -90,6 +86,7 @@ function Login() {
             로그인
           </button>
         </form>
+        <SocialLoginButtons />
       </div>
     </div>
   );
