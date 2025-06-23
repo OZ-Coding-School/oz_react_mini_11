@@ -27,7 +27,6 @@ export function AuthProvider({ children }) {
     if (error) console.error("소셜 로그인 실패:", error.message);
   };
 
-  // 로그인 상태 유지 (세션 복원)
   useEffect(() => {
     const session = supabase.auth.getSession().then(({ data }) => {
       const user = data?.session?.user;

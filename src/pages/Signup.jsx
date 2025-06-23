@@ -7,7 +7,6 @@ import SocialLoginButtons from "../components/SocialLoginButtons";
 
 function Signup() {
   const navigate = useNavigate();
-  const { login } = useAuth();
 
   const [formData, setFormData] = useState({
     name: "",
