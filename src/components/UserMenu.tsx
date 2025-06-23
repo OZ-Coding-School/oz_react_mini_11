@@ -1,5 +1,6 @@
 import { useState } from "react";
 import User from "./icons/User";
+import supabase from "../utils/supabase";
 
 export default function UserMenu() {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
@@ -12,6 +13,10 @@ export default function UserMenu() {
     setIsMenuVisible(false);
   };
 
+  const handleSignOut = async () => {
+    supabase.auth.signOut();
+  };
+
   return (
     <div
       onMouseOver={handleMouseOver}
@@ -22,7 +27,9 @@ export default function UserMenu() {
       {isMenuVisible ? (
         <div className="absolute bg-neutral-500 text-neutral-100 flex flex-col space-y-2 w-[80px] p-2 top-10 -left-10 rounded hover:cursor-pointer">
           <span>관심 목록</span>
-          <span>로그아웃</span>
+          <span onClick={handleSignOut} className="hover:cursor-pointer">
+            로그아웃
+          </span>
         </div>
       ) : null}
     </div>
