@@ -17,34 +17,35 @@ function Search() {
 
   return (
     <div
-      className="flex flex-wrap gap-8 absolute z-20 w-full pt-[100px] px-[5vw] pb-20
-      bg-[linear-gradient(to_bottom,_rgba(0,0,0,0)_0%,_rgba(0,0,0,5)_30%,_rgba(0,0,0,1)_100%)]"
+      className="w-full pt-[100px] px-[5vw] pb-20"
     >
-      {loading ? (
-        <>
-          <SkeletonCard />
-          <SkeletonCard />
-          <SkeletonCard />
-        </>
-      ) : (
-        <>
-          <p className="w-full mt-10 text-2xl">
-            `{keyword}` 검색 결과: {len ? (len === 20 ? len + "+" : len) : 0}개
-          </p>
-          {mediaList?.map((media) => (
-            <Link
-              to={`/details/${media.media_type}/${media.id}`}
-              key={media.id}
-            >
-              <MediaCard
-                title={media.title}
-                avg={media.vote_average}
-                imgSrc={media.poster_path}
-              />
-            </Link>
-          ))}
-        </>
-      )}
+      <p className="w-full mt-10 mb-8 text-[calc(12px+1vw)]">
+        `{keyword}` 검색 결과: {len ? (len === 20 ? len + "+" : len) : 0}개
+      </p>
+      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-[calc(1vw+8px)]">
+        {loading ? (
+          <>
+            <SkeletonCard />
+            <SkeletonCard />
+            <SkeletonCard />
+          </>
+        ) : (
+          <>
+            {mediaList?.map((media) => (
+              <Link
+                to={`/details/${media.media_type}/${media.id}`}
+                key={media.id}
+              >
+                <MediaCard
+                  title={media.title}
+                  avg={media.vote_average}
+                  imgSrc={media.poster_path}
+                />
+              </Link>
+            ))}
+          </>
+        )}
+      </div>
     </div>
   );
 }
