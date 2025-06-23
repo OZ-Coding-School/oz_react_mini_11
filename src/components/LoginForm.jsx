@@ -1,11 +1,13 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { loginUser } from "../api/auth";
 
 export default function LoginForm() {
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
-    const [error, setError] = useState();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const nevigate = useNavigate();
 
     function validataForm() {
         if (!email) return "이메일을 입력해주세요.";
@@ -15,15 +17,15 @@ export default function LoginForm() {
         return null;
     }
 
-    const handleForm = (e) => {
+    const handleForm = async (e) => {
         e.preventDefault(); //폼 제춮시 새로 고침 방지
-        const error = validataForm();
-        if (error) {
-            setError(error);
-            return;
+        try {
+            const user = await loginUser({ email, password });
+            console.log("로그인 성공");
+            nevigate("/");
+        } catch (error) {
+            setError(error.message);
         }
-        console.log("로그인 ", { email, password });
-        setError(""); // 에러 초기화
     };
 
     return (

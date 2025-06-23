@@ -1,4 +1,4 @@
-import SignipForm from "../components/\bSignupForm";
+import SignipForm from "../components/SignupForm";
 import LoginBackground from "../components/LoginBackground";
 
 export default function Signup() {
