@@ -4,7 +4,7 @@ import EyeSlash from "./icons/EyeSlash";
 
 interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   errorMessage?: string;
-  name: string;
+  fieldName: string;
   label: string;
 }
 
@@ -12,22 +12,24 @@ export default function FormInput({
   className,
   type,
   errorMessage,
-  name,
+  fieldName,
   placeholder,
   label,
+  ...rest
 }: FormInputProps) {
   const [isPasswordVisible, setIsPaswordVisible] = useState(false);
   return (
     <div className="flex flex-col space-y-0.5">
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={fieldName}>{label}</label>
       <div className="flex items-center space-x-0.5">
         <input
           type={
             type !== "password" ? type : isPasswordVisible ? "text" : "password"
           }
-          id={name}
+          id={fieldName}
           placeholder={placeholder}
           className={`border-2 p-2 rounded ${className}`}
+          {...rest}
         />
         {type === "password" ? (
           <button
