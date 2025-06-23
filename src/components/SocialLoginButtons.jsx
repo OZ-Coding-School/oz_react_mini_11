@@ -1,23 +1,25 @@
 import React from "react";
 import { useAuth } from "../contexts/AuthContext";
+import GoogleButton from "../assets/google_login.png";
+import KakaoButton from "../assets/kakao_login.png";
 
 function SocialLoginButtons() {
   const { loginWithProvider } = useAuth();
 
   return (
-    <div className="mt-6 space-y-2">
-      <button
+    <div className="space-y-3 mt-6">
+      <img
+        src={GoogleButton}
+        alt="Sign in with Google"
+        className="cursor-pointer w-full max-w-xs mx-auto"
         onClick={() => loginWithProvider("google")}
-        className="w-full py-2 px-4 bg-red-500 text-white rounded hover:bg-red-600"
-      >
-        Google로 로그인
-      </button>
-      <button
+      />
+      <img
+        src={KakaoButton}
+        alt="Sign in with Kakao"
+        className="cursor-pointer w-full max-w-xs mx-auto"
         onClick={() => loginWithProvider("kakao")}
-        className="w-full py-2 px-4 bg-yellow-400 text-black rounded hover:bg-yellow-500"
-      >
-        Kakao로 로그인
-      </button>
+      />
     </div>
   );
 }
