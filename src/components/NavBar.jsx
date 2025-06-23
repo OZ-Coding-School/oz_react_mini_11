@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import useSearchRouting from "../hooks/useSearchRouting";
 import useScroll from "../hooks/useScroll";
 import { useAuth } from "../contexts/AuthContext";
-import { FaUserCircle } from "react-icons/fa";
+import UserIcon from "./UserIcon";
 
 function NavBar() {
   const { inputDebounce, setInputDebounce } = useSearchRouting();
@@ -83,7 +83,7 @@ function NavBar() {
           </button>
         </div>
         {user ? (
-          <FaUserCircle className="text-2xl cursor-pointer" />
+          <UserIcon />
         ) : (
           <Link to="/login">
             <button className="mr-2">로그인</button>
