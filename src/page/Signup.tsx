@@ -63,6 +63,7 @@ export default function Signup() {
           type="email"
           className="w-full"
           errorMessage={errors.email?.message}
+          fieldName="email"
         />
 
         <FormInput
@@ -72,6 +73,7 @@ export default function Signup() {
           type="text"
           className="w-full"
           errorMessage={errors.name?.message}
+          fieldName="name"
         />
 
         <FormInput
@@ -81,6 +83,7 @@ export default function Signup() {
           type="password"
           className="w-full"
           errorMessage={errors.password?.message}
+          fieldName="password"
         />
 
         <FormInput
@@ -90,6 +93,7 @@ export default function Signup() {
           type="password"
           className="w-full"
           errorMessage={errors.passwordConfirmation?.message}
+          fieldName="password-confirmation"
         />
         <Button type="submit">회원가입</Button>
       </form>
