@@ -1,14 +1,7 @@
-import { useState } from "react";
 import Button from "../components/Button";
-import Eye from "../components/icons/Eye";
-import EyeSlash from "../components/icons/EyeSlash";
 import FormInput from "../components/FormInput";
 
 export default function Signup() {
-  const [isPasswordVisible, setIsPaswordVisible] = useState(false);
-  const [isPasswordConfirmationVisible, setIsPaswordConfirmationVisible] =
-    useState(false);
-
   return (
     <div className="flex flex-col justify-center items-center">
       <h1 className="text-4xl font-bold">회원가입</h1>
