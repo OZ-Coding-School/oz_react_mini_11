@@ -10,7 +10,6 @@ import { getFantasyMovies } from "../../apis/fantasyMoviesApi";
 import { getActionMovies } from "../../apis/actionMoviesApi";
 import { getComedyMovies } from "../../apis/comedyMoviesApi";
 import { useEffect, useState } from "react";
-import { useFetch } from "../../hooks/useFetch";
 import { getMovieVideo } from "../../apis/movieVideoApi";
 
 function Home() {
@@ -18,14 +17,24 @@ function Home() {
   const [videoKey, setVideoKey] = useState("");
   const [loading, setLoading] = useState(false);
 
-  useFetch(
-    () => getMovieVideo(movieId),
-    [movieId],
-    (data) =>
-      setVideoKey(data.results.filter((v) => v.type === "Trailer")[0].key),
-    setLoading,
-    "trailers"
-  );
+  useEffect(() => {
+    if (!movieId) return;
+
+    const fetchMovieVideos = async () => {
+      setLoading(true);
+      try {
+        const data = await getMovieVideo(movieId);
+        const trailers = data.results.filter((v) => v.type === "Trailer");
+        setVideoKey(trailers[0].key);
+      } catch (error) {
+        console.log(`getMovieVideo 실행 실패 : `, error);
+        throw error;
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchMovieVideos();
+  }, [movieId]);
 
   return (
     <Container>

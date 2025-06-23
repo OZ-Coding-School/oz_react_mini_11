@@ -2,8 +2,7 @@ import styled from "@emotion/styled";
 import loginBgImage from "../../assets/images/login-bg.jpg";
 import { useNavigate } from "react-router-dom";
 import NextButton from "../../assets/images/angle-right.svg?react";
-import { useContext } from "react";
-import { FormContext } from "../../contexts/FormContext";
+import { useState } from "react";
 import FormInput from "../../components/FormInput/FormInput";
 
 export const Input = styled.input`
@@ -157,9 +156,13 @@ const Container = styled.div`
 `;
 
 function Signup() {
-  const { formState } = useContext(FormContext);
-  const passwordValue = formState["password"].value;
-  const isFormValid = Object.values(formState).every((f) => f.isValid);
+  const [signupForms, setSignupForms] = useState({
+    name: { value: "", isValid: false },
+    email: { value: "", isValid: false },
+    password: { value: "", isValid: false },
+    passwordConfirm: { value: "", isValid: false },
+  });
+  const isAllFormsValid = Object.values(signupForms).every((f) => f.isValid);
   const navigate = useNavigate();
 
   return (
@@ -176,16 +179,56 @@ function Signup() {
           <TextRegular>
             시청할 준비가 되셨나요? 시작하려면 가입 정보를 입력하세요.
           </TextRegular>
-          <FormInput type="text" placeholder="이름" label="name" />
-          <FormInput type="text" placeholder="이메일 주소" label="email" />
-          <FormInput type="password" placeholder="비밀번호" label="password" />
+          <FormInput
+            type="text"
+            placeholder="이름"
+            formName="name"
+            formState={signupForms.name}
+            setFormState={({ value, isValid }) =>
+              setSignupForms((prev) => ({
+                ...prev,
+                name: { value, isValid },
+              }))
+            }
+          />
+          <FormInput
+            type="email"
+            placeholder="이메일 주소"
+            formName="email"
+            formState={signupForms.email}
+            setFormState={({ value, isValid }) =>
+              setSignupForms((prev) => ({
+                ...prev,
+                email: { value, isValid },
+              }))
+            }
+          />
+          <FormInput
+            type="password"
+            placeholder="비밀번호"
+            formName="password"
+            formState={signupForms.password}
+            setFormState={({ value, isValid }) =>
+              setSignupForms((prev) => ({
+                ...prev,
+                password: { value, isValid },
+              }))
+            }
+          />
           <FormInput
             type="password"
             placeholder="비밀번호 확인"
-            label="passwordConfirm"
-            confirmText={passwordValue}
+            formName="passwordConfirm"
+            formState={signupForms.passwordConfirm}
+            setFormState={({ value, isValid }) =>
+              setSignupForms((prev) => ({
+                ...prev,
+                passwordConfirm: { value, isValid },
+              }))
+            }
+            confirmText={signupForms.password.value}
           />
-          <Button disabled={!isFormValid} onClick={() => navigate("/")}>
+          <Button disabled={!isAllFormsValid} onClick={() => navigate("/")}>
             시작하기 <StyledPrevIcon />
           </Button>
         </Card>

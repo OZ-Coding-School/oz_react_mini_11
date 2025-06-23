@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import { useValid } from "../../hooks/useValid";
-import { memo, useContext, useEffect } from "react";
-import { FormContext } from "../../contexts/FormContext";
+import { memo, useEffect } from "react";
 
 export const Input = styled.input`
   border: 1px solid #d0d0d0;
@@ -42,32 +41,38 @@ const Container = styled.div`
   gap: 0.75rem;
 `;
 
-const FormInput = memo(({ type, placeholder, label, confirmText }) => {
-  const { formState, updateForm } = useContext(FormContext);
-  const { value } = formState[label];
+const FormInput = memo(
+  ({ type, placeholder, formName, formState, setFormState, confirmText }) => {
+    const { value } = formState;
 
-  const { isValid: valid, validText } = useValid(
-    value,
-    label,
-    label === "passwordConfirm" ? confirmText : ""
-  );
+    const { isValid: isFormValid, validText } = useValid(
+      value,
+      formName,
+      formName === "passwordConfirm" ? confirmText : ""
+    );
 
-  useEffect(() => {
-    updateForm(label, value, valid);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value, valid]);
+    useEffect(() => {
+      setFormState({ value, isValid: isFormValid });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [value, isFormValid]);
 
-  return (
-    <Container>
-      <Input
-        type={type}
-        placeholder={placeholder}
-        value={value}
-        onChange={(event) => updateForm(label, event.target.value, valid)}
-      />
-      {value && <ValidText>{validText}</ValidText>}
-    </Container>
-  );
-});
+    return (
+      <Container>
+        <Input
+          type={type}
+          placeholder={placeholder}
+          value={value}
+          onChange={(event) =>
+            setFormState({
+              value: event.target.value,
+              isValid: formState.isValid,
+            })
+          }
+        />
+        {value && <ValidText>{validText}</ValidText>}
+      </Container>
+    );
+  }
+);
 
 export default FormInput;

@@ -12,18 +12,6 @@ const MovieDetail = lazy(() => import("./components/MovieDetail/MovieDetail"));
 const Login = lazy(() => import("./pages/Login/Login"));
 const Signup = lazy(() => import("./pages/Signup/Signup"));
 
-const loginForms = {
-  email: { value: "", isValid: false },
-  password: { value: "", isValid: false },
-};
-
-const signupForms = {
-  name: { value: "", isValid: false },
-  email: { value: "", isValid: false },
-  password: { value: "", isValid: false },
-  passwordConfirm: { value: "", isValid: false },
-};
-
 function App() {
   return (
     <Suspense
@@ -33,31 +21,19 @@ function App() {
         </Wrapper>
       }>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="/search" element={<Search />} />
-            <Route path="/detail/:movieId" element={<MovieDetail />} />
-          </Route>
+        <FormProvider>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route path="/search" element={<Search />} />
+              <Route path="/detail/:movieId" element={<MovieDetail />} />
+            </Route>
 
-          <Route
-            path="/login"
-            element={
-              <FormProvider initialForms={loginForms}>
-                <Login />
-              </FormProvider>
-            }
-          />
+            <Route path="/login" element={<Login />}></Route>
 
-          <Route
-            path="/signup"
-            element={
-              <FormProvider initialForms={signupForms}>
-                <Signup />
-              </FormProvider>
-            }
-          />
-        </Routes>
+            <Route path="/signup" element={<Signup />}></Route>
+          </Routes>
+        </FormProvider>
       </BrowserRouter>
     </Suspense>
   );
