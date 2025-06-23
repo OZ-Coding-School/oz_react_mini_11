@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function SignipForm() {
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
@@ -8,7 +10,7 @@ export default function SignipForm() {
     const [error, setError] = useState();
 
     const handleForm = (e) => {
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
         const nameRegex = /^[가-힣]{2,}$/;
         e.preventDefault();
         if (!email || !password || !confirmPassword || !userName) {
@@ -37,6 +39,8 @@ export default function SignipForm() {
         }
         setError("");
         console.log("회원가입 성공:", { email, userName, password });
+        alert("로그인 페이지로 이동합니다.");
+        navigate("/login");
     };
 
     return (
@@ -95,6 +99,12 @@ export default function SignipForm() {
                 <button type="submit" className="bg-blue-500 hover:bg-blue-600 p-2 rounded text-white">
                     회원가입
                 </button>
+                <p className="text-[0.875rem] text-center">
+                    이미 회원 이세요??
+                    <Link to="/login" className="hover:underline">
+                        로그인
+                    </Link>
+                </p>
             </form>
         </div>
     );
