@@ -24,8 +24,6 @@ function App() {
   const query = searchParams.get("query") || "";
 
   const debouncedQuery = useDebounce(query, 500);
-  const [movieData, setMovieData] = useState([]);
-  const [searchLoading, setSearchLoading] = useState(true);
 
   const { darkMode } = useTheme();
   const { movies, genreMovies,loading , favoriteGenres } = useAppLogic(debouncedQuery);
@@ -34,28 +32,7 @@ function App() {
   const filteredMovies = (movies || []).slice(0, 20);
 
   const MAX_SLIDES = 5;
-  const slideCount = searchLoading ? 1 : Math.min(MAX_SLIDES, filteredMovies.length);
-
-  useEffect(() => {
-    const loadMovies = async () => {
-      setSearchLoading(true);
-      try {
-        if (debouncedQuery) {
-          const data = await fetchSearchMovies(debouncedQuery);
-          setMovieData(data.results);
-        } else {
-          const data = await fetchPopularMovies();
-          setMovieData(data.results);
-        }
-      } catch (error) {
-        console.error("영화 데이터 로딩 오류", error);
-      } finally {
-        setSearchLoading(false);
-      }
-    };
-
-    loadMovies();
-  }, [debouncedQuery]);
+  const slideCount = loading ? 1 : Math.min(MAX_SLIDES, filteredMovies.length);
 
   return (
     <div
@@ -116,7 +93,7 @@ function App() {
       {debouncedQuery ? (
         <SearchResultList 
         movies={movies.filter((m) => !m.adult)}
-        loading={searchLoading}
+        loading={loading}
         onClick={handleClick}
         darkMode={darkMode}
         />
@@ -129,7 +106,7 @@ function App() {
           spaceBetween={16}
           navigation
           pagination={{ clickable: true }}
-          loop={!searchLoading && filteredMovies.length >= 5}
+          loop={!loading && filteredMovies.length >= 5}
           breakpoints={{
             320: { slidesPerView: 1.2, spaceBetween: 12 },
             640: { slidesPerView: 2.2, spaceBetween: 14 },
@@ -138,7 +115,7 @@ function App() {
             1280: { slidesPerView: 5, spaceBetween: 20 },
           }}
         >
-          {searchLoading
+          {loading
             ? Array.from({ length: slideCount }).map((_, idx) => (
                 <SwiperSlide key={idx}>
                   <SkeletonMovieCard darkMode={darkMode} />
