@@ -1,11 +1,24 @@
 import React from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const baseUrl = "https://image.tmdb.org/t/p/w500";
 
 function MovieCard({ movie, onClick, large, darkMode }) {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get("query")
+
   const title = movie.title || movie.original_title || "제목 없음";
   const rating = movie.vote_average ? movie.vote_average.toFixed(1) : "평점 없음";
 
+  const handleClick = () => {
+    if (query) {
+      navigate(`/movie/${movie.id}?query=${query}`);
+    } else {
+      navigate(`/movie/${movie.id}`)
+    }
+  };
+  
   return (
     <div
       style={{

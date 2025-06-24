@@ -4,7 +4,6 @@ import NavBar from "../components/Navbar";
 import { useTheme } from "../contexts/ThemeContext";
 
 const Layout = () => {
-  const [searchTerm, setSearchTerm] = useState("");
   const { darkMode, toggleDarkMode } = useTheme();
 
   const [mounted, setMounted] = useState(false);
@@ -23,13 +22,8 @@ const Layout = () => {
         transition: "background-color 0.3s, color 0.3s",
       }}
     >
-      <NavBar
-        searchTerm={searchTerm}
-        onSearch={setSearchTerm}
-        darkMode={darkMode}
-        toggleDarkMode={toggleDarkMode}
-      />
-      <Outlet context={{ searchTerm, darkMode, toggleDarkMode }} />
+      <NavBar />
+      <Outlet context={{ darkMode, toggleDarkMode }} />
     </div>
   );
 };

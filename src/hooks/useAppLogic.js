@@ -31,7 +31,7 @@ function useAppLogic(debouncedSearch) {
         setLoading(false);
       }
     };
-
+    
     loadMovies();
   }, [debouncedSearch]);
 
