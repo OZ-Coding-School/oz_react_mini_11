@@ -48,8 +48,9 @@ export default function NavBar() {
 
   const handleLogout = async () => {
     await logout();
-    setIsLogin(false);
+    alert("로그아웃 되었습니다.");
     navigate("/");
+    setIsLogin(false);
     setIsMenuOpen(false);
   };
 
@@ -129,7 +130,11 @@ export default function NavBar() {
           {isLogin ? (
             <UserThumbnail
               onClick={handleMenuToggle}
-              thumbnail={userInfo?.profileImageUrl ?? defaultThumb}
+              thumbnail={
+                userInfo?.profilepic ??
+                userInfo?.profileImageUrl ??
+                defaultThumb
+              }
             />
           ) : (
             <button
@@ -152,7 +157,11 @@ export default function NavBar() {
           {isLogin ? (
             <UserThumbnail
               onClick={handleMenuToggle}
-              thumbnail={userInfo?.profileImageUrl ?? defaultThumb}
+              thumbnail={
+                userInfo?.profilepic ??
+                userInfo?.profileImageUrl ??
+                defaultThumb
+              }
             />
           ) : (
             <>
@@ -190,11 +199,11 @@ export default function NavBar() {
                 type="button"
                 className="block w-full text-left mb-2 hover:text-blue-500"
                 onClick={() => {
-                  navigate("/mypick");
+                  navigate("/mypage");
                   setIsMenuOpen(false);
                 }}
               >
-                관심목록
+                마이페이지
               </button>
               <button
                 type="button"
