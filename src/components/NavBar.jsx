@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import useSearchRouting from "../hooks/useSearchRouting";
 import useScroll from "../hooks/useScroll";
+import { useAuth } from "../contexts/AuthContext";
+import UserIcon from "./UserIcon";
 
 function NavBar() {
   const { inputDebounce, setInputDebounce } = useSearchRouting();
@@ -9,6 +11,8 @@ function NavBar() {
   const [isInputVisible, setIsInputVisible] = useState(false);
   const location = useLocation();
   const inputRef = useRef();
+
+  const { user } = useAuth();
 
   const handleInputDebounce = (e) => {
     setInputDebounce(e.target.value);
@@ -22,18 +26,18 @@ function NavBar() {
 
   return (
     <div
-      className={`flex justify-between items-center fixed z-[100] w-full px-[5vw] py-4 trnasition-all duration-500
+      className={`flex justify-between items-center fixed z-[100] w-full px-[5vw] py-4 transition-all duration-500
                   ${isScrolled ? "bg-black" : "bg-transparent"}`}
     >
       <Link to="/">
         <h1
-          className="text-xl font-bold md:hidden"
+          className="text-xl font-black md:hidden text-red-primary"
           onClick={() => setInputDebounce("")}
         >
           OZ
         </h1>
         <h1
-          className="text-xl font-bold hidden md:block"
+          className="text-2xl font-black hidden md:block text-red-primary"
           onClick={() => setInputDebounce("")}
         >
           OZMOVIE
@@ -44,12 +48,11 @@ function NavBar() {
           <input
             type="text"
             ref={inputRef}
-            className={`outline-none border-b-2 bg-transparent text-white transition transition-width duration-300 
-                        ${
-                          isInputVisible || location.pathname === "/search"
-                            ? "w-[calc(150px+5vw)]"
-                            : "w-0"
-                        }`}
+            className={`outline-none border-b-2 bg-transparent text-white transition-width duration-300 
+                        ${isInputVisible || location.pathname === "/search"
+                ? "w-[calc(150px+5vw)]"
+                : "w-0"
+              }`}
             style={{ transitionProperty: "width" }}
             value={inputDebounce}
             onBlur={() => setIsInputVisible(false)}
@@ -79,9 +82,13 @@ function NavBar() {
             </svg>
           </button>
         </div>
-        <Link to="/login">
-          <button className="mr-2">로그인</button>
-        </Link>
+        {user ? (
+          <UserIcon />
+        ) : (
+          <Link to="/login">
+            <button className="mr-2">로그인</button>
+          </Link>
+        )}
       </div>
     </div>
   );

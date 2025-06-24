@@ -1,37 +1,23 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { CSSTransition } from "react-transition-group";
-import { BASE_URL } from "../constant/index";
+import { BASE_URL_ORIGIN } from "../constant/index";
 import SkeletonBanner from "./skeletons/SkeletonBanner";
 import useFetch from "../hooks/useFetch";
+import useAutoRotation from "../hooks/useAutoRotation";
 
 function Banner() {
-  const { data, loading } = useFetch("trending/all/day?language=ko");
-  const [currontIndex, setcurrontIndex] = useState(0);
-  const [isVisible, setIsVisible] = useState(true);
+  const { data, loading } = useFetch(
+    "trending/all/day?language=ko&include_adult=false"
+  );
 
   const trendingMediaList = data?.results.filter(
-    (el) => !el.adult && (el.media_type === "tv" || el.media_type === "movie")
+    (el) => el.media_type === "tv" || el.media_type === "movie"
   );
-  console.log(trendingMediaList);
 
-  const media = trendingMediaList?.[currontIndex];
+  const { currentIndex, isVisible } = useAutoRotation(trendingMediaList);
+
+  const media = trendingMediaList?.[currentIndex];
   const nodeRef = useRef(null);
-
-  useEffect(() => {
-    const changeMedia = (newMedia) => {
-      setIsVisible(false);
-      setTimeout(() => {
-        setcurrontIndex(newMedia % trendingMediaList.length);
-        setIsVisible(true);
-      }, 300);
-    };
-
-    const interval = setInterval(() => {
-      changeMedia(currontIndex + 1);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [currontIndex, trendingMediaList?.length]);
 
   return loading ? (
     <SkeletonBanner />
@@ -50,7 +36,7 @@ function Banner() {
         <div className="fixed w-full aspect-[1] sm:aspect-[1.4] lg:aspect-[1.8] z-0">
           <img
             className="w-full aspect-[1] sm:aspect-[1.4] lg:aspect-[1.8] object-cover "
-            src={`${BASE_URL}${media.backdrop_path}`}
+            src={`${BASE_URL_ORIGIN}${media.backdrop_path}`}
             alt={media.title}
           />
           <div
@@ -81,13 +67,13 @@ function Banner() {
           </p>
           <div>
             <button
-              className="mr-4 py-[1.3vw] px-[2.6vw] rounded-xl bg-white text-[calc(1vw+6px)] text-black transition-all duration-3000
+              className="mr-4 py-[1.3vw] px-[2.6vw] rounded-lg bg-white text-[calc(1vw+6px)] text-black transition-all duration-3000
                               hover:text-white hover:bg-blue-600"
             >
               ▶&nbsp;&nbsp;재생
             </button>
             <button
-              className="py-[1.3vw] px-[2.6vw] rounded-xl bg-[#c0c0c070] text-[calc(1vw+6px)] transition-all duration-3000
+              className="py-[1.3vw] px-[2.6vw] rounded-lg bg-[#c0c0c070] text-[calc(1vw+6px)] transition-all duration-3000
                               hover:bg-[#c0c0c0a7]"
             >
               ⓘ&nbsp;&nbsp;상세 정보

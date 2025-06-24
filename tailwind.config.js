@@ -4,7 +4,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        blue: { primary: "#0029df", hover: "#002fff" },
+        red: { primary: "#df0000", hover: "#bd0101" },
+      },
+      backgroundImage: {
+        auth: "url(src/assets/bg.png)",
       },
     },
   },

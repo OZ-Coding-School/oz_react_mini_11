@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import MovieDetail from "./pages/MovieDetail";
 import Search from "./pages/Search";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   useLenisScroll();
@@ -19,6 +20,7 @@ function App() {
           <Route path="search" element={<Search />} />
         </Route>
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
   );

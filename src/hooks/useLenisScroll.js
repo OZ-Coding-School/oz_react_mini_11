@@ -16,5 +16,5 @@ export default function useLenisScroll() {
     requestAnimationFrame(raf);
 
     return () => lenis.destroy();
-  });
+  }, []);
 }

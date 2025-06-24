@@ -1,45 +1,51 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import supabase from "../supabaseClient";
-import LOGIN_FIELDS from '../constant/loginFields';
+import REGISTER_FIELDS from '../constant/registerFields';
 import useFormReducer from "../hooks/useFormReducer";
-import AuthLayout from "../components/AuthLayout";
 import Input from "../components/Input";
+import AuthLayout from "../components/AuthLayout";
 import AuthButtons from "../components/AuthButtons";
 
 const initialState = {
   email: '',
+  name: '',
   password: '',
+  confirmPassword: '',
   errors: {
     email: '',
+    name: '',
     password: '',
+    confirmPassword: ''
   }
 };
 
-function Login() {
+function Register() {
   const { state, handleChange } = useFormReducer(initialState);
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
-    const { email, password } = state;
+    const { email, name, password } = state;
 
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signUp({
         email,
-        password
+        password,
+        options: {
+          data: { name }
+        }
       });
-      console.log('login success: ', data);
+      console.log('register success: ', data);
 
       if (error) {
-        alert('[로그인 실패] ' + error.message);
+        alert('[회원가입 실패] ' + error.message);
       } else {
-        navigate('/');
+        alert('회원가입 완료');
+        navigate('/login');
       }
     } catch (error) {
       console.log(error.message);
-    } finally {
-      console.log('로그인 시도 값:', email, password);
     }
   };
 
@@ -50,10 +56,10 @@ function Login() {
       <form
         className="relative flex flex-col gap-4 w-full min-w-[340px] mt-14 mx-auto mb-20 p-[5vw] rounded-2xl bg-black
                   sm:w-[500px] sm:mt-24 sm:p-14 sm:bg-[#000000c1]"
-        onSubmit={handleLogin}
+        onSubmit={handleRegister}
       >
-        <h2 className="mb-4 text-3xl font-bold sm:text-center">로그인</h2>
-        {LOGIN_FIELDS.map((field) => (
+        <h2 className="mb-4 text-3xl font-bold sm:text-center">회원가입</h2>
+        {REGISTER_FIELDS.map((field) => (
           <Input
             key={field.id}
             id={field.id}
@@ -69,24 +75,17 @@ function Login() {
 
         <button
           type="submit"
-          className="w-full py-2 px-6 rounded-md bg-red-primary hover:bg-red-hover text-lg text-white"
+          className="w-full h-[40px] py-[10px] px-[12px] rounded-md bg-red-primary hover:bg-red-hover text-white"
         >
-          로그인
+          가입하기
         </button>
 
-        <AuthButtons />
+        <p className="my-2 text-center text-sm text-gray-300">OR</p>
 
-        <div className="text-base">
-          <span className="text-gray-300">
-            오즈무비 회원이 아닌가요? &nbsp;
-          </span>
-          <Link to="/register">
-            <span className="hover:underline">지금 가입하세요.</span>
-          </Link>
-        </div>
+        <AuthButtons />
       </form>
     </div>
   );
 }
 
-export default Login;
+export default Register;
