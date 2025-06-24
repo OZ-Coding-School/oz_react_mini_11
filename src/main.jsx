@@ -8,7 +8,7 @@ import { Login } from "./pages/Login.jsx";
 import { Signup } from "./pages/Signup.jsx";
 import "swiper/css";
 import "swiper/css/navigation";
-import SearchPage from "./components/SearchPage.jsx";
+import SearchPage from "./pages/SearchPage.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
