@@ -18,7 +18,7 @@ function MovieCard({ movie, onClick, large, darkMode }) {
       navigate(`/movie/${movie.id}`)
     }
   };
-  
+
   return (
     <div
       style={{
@@ -31,7 +31,7 @@ function MovieCard({ movie, onClick, large, darkMode }) {
       }}
       onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.04)")}
       onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
-      onClick={onClick}
+      onClick={onClick || handleClick}
     >
       <img
         src={`${baseUrl}${movie.poster_path}`}
