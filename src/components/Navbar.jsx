@@ -70,6 +70,7 @@ const NavBar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  
   return (
     <nav
       style={{
@@ -148,8 +149,9 @@ const NavBar = () => {
                 key={movie.id}
                 onClick={() => {
                   setShowSuggestions(false);
-                  setSearchParams({ query: debouncedSearch });
-                  navigate(`/movie/${movie.id}?query=${debouncedSearch}`);
+                  const trimmed = input.trim();
+                  setSearchParams({ query: trimmed });
+                  navigate(`/movie/${movie.id}?query=${trimmed}`);
                 }}
                 style={{
                   padding: "8px 16px",

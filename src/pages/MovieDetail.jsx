@@ -1,26 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { fetchMovieDetail } from "../api/movieApi";
 import { useTheme } from "../contexts/ThemeContext";
-import useDebounce from "../hooks/useDebounce";
 
 const baseUrl = "https://image.tmdb.org/t/p/w500";
 
 function MovieDetail() {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const query = searchParams.get("query") || "";
-  
-  const [search, setSearch] = useState(query);
-  const debouncedSearch = useDebounce(search, 500);
-
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { darkMode } = useTheme();
   
   useEffect(() => {
+    if (!id) return;
     const loadMovie = async () => {
       setLoading(true);
       setError(null);

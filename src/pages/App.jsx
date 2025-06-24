@@ -28,7 +28,7 @@ function App() {
   const { darkMode } = useTheme();
   const { movies, genreMovies,loading , favoriteGenres } = useAppLogic(debouncedQuery);
 
-  const handleClick = (id) => navigate(`/details/${id}`);
+  const handleClick = (id) => navigate(`/movie/${id}`);
   const filteredMovies = (movies || []).slice(0, 20);
 
   const MAX_SLIDES = 5;
