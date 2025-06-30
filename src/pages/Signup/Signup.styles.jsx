@@ -26,7 +26,7 @@ export const Input = styled.input`
   }
 `;
 
-const Button = styled.button`
+export const Button = styled.button`
   padding: 1rem 1.5rem;
   border: 0;
   border-radius: 0.5rem;
@@ -49,7 +49,7 @@ const Button = styled.button`
   }
 `;
 
-const LoginButton = styled(Button)`
+export const LoginButton = styled(Button)`
   padding: 0.75rem 1rem;
   font-size: 1rem;
 `;
@@ -80,18 +80,18 @@ export const Logo = styled.div`
   }
 `;
 
-const TextBold = styled.span`
+export const TextBold = styled.span`
   font-weight: 700;
   font-size: 2.75rem;
   word-break: keep-all;
   text-align: center;
 `;
 
-const TextRegular = styled.span`
+export const TextRegular = styled.span`
   font-size: 1.25rem;
 `;
 
-const Card = styled.div`
+export const Card = styled.div`
   width: fit-content;
   padding: 1rem;
   display: flex;
@@ -102,7 +102,7 @@ const Card = styled.div`
   color: #fff;
 `;
 
-const SignupWrapper = styled.div`
+export const SignupWrapper = styled.div`
   flex: 1;
   height: 100%;
   display: flex;
@@ -110,7 +110,7 @@ const SignupWrapper = styled.div`
   align-items: center;
 `;
 
-const LogoWrapper = styled.div`
+export const LogoWrapper = styled.div`
   width: 100%;
   padding: 1.5rem 10rem;
   display: flex;
@@ -128,7 +128,7 @@ const LogoWrapper = styled.div`
   }
 `;
 
-const Container = styled.div`
+export const Container = styled.div`
   width: 100%;
   min-height: 100vh;
   display: flex;
