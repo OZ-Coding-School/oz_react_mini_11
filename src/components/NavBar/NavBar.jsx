@@ -19,15 +19,22 @@ import {
 import menuAnimation from "../../assets/animations/menu-animation.json";
 import { useEffect, useRef, useState } from "react";
 import { useDebounce } from "../../hooks/useDebounce";
+import { useDispatch, useSelector } from "react-redux";
+import { authSlice } from "../../features/auth/authSlice";
 
 function NavBar() {
   const [query, setQuery] = useState("");
   const [isHovered, setIsHovered] = useState(false);
   const [isShowed, setIsShowed] = useState(false);
-  const [isLogin, setIsLogin] = useState(true);
+  // const [isLogin, setIsLogin] = useState(true);
   const lottieRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
+
+  const isLogin = useSelector((state) => state.auth.isLogin);
+  const dispatch = useDispatch();
+
+  const onLogout = () => dispatch(authSlice.actions.logout());
 
   const handleTitleClick = () => {
     navigate("/");
@@ -87,9 +94,7 @@ function NavBar() {
               onMouseEnter={handleMenuMouseEnter}
               onMouseLeave={handleMenuMouseLeave}>
               <StyledLink to="/wishlist">위시리스트</StyledLink>
-              <LogoutButton onClick={() => setIsLogin(false)}>
-                로그아웃
-              </LogoutButton>
+              <LogoutButton onClick={onLogout}>로그아웃</LogoutButton>
             </Menu>
           )}
         </NavWrapper>

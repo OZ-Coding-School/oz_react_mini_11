@@ -14,6 +14,8 @@ import {
 } from "./Login.styles";
 import { useState } from "react";
 import FormInput from "../../components/FormInput/FormInput";
+import { useDispatch } from "react-redux";
+import { authSlice } from "../../features/auth/authSlice";
 
 function Login() {
   const [loginForms, setLoginForms] = useState({
@@ -24,6 +26,9 @@ function Login() {
   });
   const isAllFormsValid = Object.values(loginForms).every((f) => f.isValid);
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+  const onLogin = () => dispatch(authSlice.actions.login());
 
   const handleTitleClick = () => {
     navigate("/");
@@ -62,7 +67,14 @@ function Login() {
               }))
             }
           />
-          <Button disabled={!isAllFormsValid}>로그인</Button>
+          <Button
+            disabled={!isAllFormsValid}
+            onClick={() => {
+              onLogin();
+              navigate("/");
+            }}>
+            로그인
+          </Button>
           <StyledLink>비밀번호를 잊으셨나요?</StyledLink>
           <Label htmlFor="checkbox">
             <Checkbox type="checkbox" id="checkbox" />
