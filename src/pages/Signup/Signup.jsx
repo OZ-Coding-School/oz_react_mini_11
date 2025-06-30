@@ -11,6 +11,7 @@ import {
   TextBold,
   TextRegular,
   Button,
+  StyledPrevIcon,
 } from "./Signup.styles";
 import supabase from "../../supabaseClient";
 
