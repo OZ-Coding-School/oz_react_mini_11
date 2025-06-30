@@ -25,15 +25,25 @@ function Signup() {
   const isAllFormsValid = Object.values(signupForms).every((f) => f.isValid);
   const navigate = useNavigate();
 
-  const signUpNewUser = async () => {
-    const { data, error } = await supabase.auth.signUp({
-      name: signupForms.name.value,
-      email: signupForms.email.value,
-      password: signupForms.password.value,
-      // options: {
-      //   emailRedirectTo: "https://example.com/welcome",
-      // },
-    });
+  const signUp = async () => {
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email: signupForms.email.value,
+        password: signupForms.password.value,
+      });
+
+      const userData = await supabase.from("user_table").insert({
+        id: data.user?.id,
+        email: data.user?.email,
+        created_at: data.user?.created_at,
+        name: signupForms.name.value,
+      });
+
+      console.log("회원가입 성공!");
+      navigate("/login");
+    } catch (error) {
+      console.error("회원가입 실패: ", error);
+    }
   };
 
   return (
@@ -99,7 +109,7 @@ function Signup() {
             }
             confirmText={signupForms.password.value}
           />
-          <Button disabled={!isAllFormsValid} onClick={signUpNewUser}>
+          <Button disabled={!isAllFormsValid} onClick={signUp}>
             시작하기 <StyledPrevIcon />
           </Button>
         </Card>
