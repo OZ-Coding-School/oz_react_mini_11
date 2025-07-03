@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import Layout from "./components/Layout";
-import MovieList from "./pages/MovieList";
-import MovieDetail from "./pages/MovieDetail";
-import SearchResult from "./pages/SearchResult";
-import Signup from "./pages/Signup";
-import Login from "./pages/Login";
+import Layout from "./components/Layout/index";
+import MovieList from "./pages/movies/MovieList";
+import MovieDetail from "./pages/movies/MovieDetail";
+import SearchResult from "./pages/search/SearchResult";
+import Signup from "./pages/auth/Signup";
+import Login from "./pages/auth/Login";
+import MyPage from "./pages/mypage/MyPage";
 
 import { useSupabaseAuth, useUserContext } from "./supabase";
 
@@ -34,6 +35,7 @@ function App() {
         <Route path="/" element={<MovieList />} />
         <Route path="/details/:id" element={<MovieDetail />} />
         <Route path="/search" element={<SearchResult />} />
+        <Route path="/mypage" element={<MyPage />} />
       </Route>
     </Routes>
   );

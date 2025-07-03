@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import FormInput from "../components/FormInput";
-import { useSupabaseAuth, useUserContext } from "../supabase";
+import LoginFormInputs from "../../components/FormInputs/LoginFormInputs";
+import { useSupabaseAuth, useUserContext } from "../../supabase";
+import { getRedirectUrl } from "../../utils/oauth";
+import { validateLogin } from "../../utils/validation";
 
 function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -17,16 +19,7 @@ function Login() {
   };
 
   const validate = () => {
-    const newErrors = {};
-
-    if (!/^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/.test(form.email)) {
-      newErrors.email = "올바른 이메일 양식으로 입력해주세요.";
-    }
-
-    if (form.password.length < 8) {
-      newErrors.password = "비밀번호는 8자 이상이어야 합니다.";
-    }
-
+    const newErrors = validateLogin(form);
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -37,11 +30,7 @@ function Login() {
 
     try {
       const res = await login({ email: form.email, password: form.password });
-      if (res?.user) {
-        setUser(res.user);
-      }
-
-      alert("로그인 성공!");
+      if (res?.user) setUser(res.user);
       navigate("/");
     } catch (error) {
       alert(`로그인 실패: ${error.message}`);
@@ -51,44 +40,19 @@ function Login() {
   return (
     <div
       className="min-h-screen bg-cover bg-center flex items-center justify-center px-4 py-10"
-      style={{
-        backgroundImage: "url('/images/MoviePoster.jpg')",
-      }}
+      style={{ backgroundImage: "url('/images/MoviePoster.jpg')" }}
     >
-      {/* 흐림 효과 오버레이 */}
       <div className="absolute inset-0 backdrop-blur bg-black/40 z-0" />
 
-      {/* 로그인 or 회원가입 폼 */}
       <form
         onSubmit={handleSubmit}
-        className="relative z-10 bg-white/90 backdrop-blur-sm w-full max-w-md p-8 rounded-xl 
-             shadow-lg hover:shadow-2xl hover:ring-1 hover:ring-sky-700 
-             hover:drop-shadow-[0_0_15px_rgba(56,189,248,0.4)] 
-             transition-all duration-300"
+        className="relative z-10 bg-white/90 backdrop-blur-sm w-full max-w-md p-8 rounded-xl shadow-lg hover:shadow-2xl hover:ring-1 hover:ring-sky-700 hover:drop-shadow-[0_0_15px_rgba(56,189,248,0.4)] transition-all duration-300"
       >
         <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
           로그인
         </h2>
 
-        <FormInput
-          label="이메일"
-          name="email"
-          type="email"
-          value={form.email}
-          onChange={handleChange}
-          error={errors.email}
-          placeholder="이메일 입력"
-        />
-
-        <FormInput
-          label="비밀번호"
-          name="password"
-          type="password"
-          value={form.password}
-          onChange={handleChange}
-          error={errors.password}
-          placeholder="비밀번호 입력"
-        />
+        <LoginFormInputs form={form} errors={errors} onChange={handleChange} />
 
         <button
           type="submit"
@@ -98,7 +62,7 @@ function Login() {
         </button>
 
         <button
-          onClick={() => loginWithKakao("http://localhost:5173")}
+          onClick={() => loginWithKakao(getRedirectUrl())}
           type="button"
           className="w-full mt-4 py-3 bg-yellow-300 hover:bg-yellow-400 text-black rounded-full font-semibold transition"
         >
@@ -106,9 +70,7 @@ function Login() {
         </button>
 
         <button
-          onClick={() => {
-            loginWithGoogle("http://localhost:5173");
-          }}
+          onClick={() => loginWithGoogle(getRedirectUrl())}
           type="button"
           className="w-full mt-4 py-3 bg-white border border-gray-50 hover:bg-gray-100 text-black rounded-full font-semibold transition"
         >
