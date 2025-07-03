@@ -15,29 +15,38 @@ import {
 import { useState } from "react";
 import FormInput from "../../components/FormInput/FormInput";
 import { useDispatch } from "react-redux";
-import { authSlice } from "../../features/auth/authSlice";
+import { signin } from "../../features/auth/authSlice";
 
 function Login() {
   const [loginForms, setLoginForms] = useState({
-    // name: { value: "", isValid: false },
     email: { value: "", isValid: false },
     password: { value: "", isValid: false },
-    // passwordConfirm: { value: "", isValid: false },
   });
   const isAllFormsValid = Object.values(loginForms).every((f) => f.isValid);
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const onLogin = () => dispatch(authSlice.actions.login());
-
-  const handleTitleClick = () => {
-    navigate("/");
+  const handleLogin = () => {
+    dispatch(
+      signin({
+        email: loginForms.email.value,
+        password: loginForms.password.value,
+      })
+    )
+      .unwrap()
+      .then(({ name }) => {
+        console.log("로그인된 사용자 이름:", name);
+        navigate("/");
+      })
+      .catch((err) => {
+        console.error("로그인 실패:", err);
+      });
   };
 
   return (
     <Container>
       <LogoWrapper>
-        <Logo onClick={handleTitleClick}>MOVIEFLIX</Logo>
+        <Logo onClick={() => navigate("/")}>MOVIEFLIX</Logo>
       </LogoWrapper>
 
       <Wrapper>
@@ -67,12 +76,7 @@ function Login() {
               }))
             }
           />
-          <Button
-            disabled={!isAllFormsValid}
-            onClick={() => {
-              onLogin();
-              navigate("/");
-            }}>
+          <Button disabled={!isAllFormsValid} onClick={handleLogin}>
             로그인
           </Button>
           <StyledLink>비밀번호를 잊으셨나요?</StyledLink>

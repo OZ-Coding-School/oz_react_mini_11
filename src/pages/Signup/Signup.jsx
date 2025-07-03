@@ -32,6 +32,11 @@ function Signup() {
         password: signupForms.password.value,
       });
 
+      if (error) {
+        console.log(error.message);
+        return;
+      }
+
       const userData = await supabase.from("user_table").insert({
         id: data.user?.id,
         email: data.user?.email,

@@ -145,18 +145,28 @@ export const StyledLink = styled(Link)`
 `;
 
 export const UserButton = styled.button`
+  position: relative;
   margin: 0.35rem 0.55rem;
   padding: 0.5rem;
-  background-color: ${(props) => props.theme.colors.purple.normal};
+  background-color: ${(props) => props.theme.colors.purple.dark};
   border-radius: 50%;
   border: 1px solid #eeeeee25;
   cursor: pointer;
+
+  & > span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    color: ${(props) => props.theme.colors.yellow.normal};
+  }
 `;
 
 export const StyledUserIcon = styled(UserIcon)`
   width: 1.7rem;
   height: 1.5rem;
-  fill: #eee;
+  fill: ${(props) => props.theme.colors.purple.light}80;
 `;
 
 export const LogoutButton = styled.button`

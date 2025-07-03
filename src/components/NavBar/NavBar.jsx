@@ -20,21 +20,21 @@ import menuAnimation from "../../assets/animations/menu-animation.json";
 import { useEffect, useRef, useState } from "react";
 import { useDebounce } from "../../hooks/useDebounce";
 import { useDispatch, useSelector } from "react-redux";
-import { authSlice } from "../../features/auth/authSlice";
+import authReducer from "../../features/auth/authSlice";
 
 function NavBar() {
   const [query, setQuery] = useState("");
   const [isHovered, setIsHovered] = useState(false);
   const [isShowed, setIsShowed] = useState(false);
-  // const [isLogin, setIsLogin] = useState(true);
   const lottieRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
 
   const isLogin = useSelector((state) => state.auth.isLogin);
+  const userName = useSelector((state) => state.auth.user?.name);
   const dispatch = useDispatch();
 
-  const onLogout = () => dispatch(authSlice.actions.logout());
+  const onLogout = () => dispatch(authReducer.logout());
 
   const handleTitleClick = () => {
     navigate("/");
@@ -87,6 +87,7 @@ function NavBar() {
             onMouseEnter={handleMenuMouseEnter}
             onMouseLeave={handleMenuMouseLeave}>
             <StyledUserIcon />
+            <span>{userName}</span>
           </UserButton>
           {isShowed && (
             <Menu
