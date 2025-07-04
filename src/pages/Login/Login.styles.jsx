@@ -22,7 +22,7 @@ export const Logo = styled.div`
 `;
 
 export const Title = styled.h2`
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 600;
   padding: 1rem 0;
   color: #fff;
@@ -30,29 +30,6 @@ export const Title = styled.h2`
   @media (min-width: ${(props) => props.theme.breakPoints.mobile}) {
     font-size: 2.5rem;
     padding: 1.5rem 0;
-  }
-`;
-
-export const Input = styled.input`
-  border: 1px solid #d0d0d0;
-  padding: 1.25rem;
-  color: #fff;
-  background: #00000085;
-  font-size: 1rem;
-  border-radius: 0.5rem;
-  outline: none;
-
-  &::placeholder {
-    color: #d0d0d0;
-  }
-
-  &:focus {
-    outline: 3px solid #fff;
-    outline-offset: 2px;
-  }
-
-  @media (min-width: ${(props) => props.theme.breakPoints.mobile}) {
-    font-size: 1.25rem;
   }
 `;
 
@@ -68,6 +45,11 @@ export const Button = styled.button`
 
   &:hover {
     background: ${(props) => props.theme.colors.purple.normalActive};
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    pointer-events: none;
   }
 `;
 

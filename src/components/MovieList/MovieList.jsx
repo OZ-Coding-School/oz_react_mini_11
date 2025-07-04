@@ -48,8 +48,6 @@ function MovieList({ api, setMovieId, sectionTitle }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [movies]);
 
-  console.log("movies!! : ", movies);
-
   return (
     <Container>
       <HeadingWrapper>

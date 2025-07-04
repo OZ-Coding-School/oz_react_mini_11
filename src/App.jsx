@@ -18,8 +18,7 @@ function App() {
         <Wrapper>
           <StyledLottie animationData={loadingAnimation} loop autoplay />
         </Wrapper>
-      }
-    >
+      }>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
@@ -27,8 +26,10 @@ function App() {
             <Route path="/search" element={<Search />} />
             <Route path="/detail/:movieId" element={<MovieDetail />} />
           </Route>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+
+          <Route path="/login" element={<Login />}></Route>
+
+          <Route path="/signup" element={<Signup />}></Route>
         </Routes>
       </BrowserRouter>
     </Suspense>
